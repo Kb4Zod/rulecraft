@@ -2,7 +2,7 @@
 # Multi-stage build for Rust + HTMX application
 
 # Build stage
-FROM rust:1.75-slim-bookworm AS builder
+FROM rust:latest AS builder
 
 WORKDIR /app
 
@@ -13,22 +13,16 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy manifests
-COPY Cargo.toml Cargo.lock ./
+COPY Cargo.toml ./
 
-# Create dummy main to cache dependencies
-RUN mkdir src && \
-    echo "fn main() {}" > src/main.rs && \
-    cargo build --release && \
-    rm -rf src
-
-# Copy source code
+# Copy full source for build
 COPY src ./src
 COPY templates ./templates
 COPY static ./static
 COPY migrations ./migrations
 
 # Build release binary
-RUN touch src/main.rs && cargo build --release
+RUN cargo build --release
 
 # Runtime stage
 FROM debian:bookworm-slim AS runtime
@@ -39,6 +33,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     ca-certificates \
     libssl3 \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Create non-root user

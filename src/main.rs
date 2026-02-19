@@ -24,6 +24,7 @@ async fn main() {
 
     // Load configuration
     let config = Config::from_env();
+    let port = config.port;
 
     // Initialize database
     let db_pool = db::init_pool(&config.database_url).await
@@ -45,8 +46,8 @@ async fn main() {
         .nest_service("/static", ServeDir::new("static"))
         .with_state(state);
 
-    // Start server
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    // Start server (bind to 0.0.0.0 for Docker compatibility)
+    let addr = SocketAddr::from(([0, 0, 0, 0], port));
     tracing::info!("Server listening on http://{}", addr);
 
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
