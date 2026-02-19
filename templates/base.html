@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Rulecraft{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="/static/js/bookmarks.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo">Rulecraft</a>
+            <div class="nav-links">
+                <a href="/rules">Rules</a>
+                <a href="/search">Search</a>
+                <a href="/scenario">Ask Scenario</a>
+                <a href="#" onclick="showBookmarks()">Bookmarks</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>Rulecraft - D&D 2024 Rules Assistant</p>
+    </footer>
+</body>
+</html>

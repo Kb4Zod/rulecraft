@@ -1,0 +1,18 @@
+<div class="rule-card" data-rule-id="{{ rule.id }}">
+    <div class="rule-card-header">
+        <span class="category-tag">{{ rule.category }}</span>
+        {% include "partials/bookmark_btn.html" %}
+    </div>
+    <h3 class="rule-title">
+        <a href="/rules/{{ rule.id }}">{{ rule.title }}</a>
+    </h3>
+    <p class="rule-excerpt">
+        {{ rule.content|truncate(150) }}
+    </p>
+    <div class="rule-card-footer">
+        <span class="source">{{ rule.source }}</span>
+        {% if let Some(page) = rule.page %}
+        <span class="page">p. {{ page }}</span>
+        {% endif %}
+    </div>
+</div>

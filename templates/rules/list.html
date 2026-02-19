@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - Rulecraft{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Rules</h1>
+    <p>Browse D&D 2024 rules by category</p>
+</div>
+
+<div class="rules-filters">
+    <form action="/search" method="get" class="inline-search">
+        <input type="text" name="q" placeholder="Filter rules...">
+        <button type="submit">Filter</button>
+    </form>
+</div>
+
+<div class="rules-list">
+    {% if rules.is_empty() %}
+    <div class="empty-state">
+        <p>No rules found. Rules will appear here once added to the database.</p>
+    </div>
+    {% else %}
+    {% for rule in rules %}
+    {% include "partials/rule_card.html" %}
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  rulecraft:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: rulecraft
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=sqlite:./data/rulecraft.db
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY:-}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-sonnet-4-20250514}
+      - RUST_LOG=info
+    volumes:
+      - rulecraft_data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+  # Optional: Qdrant for vector search
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: rulecraft-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+    profiles:
+      - vector-search
+
+volumes:
+  rulecraft_data:
+  qdrant_data:

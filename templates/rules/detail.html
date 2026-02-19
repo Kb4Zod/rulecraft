@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - Rulecraft{% endblock %}
+
+{% block content %}
+<article class="rule-detail">
+    <header class="rule-header">
+        <div class="rule-meta">
+            <span class="category">{{ rule.category }}</span>
+            {% if let Some(sub) = rule.subcategory %}
+            <span class="subcategory">{{ sub }}</span>
+            {% endif %}
+        </div>
+        <h1>{{ rule.title }}</h1>
+        <div class="rule-source">
+            <span>{{ rule.source }}</span>
+            {% if let Some(page) = rule.page %}
+            <span>Page {{ page }}</span>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="rule-content">
+        {{ rule.content }}
+    </div>
+
+    <footer class="rule-actions">
+        {% include "partials/bookmark_btn.html" %}
+        <a href="/rules" class="btn btn-secondary">Back to Rules</a>
+    </footer>
+</article>
+{% endblock %}

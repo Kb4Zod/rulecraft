@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "MCP configuration for Rulecraft project",
+  "servers": {
+    "sqlite": {
+      "description": "SQLite database access for rules",
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-sqlite", "--db-path", "./rulecraft.db"],
+      "enabled": false
+    },
+    "filesystem": {
+      "description": "File system access for rule documents",
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-filesystem", "--root", "./data"],
+      "enabled": false
+    }
+  },
+  "settings": {
+    "log_level": "info"
+  }
+}
