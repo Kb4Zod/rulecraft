@@ -1,0 +1,169 @@
+# D&D 2024 Conditions
+# All content paraphrased for educational reference
+
+category: Conditions
+source: "Player's Handbook 2024"
+
+rules:
+  - id: blinded
+    title: Blinded
+    page: 361
+    content: |
+      A blinded creature can't see and automatically fails any ability check that requires sight.
+
+      **Combat Effects:**
+      - Attack rolls against the creature have advantage
+      - The creature's attack rolls have disadvantage
+
+  - id: charmed
+    title: Charmed
+    page: 361
+    content: |
+      A charmed creature can't attack the charmer or target the charmer with harmful abilities or magical effects.
+
+      **Social Effects:**
+      - The charmer has advantage on any ability check to interact socially with the creature
+
+      **Note:** The condition doesn't control the creature's actions beyond preventing harm to the charmer.
+
+  - id: deafened
+    title: Deafened
+    page: 362
+    content: |
+      A deafened creature can't hear and automatically fails any ability check that requires hearing.
+
+      **Spellcasting Note:** Deafness doesn't prevent spellcasting, but might interfere with verbal components in specific circumstances at DM discretion.
+
+  - id: exhaustion
+    title: Exhaustion
+    page: 363
+    content: |
+      Exhaustion is measured in six levels. Effects are cumulative.
+
+      **Level Effects:**
+      - **Level 1:** Disadvantage on ability checks
+      - **Level 2:** Speed halved
+      - **Level 3:** Disadvantage on attack rolls and saving throws
+      - **Level 4:** Hit point maximum halved
+      - **Level 5:** Speed reduced to 0
+      - **Level 6:** Death
+
+      **Recovery:** A long rest reduces exhaustion by 1 level (if you have food and water).
+
+  - id: frightened
+    title: Frightened
+    page: 364
+    content: |
+      A frightened creature has disadvantage on ability checks and attack rolls while the source of its fear is within line of sight.
+
+      **Movement Restriction:** The creature can't willingly move closer to the source of its fear.
+
+  - id: grappled
+    title: Grappled
+    page: 367
+    content: |
+      A grappled creature's speed becomes 0, and it can't benefit from any bonus to its speed.
+
+      **Ending the Condition:**
+      - The grappler is incapacitated
+      - The grappled creature is moved outside the grappler's reach by an effect
+
+      **Escaping:** Use an action to make a Strength (Athletics) or Dexterity (Acrobatics) check contested by the grappler's Strength (Athletics).
+
+  - id: incapacitated
+    title: Incapacitated
+    page: 367
+    content: |
+      An incapacitated creature can't take actions or reactions.
+
+      **Note:** This is often a component of other conditions. The creature can still move and speak unless another condition prevents it.
+
+  - id: invisible
+    title: Invisible
+    page: 367
+    content: |
+      An invisible creature is impossible to see without magic or special senses. For hiding purposes, the creature is heavily obscured.
+
+      **Combat Effects:**
+      - The creature's attack rolls have advantage
+      - Attack rolls against the creature have disadvantage
+
+      **Detection:** The creature's location can still be detected by noise or tracks.
+
+  - id: paralyzed
+    title: Paralyzed
+    page: 368
+    content: |
+      A paralyzed creature is incapacitated and can't move or speak.
+
+      **Additional Effects:**
+      - Automatically fails Strength and Dexterity saving throws
+      - Attack rolls against the creature have advantage
+      - Attacks from within 5 feet are critical hits if they hit
+
+  - id: petrified
+    title: Petrified
+    page: 368
+    content: |
+      A petrified creature is transformed into a solid inanimate substance (usually stone). Its weight increases by a factor of ten, and it stops aging.
+
+      **Effects:**
+      - Incapacitated, can't move or speak, unaware of surroundings
+      - Attack rolls against it have advantage
+      - Automatically fails Strength and Dexterity saving throws
+      - Resistance to all damage
+      - Immune to poison and disease (existing poison/disease suspended)
+
+  - id: poisoned
+    title: Poisoned
+    page: 369
+    content: |
+      A poisoned creature has disadvantage on attack rolls and ability checks.
+
+      **Note:** This represents active poisoning, not just exposure. The specific source determines duration and any additional effects.
+
+  - id: prone
+    title: Prone
+    page: 369
+    content: |
+      A prone creature's only movement option is to crawl (each foot costs 1 extra foot), unless it stands up.
+
+      **Combat Effects:**
+      - The creature has disadvantage on attack rolls
+      - Attacks from within 5 feet have advantage against the creature
+      - Attacks from more than 5 feet away have disadvantage against the creature
+
+      **Standing Up:** Costs half your movement speed.
+
+  - id: restrained
+    title: Restrained
+    page: 370
+    content: |
+      A restrained creature's speed becomes 0, and it can't benefit from any bonus to its speed.
+
+      **Combat Effects:**
+      - Attack rolls against the creature have advantage
+      - The creature's attack rolls have disadvantage
+      - The creature has disadvantage on Dexterity saving throws
+
+  - id: stunned
+    title: Stunned
+    page: 370
+    content: |
+      A stunned creature is incapacitated, can't move, and can speak only falteringly.
+
+      **Additional Effects:**
+      - Automatically fails Strength and Dexterity saving throws
+      - Attack rolls against the creature have advantage
+
+  - id: unconscious
+    title: Unconscious
+    page: 370
+    content: |
+      An unconscious creature is incapacitated, can't move or speak, and is unaware of its surroundings.
+
+      **Additional Effects:**
+      - Drops whatever it's holding and falls prone
+      - Automatically fails Strength and Dexterity saving throws
+      - Attack rolls against the creature have advantage
+      - Attacks from within 5 feet are critical hits if they hit

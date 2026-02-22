@@ -1,0 +1,213 @@
+# D&D 2024 Ability Scores and Checks
+# All content paraphrased for educational reference
+
+category: Abilities
+source: "Player's Handbook 2024"
+
+rules:
+  - id: strength
+    title: Strength
+    subcategory: Ability Scores
+    page: 173
+    content: |
+      Strength measures physical power, athletic training, and raw force.
+
+      **Strength Checks:**
+      - Force open stuck doors or break bonds
+      - Push through a tight space
+      - Hang on to a wagon while being dragged
+      - Tip over a statue
+      - Keep a boulder from rolling
+
+      **Attack and Damage:** Most melee weapons use Strength for attack and damage rolls.
+
+      **Carrying Capacity:** Your carrying capacity is 15 times your Strength score.
+
+  - id: dexterity
+    title: Dexterity
+    subcategory: Ability Scores
+    page: 174
+    content: |
+      Dexterity measures agility, reflexes, and balance.
+
+      **Dexterity Checks:**
+      - Control a heavily loaded cart on a steep descent
+      - Steer a chariot around a tight turn
+      - Pick a lock or disable a trap
+      - Securely tie up a prisoner
+      - Wriggle free of bonds
+
+      **Armor Class:** Dexterity modifier adds to AC (limited by armor type).
+
+      **Initiative:** Dexterity modifier adds to initiative rolls.
+
+  - id: constitution
+    title: Constitution
+    subcategory: Ability Scores
+    page: 174
+    content: |
+      Constitution measures health, stamina, and vital force.
+
+      **Constitution Checks:**
+      - Hold your breath
+      - March or labor for hours without rest
+      - Go without sleep
+      - Survive without food or water
+      - Quaff an entire stein of ale in one gulp
+
+      **Hit Points:** Constitution modifier is added to hit points gained at each level.
+
+      **Concentration:** Constitution saves to maintain concentration on spells.
+
+  - id: intelligence
+    title: Intelligence
+    subcategory: Ability Scores
+    page: 175
+    content: |
+      Intelligence measures mental acuity, recall, and reasoning ability.
+
+      **Intelligence Checks:**
+      - Recall lore about history, magic, or nature
+      - Deduce the weakest point in a structure
+      - Estimate the value of a precious item
+      - Forge a document
+      - Win a game of strategy
+
+      **Spellcasting:** Used by Wizards, Artificers, and some subclasses.
+
+  - id: wisdom
+    title: Wisdom
+    subcategory: Ability Scores
+    page: 175
+    content: |
+      Wisdom measures perception, intuition, and attunement to the world.
+
+      **Wisdom Checks:**
+      - Get a gut feeling about what course of action to follow
+      - Discern whether a creature is alive or undead
+      - Spot a hidden creature
+      - Calm a wild animal
+      - Intuit someone's true intentions
+
+      **Spellcasting:** Used by Clerics, Druids, and Rangers.
+
+  - id: charisma
+    title: Charisma
+    subcategory: Ability Scores
+    page: 176
+    content: |
+      Charisma measures force of personality, persuasiveness, and leadership.
+
+      **Charisma Checks:**
+      - Find the best person to talk to for news
+      - Blend into a crowd to get a sense of key topics
+      - Entertain an audience
+      - Inspire a crowd
+      - Navigate social hierarchy
+
+      **Spellcasting:** Used by Bards, Paladins, Sorcerers, and Warlocks.
+
+  - id: ability-checks
+    title: Ability Checks
+    subcategory: Using Abilities
+    page: 172
+    content: |
+      An ability check tests a character's innate talent and training against a challenge.
+
+      **Making a Check:**
+      1. DM determines the ability and DC
+      2. Roll d20 and add ability modifier
+      3. Add proficiency bonus if a relevant skill applies
+      4. Compare total to DC
+
+      **Difficulty Classes (DC):**
+      - Very Easy: 5
+      - Easy: 10
+      - Medium: 15
+      - Hard: 20
+      - Very Hard: 25
+      - Nearly Impossible: 30
+
+  - id: saving-throws
+    title: Saving Throws
+    subcategory: Using Abilities
+    page: 177
+    content: |
+      A saving throw represents an attempt to resist a spell, trap, poison, disease, or similar threat.
+
+      **Making a Save:**
+      1. Roll d20 and add the appropriate ability modifier
+      2. Add proficiency bonus if proficient in that save
+      3. Compare to the DC
+
+      **Proficiency:** Classes grant proficiency in two saving throw types at 1st level.
+
+      **Common Uses:**
+      - Dexterity: Dodging area effects
+      - Constitution: Resisting poison or disease
+      - Wisdom: Resisting mental effects
+
+  - id: passive-checks
+    title: Passive Checks
+    subcategory: Using Abilities
+    page: 178
+    content: |
+      A passive check is a special kind of ability check that doesn't involve any die rolls.
+
+      **Passive Score = 10 + all modifiers that normally apply**
+
+      **Common Uses:**
+      - Passive Perception: Notice hidden creatures or objects
+      - Passive Investigation: Notice clues
+      - Passive Insight: Sense lies or hidden motives
+
+      **Advantage/Disadvantage:** Add +5 for advantage, subtract 5 for disadvantage on passive checks.
+
+  - id: working-together
+    title: Working Together
+    subcategory: Using Abilities
+    page: 179
+    content: |
+      Characters can work together on tasks to improve their chances.
+
+      **Help Action:** One character helps another, giving advantage on the ability check. The helper must be able to meaningfully assist.
+
+      **Group Checks:** When multiple characters attempt something as a group, everyone rolls. If at least half succeed, the group succeeds.
+
+      **Example Group Check:** The entire party tries to sneak past guards. If 3 of 5 party members succeed on Stealth, the group succeeds.
+
+  - id: contests
+    title: Contests
+    subcategory: Using Abilities
+    page: 178
+    content: |
+      When two characters or creatures compete directly, they make opposed checks called contests.
+
+      **Resolution:**
+      1. Both participants roll ability checks
+      2. The higher total wins
+      3. Ties mean the situation remains unchanged (or the challenger fails)
+
+      **Common Contests:**
+      - Grappling: Athletics vs. Athletics or Acrobatics
+      - Arm wrestling: Strength vs. Strength
+      - Hide and Seek: Stealth vs. Perception
+
+  - id: carrying-capacity
+    title: Carrying Capacity
+    subcategory: Strength
+    page: 173
+    content: |
+      Your carrying capacity determines how much weight you can carry.
+
+      **Carrying Capacity:** Strength score x 15 pounds
+
+      **Push, Drag, Lift:** Strength score x 30 pounds (speed drops to 5 feet while doing so)
+
+      **Size Modifiers:**
+      - Tiny: x 0.5
+      - Large: x 2
+      - Huge: x 4
+      - Gargantuan: x 8
+
+      **Encumbrance (Variant):** If using encumbrance rules, you're encumbered (speed -10) when carrying 5x Strength, heavily encumbered (speed -20, disadvantage on checks) at 10x Strength.

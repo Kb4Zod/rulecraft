@@ -1,0 +1,330 @@
+# D&D 2024 Skills and Proficiency
+# All content paraphrased for educational reference
+
+category: Skills
+source: "Player's Handbook 2024"
+
+rules:
+  - id: proficiency-bonus
+    title: Proficiency Bonus
+    subcategory: Proficiency
+    page: 178
+    content: |
+      Your proficiency bonus applies to many numbers you record on your character sheet, including attack rolls, saving throws, and ability checks you're proficient in.
+
+      **Proficiency Bonus by Level:**
+      - Levels 1-4: +2
+      - Levels 5-8: +3
+      - Levels 9-12: +4
+      - Levels 13-16: +5
+      - Levels 17-20: +6
+
+      **Single Application:** Proficiency bonus is never added more than once to a single roll.
+
+  - id: skill-proficiency
+    title: Skill Proficiency
+    subcategory: Proficiency
+    page: 179
+    content: |
+      Skills represent specific aspects of an ability score. Proficiency in a skill lets you add your proficiency bonus to ability checks using that skill.
+
+      **Acquiring Skills:**
+      - Class features grant specific skill proficiencies
+      - Backgrounds provide additional skills
+      - Some feats and features grant skills
+
+      **Using Skills:** When making an ability check, if a skill applies and you're proficient, add your proficiency bonus.
+
+  - id: expertise
+    title: Expertise
+    subcategory: Proficiency
+    page: 179
+    content: |
+      Some class features grant expertise, which doubles your proficiency bonus for certain skill checks.
+
+      **Who Gets Expertise:**
+      - Rogues (2 skills at 1st level, 2 more at 6th)
+      - Bards (2 skills at 3rd level, 2 more at 10th)
+      - Rangers (with certain subclasses)
+      - Various other class features
+
+      **Application:** Only doubles the proficiency bonus, not other modifiers.
+
+  - id: tool-proficiency
+    title: Tool Proficiency
+    subcategory: Proficiency
+    page: 180
+    content: |
+      Proficiency with tools allows you to add your proficiency bonus to ability checks made using those tools.
+
+      **Tool Categories:**
+      - Artisan's Tools (smith's tools, carpenter's tools, etc.)
+      - Gaming Sets (dice, playing cards, etc.)
+      - Musical Instruments
+      - Vehicles (land, water)
+      - Thieves' Tools (locks and traps)
+
+      **Gaining Proficiency:** Through backgrounds, classes, feats, or downtime training.
+
+  - id: acrobatics
+    title: Acrobatics (Dexterity)
+    subcategory: Skills
+    page: 174
+    content: |
+      Acrobatics covers attempts to stay on your feet in tricky situations or perform acrobatic stunts.
+
+      **Common Uses:**
+      - Keep balance on a narrow or treacherous surface
+      - Land safely from a fall
+      - Perform aerial maneuvers
+      - Escape from grapples (as an alternative to Athletics)
+      - Tumble through an enemy's space
+
+  - id: animal-handling
+    title: Animal Handling (Wisdom)
+    subcategory: Skills
+    page: 175
+    content: |
+      Animal Handling measures your ability to calm, control, or understand animals.
+
+      **Common Uses:**
+      - Calm a frightened animal
+      - Keep your mount from being spooked
+      - Intuit an animal's intentions
+      - Control your mount during a risky maneuver
+      - Train an animal
+
+  - id: arcana
+    title: Arcana (Intelligence)
+    subcategory: Skills
+    page: 175
+    content: |
+      Arcana measures your ability to recall lore about spells, magic items, magical symbols, and magical traditions.
+
+      **Common Uses:**
+      - Identify a spell being cast
+      - Recognize magical effects or phenomena
+      - Know the nature of magical creatures
+      - Understand magical writings or glyphs
+      - Recall information about magical planes
+
+  - id: athletics
+    title: Athletics (Strength)
+    subcategory: Skills
+    page: 173
+    content: |
+      Athletics covers difficult climbing, jumping, or swimming situations, as well as physical competition.
+
+      **Common Uses:**
+      - Climb a sheer cliff or slippery surface
+      - Leap an unusual distance
+      - Swim against a strong current
+      - Grapple or shove a creature
+      - Break free from restraints
+
+  - id: deception
+    title: Deception (Charisma)
+    subcategory: Skills
+    page: 176
+    content: |
+      Deception covers attempts to hide the truth through words or actions.
+
+      **Common Uses:**
+      - Fast-talk a guard
+      - Con a merchant
+      - Maintain a false identity
+      - Tell a convincing lie
+      - Feign emotion or behavior
+
+      **Contested By:** Often opposed by the target's Wisdom (Insight).
+
+  - id: history
+    title: History (Intelligence)
+    subcategory: Skills
+    page: 175
+    content: |
+      History measures your ability to recall lore about historical events, legendary people, ancient kingdoms, past disputes, and recent wars.
+
+      **Common Uses:**
+      - Recall significant events
+      - Identify important historical figures
+      - Know the lineage of noble houses
+      - Recognize historical artifacts
+      - Understand cultural practices
+
+  - id: insight
+    title: Insight (Wisdom)
+    subcategory: Skills
+    page: 175
+    content: |
+      Insight measures your ability to read body language and speech patterns to determine someone's true intentions.
+
+      **Common Uses:**
+      - Determine if someone is lying
+      - Predict someone's next move
+      - Sense hidden motives
+      - Identify when someone is charmed or possessed
+      - Read social dynamics in a group
+
+      **Contests With:** Often used against Deception or Persuasion.
+
+  - id: intimidation
+    title: Intimidation (Charisma)
+    subcategory: Skills
+    page: 176
+    content: |
+      Intimidation covers attempts to influence others through overt threats, hostile actions, or physical violence.
+
+      **Common Uses:**
+      - Extract information from a prisoner
+      - Convince thugs to back down
+      - Use your reputation to sway someone
+      - Make hostile creatures hesitate
+      - Pressure someone into compliance
+
+  - id: investigation
+    title: Investigation (Intelligence)
+    subcategory: Skills
+    page: 175
+    content: |
+      Investigation covers deduction, inference, and piecing together clues to understand something.
+
+      **Common Uses:**
+      - Find a hidden object or compartment
+      - Determine what weapon caused a wound
+      - Identify a weak point in a structure
+      - Research information in records
+      - Recognize forgeries
+
+      **Vs. Perception:** Investigation is active searching and deduction; Perception is noticing through senses.
+
+  - id: medicine
+    title: Medicine (Wisdom)
+    subcategory: Skills
+    page: 175
+    content: |
+      Medicine covers attempts to stabilize dying companions or diagnose illness.
+
+      **Common Uses:**
+      - Stabilize a dying creature (DC 10)
+      - Diagnose an illness
+      - Determine cause of death
+      - Treat wounds or apply first aid
+      - Identify poisons
+
+  - id: nature
+    title: Nature (Intelligence)
+    subcategory: Skills
+    page: 175
+    content: |
+      Nature measures your knowledge of terrain, plants, animals, and natural cycles.
+
+      **Common Uses:**
+      - Identify plants or animals
+      - Recall information about terrain
+      - Know weather patterns
+      - Recognize natural hazards
+      - Understand natural phenomena
+
+  - id: perception
+    title: Perception (Wisdom)
+    subcategory: Skills
+    page: 175
+    content: |
+      Perception measures general awareness and your ability to detect things through your senses.
+
+      **Common Uses:**
+      - Spot hidden creatures or objects
+      - Hear approaching enemies
+      - Notice something out of place
+      - Read lips from a distance
+      - Detect a faint scent
+
+      **Passive Perception:** 10 + Perception modifier; used when not actively searching.
+
+  - id: performance
+    title: Performance (Charisma)
+    subcategory: Skills
+    page: 176
+    content: |
+      Performance measures your ability to delight an audience through music, dance, acting, storytelling, or other entertainment.
+
+      **Common Uses:**
+      - Play a musical instrument
+      - Give a dramatic speech
+      - Tell an engaging story
+      - Dance skillfully
+      - Act in a play
+
+  - id: persuasion
+    title: Persuasion (Charisma)
+    subcategory: Skills
+    page: 176
+    content: |
+      Persuasion covers attempts to influence others through tact, social graces, and good nature.
+
+      **Common Uses:**
+      - Negotiate a better price
+      - Convince a noble to grant an audience
+      - Make a good first impression
+      - Inspire others to action
+      - Mediate between hostile parties
+
+  - id: religion
+    title: Religion (Intelligence)
+    subcategory: Skills
+    page: 175
+    content: |
+      Religion measures your ability to recall lore about deities, rites and prayers, religious hierarchies, holy symbols, and the practices of secret cults.
+
+      **Common Uses:**
+      - Identify religious symbols or artifacts
+      - Know the tenets of a faith
+      - Recognize undead or fiends
+      - Understand religious ceremonies
+      - Recall information about divine beings
+
+  - id: sleight-of-hand
+    title: Sleight of Hand (Dexterity)
+    subcategory: Skills
+    page: 174
+    content: |
+      Sleight of Hand covers manual trickery and fine manipulation.
+
+      **Common Uses:**
+      - Pick a pocket
+      - Plant an item on someone
+      - Conceal an object on your person
+      - Perform card tricks or stage magic
+      - Swap one item for another unnoticed
+
+  - id: stealth
+    title: Stealth (Dexterity)
+    subcategory: Skills
+    page: 174
+    content: |
+      Stealth covers attempts to hide from enemies, slip past guards, or move silently.
+
+      **Common Uses:**
+      - Sneak past guards
+      - Hide in shadows
+      - Move silently
+      - Tail someone without being noticed
+      - Remain unseen while observing
+
+      **Contested By:** Usually opposed by Perception (passive or active).
+
+  - id: survival
+    title: Survival (Wisdom)
+    subcategory: Skills
+    page: 175
+    content: |
+      Survival covers tracking, navigation, and living off the land.
+
+      **Common Uses:**
+      - Follow tracks
+      - Hunt wild game
+      - Guide your party through wilderness
+      - Identify signs of creatures
+      - Predict weather
+      - Avoid natural hazards

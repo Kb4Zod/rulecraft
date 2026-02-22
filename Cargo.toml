@@ -40,5 +40,18 @@ thiserror = "1"
 # UUID for rule IDs
 uuid = { version = "1", features = ["v4", "serde"] }
 
+# YAML parsing for rules import
+serde_yaml = "0.9"
+
+# Glob pattern matching for finding YAML files
+glob = "0.3"
+
+# CLI argument parsing
+clap = { version = "4", features = ["derive"] }
+
 [dev-dependencies]
 tokio-test = "0.4"
+
+[[bin]]
+name = "import_rules"
+path = "src/bin/import_rules.rs"

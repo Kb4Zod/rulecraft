@@ -1,0 +1,172 @@
+# D&D 2024 Exploration Rules
+# All content paraphrased for educational reference
+
+category: Exploration
+source: "Player's Handbook 2024"
+
+rules:
+  - id: travel-pace
+    title: Travel Pace
+    subcategory: Travel
+    page: 181
+    content: |
+      While traveling, a group can move at a normal, fast, or slow pace.
+
+      **Pace Effects:**
+      - **Fast:** 400 feet/minute, 4 miles/hour, 30 miles/day. -5 penalty to passive Perception.
+      - **Normal:** 300 feet/minute, 3 miles/hour, 24 miles/day.
+      - **Slow:** 200 feet/minute, 2 miles/hour, 18 miles/day. Can use Stealth.
+
+      **Difficult Terrain:** Halves travel distance.
+
+      **Forced March:** After 8 hours of travel, Constitution save (DC 10 + 1 per hour past 8) or gain 1 exhaustion level.
+
+  - id: vision-light
+    title: Vision and Light
+    subcategory: Environment
+    page: 182
+    content: |
+      Adventurers face various lighting conditions.
+
+      **Lighting Levels:**
+      - **Bright Light:** Normal vision, no penalties
+      - **Dim Light:** Lightly obscured; disadvantage on Perception checks relying on sight
+      - **Darkness:** Heavily obscured; effectively blind unless you have darkvision
+
+      **Darkvision:** See in darkness as dim light (typically 60 feet). Can't discern color, only shades of gray.
+
+  - id: obscured-areas
+    title: Obscured Areas
+    subcategory: Environment
+    page: 182
+    content: |
+      Some environmental effects block vision.
+
+      **Lightly Obscured:**
+      - Dim light, patchy fog, moderate foliage
+      - Disadvantage on Perception checks relying on sight
+
+      **Heavily Obscured:**
+      - Darkness, opaque fog, dense foliage
+      - Vision blocked entirely
+      - Creatures effectively suffer the blinded condition when trying to see something in this area
+
+  - id: climbing-swimming
+    title: Climbing and Swimming
+    subcategory: Movement
+    page: 182
+    content: |
+      Moving through challenging terrain costs extra movement.
+
+      **Climbing:** Each foot of climbing costs 1 extra foot of movement (2 extra in difficult terrain). May require Strength (Athletics) check for difficult surfaces.
+
+      **Swimming:** Each foot costs 1 extra foot of movement. May require Strength (Athletics) check in rough water.
+
+      **Climbing/Swimming Speed:** If you have one, climbing or swimming doesn't cost extra movement.
+
+  - id: jumping
+    title: Jumping
+    subcategory: Movement
+    page: 182
+    content: |
+      Characters can jump to cross gaps or reach heights.
+
+      **Long Jump:** With a 10-foot running start, jump a number of feet equal to your Strength score. Standing long jump is half that. May need Athletics check to clear obstacles.
+
+      **High Jump:** With a 10-foot running start, leap feet equal to 3 + Strength modifier. Standing high jump is half that. Arms can reach 1.5x your height above you.
+
+      **Difficult Terrain:** Land in difficult terrain requires DC 10 Dexterity (Acrobatics) check or fall prone.
+
+  - id: traps
+    title: Finding and Disabling Traps
+    subcategory: Hazards
+    page: 183
+    content: |
+      Traps are hidden dangers that punish the unwary.
+
+      **Detecting Traps:**
+      - Passive Perception or Passive Investigation may notice traps
+      - Active searching uses Wisdom (Perception) or Intelligence (Investigation)
+      - DM sets DC based on trap complexity
+
+      **Disabling Traps:**
+      - Typically requires thieves' tools and a Dexterity check
+      - Failure might trigger the trap
+      - Some traps can be bypassed rather than disabled
+
+  - id: foraging
+    title: Foraging
+    subcategory: Survival
+    page: 183
+    content: |
+      Characters can search for food and water while traveling.
+
+      **Making the Check:** Wisdom (Survival) check while traveling at normal or slow pace.
+
+      **DC by Terrain:**
+      - Abundant (forest, coast): DC 10
+      - Limited (hills, tundra): DC 15
+      - Scarce (desert, arctic): DC 20
+
+      **Success:** Find 1d6 + Wisdom modifier pounds of food and gallons of water (or enough for 1d6 + Wis mod creatures for one day).
+
+  - id: navigation
+    title: Navigation
+    subcategory: Travel
+    page: 181
+    content: |
+      When traveling through wilderness, someone must navigate.
+
+      **Navigator's Role:** Make a Wisdom (Survival) check to stay on course.
+
+      **Getting Lost:** If the check fails, the party gets lost. Travel in a random direction, wasting time.
+
+      **DC Factors:**
+      - Familiar terrain: DC 10
+      - Unfamiliar terrain: DC 15
+      - Poor visibility or weather: +5 to DC
+
+  - id: stealth-travel
+    title: Traveling Stealthily
+    subcategory: Travel
+    page: 181
+    content: |
+      Groups can try to move without being noticed.
+
+      **Requirements:** Must travel at a slow pace.
+
+      **Group Stealth:** Each character makes a Dexterity (Stealth) check. If at least half succeed, the group remains undetected by passive observation.
+
+      **Scouts:** Characters can scout ahead, moving stealthily while the main group travels normally.
+
+  - id: encounter-distance
+    title: Encounter Distance
+    subcategory: Encounters
+    page: 181
+    content: |
+      When an encounter begins, the DM determines how far apart the groups start.
+
+      **Factors:**
+      - Terrain (open plains vs. dense forest)
+      - Visibility (daylight vs. darkness)
+      - Whether either group was using Stealth
+
+      **Typical Distances:**
+      - Outdoors (open): 6d6 x 10 feet
+      - Outdoors (terrain): 2d8 x 10 feet
+      - Indoors: 2d10 x 5 feet (or line of sight in corridors)
+
+  - id: special-movement
+    title: Special Movement Types
+    subcategory: Movement
+    page: 182
+    content: |
+      Some creatures have special movement capabilities.
+
+      **Flying:** A creature with a flying speed can move through the air. Falls if knocked prone, speed reduced to 0, or deprived of movement.
+
+      **Burrowing:** Move through earth or stone. Can't normally breathe underground unless specified.
+
+      **Swimming:** Move through water without extra movement cost.
+
+      **Climbing:** Climb without extra movement cost. Can stay on vertical surfaces and ceilings if specified.

@@ -1,0 +1,253 @@
+# D&D 2024 Spellcasting Rules
+# All content paraphrased for educational reference
+
+category: Spellcasting
+source: "Player's Handbook 2024"
+
+rules:
+  - id: concentration
+    title: Concentration
+    subcategory: Mechanics
+    page: 233
+    content: |
+      Some spells require concentration to maintain. You can only concentrate on one spell at a time.
+
+      **Breaking Concentration:**
+      - Casting another concentration spell
+      - Taking damage (DC 10 or half damage taken Constitution save, whichever is higher)
+      - Being incapacitated or killed
+      - Environmental interference (DM's discretion, typically DC 10 Constitution save)
+
+      **Duration:** Concentration can last up to the spell's duration. You can end it voluntarily at any time (no action required).
+
+  - id: spell-slots
+    title: Spell Slots
+    subcategory: Mechanics
+    page: 231
+    content: |
+      Casting a spell of 1st level or higher expends a spell slot of the spell's level or higher. You regain all spent spell slots when you finish a long rest.
+
+      **Upcasting:** Many spells can be cast using a higher-level slot for enhanced effects. The spell description specifies these benefits.
+
+      **Cantrips:** Cantrips don't use spell slots and can be cast at will.
+
+  - id: spell-components
+    title: Spell Components
+    subcategory: Mechanics
+    page: 232
+    content: |
+      Spells may require verbal (V), somatic (S), and/or material (M) components.
+
+      **Verbal (V):** You must speak words of power. Can't cast if silenced.
+
+      **Somatic (S):** You must gesture with at least one free hand. Can't cast while hands are bound.
+
+      **Material (M):** You need specific items, which can be substituted with a component pouch or arcane focus. If a cost is listed, you must have that specific item. If the component is consumed, you must provide it each casting.
+
+  - id: casting-time
+    title: Casting Time
+    subcategory: Mechanics
+    page: 232
+    content: |
+      Most spells require one action to cast. Some have different casting times:
+
+      - **Bonus Action:** Cast as a bonus action. If you cast a bonus action spell, you can only cast a cantrip with a casting time of 1 action on the same turn.
+      - **Reaction:** Cast in response to a specific trigger.
+      - **1 Minute or Longer:** Requires concentration while casting. Damage or interruption ruins the spell.
+
+  - id: spell-range
+    title: Spell Range
+    subcategory: Targeting
+    page: 233
+    content: |
+      Every spell has a range indicating how far the effect can reach from the caster.
+
+      **Range Types:**
+      - **Self:** Targets only you (some Self spells have areas of effect originating from you)
+      - **Touch:** Must touch the target
+      - **Specific Distance:** Target must be within that distance
+      - **Unlimited:** Can target across any distance (rare, typically interplanar spells)
+
+  - id: spell-targets
+    title: Spell Targets
+    subcategory: Targeting
+    page: 234
+    content: |
+      A spell's description specifies valid targets. You must have a clear path to the target unless the spell can penetrate cover.
+
+      **Line of Effect:** Most spells require an unobstructed path between you and the target. Total cover typically blocks spells.
+
+      **Targeting Yourself:** If a spell says "a creature you can see" and you can see yourself (not blinded), you can target yourself.
+
+  - id: areas-of-effect
+    title: Areas of Effect
+    subcategory: Targeting
+    page: 234
+    content: |
+      Spells that affect an area have specific shapes:
+
+      **Cone:** Spreads from origin point, widening as it extends. Width equals length at any point.
+
+      **Cube:** Size equals side length. Origin is one face, or center if specified.
+
+      **Cylinder:** Radius and height specified. Origin can be ground or air.
+
+      **Line:** Length and width specified. Travels in straight line from origin.
+
+      **Sphere:** Radius specified from center point.
+
+      **Point of Origin:** You choose the origin within range, but typically can't move it after casting.
+
+  - id: saving-throws-spells
+    title: Saving Throws Against Spells
+    subcategory: Mechanics
+    page: 235
+    content: |
+      Many spells allow targets to make saving throws to resist effects. The spell specifies the ability used.
+
+      **Spell Save DC = 8 + proficiency bonus + spellcasting ability modifier**
+
+      **Partial Effects:** Some spells deal half damage on a successful save. The spell description specifies what happens on success or failure.
+
+  - id: spell-attacks
+    title: Spell Attack Rolls
+    subcategory: Mechanics
+    page: 235
+    content: |
+      Some spells require an attack roll to hit. This follows the same rules as weapon attacks.
+
+      **Spell Attack Modifier = proficiency bonus + spellcasting ability modifier**
+
+      **Types:**
+      - **Melee Spell Attack:** Target must be within reach (usually touch)
+      - **Ranged Spell Attack:** Target must be within range; disadvantage if hostile creature within 5 feet
+
+  - id: combining-magical-effects
+    title: Combining Magical Effects
+    subcategory: Mechanics
+    page: 235
+    content: |
+      The effects of different spells add together while their durations overlap. However, the effects of the same spell cast multiple times don't combine.
+
+      **Same Spell, Different Casters:** Only the most potent effect applies (highest spell slot or caster level). If equal, the most recent casting applies.
+
+      **Example:** Two bless spells on the same target don't stack; only one applies.
+
+  - id: ritual-casting
+    title: Ritual Casting
+    subcategory: Mechanics
+    page: 236
+    content: |
+      Spells with the ritual tag can be cast as rituals, which takes 10 extra minutes but doesn't expend a spell slot.
+
+      **Requirements:**
+      - You must have the ritual casting feature (Cleric, Druid, Wizard, etc.)
+      - Some classes require the spell be prepared; others only need it in their spellbook
+      - You still need required components
+
+  - id: cantrips
+    title: Cantrips
+    subcategory: Spell Levels
+    page: 231
+    content: |
+      Cantrips are 0-level spells that can be cast at will without using spell slots or being prepared in advance.
+
+      **Scaling:** Many cantrips increase in power at certain character levels (5th, 11th, 17th), not class levels.
+
+      **Learning:** Once learned, a cantrip is known permanently (can't be swapped on level-up for most classes).
+
+  - id: spell-preparation
+    title: Preparing Spells
+    subcategory: Mechanics
+    page: 231
+    content: |
+      Some classes (Cleric, Druid, Paladin, Wizard) prepare a list of spells each day after a long rest.
+
+      **Prepared Spell Limit:** Usually equals spellcasting ability modifier + class level (minimum of one spell).
+
+      **Casting:** You can cast any prepared spell using an available spell slot.
+
+      **Changing Spells:** You can change your prepared spells at the end of a long rest.
+
+  - id: known-spells
+    title: Known Spells
+    subcategory: Mechanics
+    page: 231
+    content: |
+      Some classes (Bard, Ranger, Sorcerer, Warlock) know a fixed number of spells rather than preparing them.
+
+      **Spells Known:** Determined by class table.
+
+      **Swapping Spells:** When you gain a level, you can replace one known spell with another of a level you can cast.
+
+      **Always Available:** Your known spells are always available to cast (no daily preparation).
+
+  - id: spellcasting-focus
+    title: Spellcasting Focus
+    subcategory: Components
+    page: 232
+    content: |
+      A spellcasting focus can replace material components that don't have a cost and aren't consumed.
+
+      **Focus Types:**
+      - **Arcane Focus:** Crystal, orb, rod, staff, or wand (for Sorcerers, Warlocks, Wizards)
+      - **Druidic Focus:** Sprig of mistletoe, totem, wooden staff, or yew wand
+      - **Holy Symbol:** Amulet, emblem, or reliquary (can be emblazoned on shield)
+      - **Musical Instrument:** For Bards
+
+  - id: dispel-magic
+    title: Dispelling and Countering
+    subcategory: Interactions
+    page: 236
+    content: |
+      Spells can be ended early through various means:
+
+      **Dispel Magic:** Ends spells of 3rd level or lower automatically. Higher-level spells require an ability check (DC = 10 + spell's level).
+
+      **Counterspell:** Cast as a reaction to stop a spell being cast. Works automatically if the target spell is 3rd level or lower. Higher-level spells require an ability check.
+
+      **Antimagic Field:** Suppresses magical effects within its area.
+
+  - id: spell-scrolls
+    title: Spell Scrolls
+    subcategory: Magic Items
+    page: 236
+    content: |
+      A spell scroll contains a single spell in written form. Reading it casts the spell without components.
+
+      **Requirements:**
+      - Spell must be on your class's spell list
+      - If higher level than you can cast, make an ability check (DC = 10 + spell level)
+
+      **Consumption:** The scroll crumbles after use.
+
+      **Copying (Wizard):** A Wizard can copy a scroll into their spellbook (destroys the scroll).
+
+  - id: multiclass-spellcasting
+    title: Multiclass Spellcasting
+    subcategory: Mechanics
+    page: 232
+    content: |
+      When multiclassing between spellcasting classes, spell slots are determined by combined levels using a formula.
+
+      **Known/Prepared Spells:** Determined separately for each class. You can only learn spells you could normally access with that class's level.
+
+      **Slot Calculation:**
+      - Full casters (Wizard, Cleric, etc.): Full level
+      - Half casters (Paladin, Ranger): Half level (round down)
+      - Third casters (Eldritch Knight, Arcane Trickster): One-third level (round down)
+
+      Add these together and consult the multiclass spell slot table.
+
+  - id: darkness-light-spells
+    title: Light and Darkness Spells
+    subcategory: Interactions
+    page: 235
+    content: |
+      When light and darkness magic overlap, their spell levels determine the outcome.
+
+      **Higher Level Wins:** A higher-level light spell dispels darkness, and vice versa.
+
+      **Equal Levels:** The areas of overlapping light and darkness cancel out, creating normal conditions.
+
+      **Example:** Daylight (3rd level) dispels darkness (2nd level) in the overlapping area.

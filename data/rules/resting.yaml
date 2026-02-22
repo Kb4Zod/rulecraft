@@ -1,0 +1,89 @@
+# D&D 2024 Resting Rules
+# All content paraphrased for educational reference
+
+category: Resting
+source: "Player's Handbook 2024"
+
+rules:
+  - id: short-rest
+    title: Short Rest
+    subcategory: Recovery
+    page: 187
+    content: |
+      A short rest is a period of downtime, at least 1 hour long, during which you do nothing more strenuous than eating, drinking, reading, and tending to wounds.
+
+      **During a Short Rest:**
+      - Spend Hit Dice to regain hit points
+      - Some class features recharge on a short rest (Fighter's Second Wind, Warlock's spell slots, etc.)
+
+      **Hit Dice:** Roll each Hit Die spent, add Constitution modifier, regain that many hit points.
+
+  - id: long-rest
+    title: Long Rest
+    subcategory: Recovery
+    page: 187
+    content: |
+      A long rest is an extended period of downtime, at least 8 hours long.
+
+      **Requirements:**
+      - Sleep for at least 6 hours
+      - Perform no more than 2 hours of light activity (reading, talking, keeping watch)
+
+      **Benefits:**
+      - Regain all lost hit points
+      - Regain spent spell slots
+      - Regain up to half your total Hit Dice (minimum 1)
+      - Reduce exhaustion by 1 level (with food and water)
+
+      **Limit:** You can't benefit from more than one long rest in a 24-hour period.
+
+  - id: hit-dice
+    title: Hit Dice
+    subcategory: Recovery
+    page: 187
+    content: |
+      Hit Dice represent your stamina and ability to recover from injury.
+
+      **Number:** You have a number of Hit Dice equal to your level. The die type depends on your class.
+
+      **Spending Hit Dice:** During a short rest, roll a Hit Die and add your Constitution modifier. Regain that many hit points.
+
+      **Recovering Hit Dice:** After a long rest, you regain spent Hit Dice equal to half your total (minimum 1).
+
+      **Class Hit Dice:**
+      - d6: Sorcerer, Wizard
+      - d8: Bard, Cleric, Druid, Monk, Rogue, Warlock
+      - d10: Fighter, Paladin, Ranger
+      - d12: Barbarian
+
+  - id: sleeping-in-armor
+    title: Sleeping in Armor
+    subcategory: Recovery
+    page: 221
+    content: |
+      Sleeping in armor can prevent you from getting a proper rest.
+
+      **Light Armor:** You can sleep in light armor without penalty.
+
+      **Medium or Heavy Armor:** If you sleep in medium or heavy armor, you regain only one quarter of your spent Hit Dice (minimum 1) and don't reduce exhaustion levels.
+
+  - id: food-and-water
+    title: Food and Water Requirements
+    subcategory: Survival
+    page: 183
+    content: |
+      Characters need regular food and water to survive.
+
+      **Daily Needs:**
+      - Food: 1 pound per day
+      - Water: 1 gallon per day (2 gallons in hot weather)
+
+      **Going Without Food:**
+      - Can go days equal to 3 + Constitution modifier before starving
+      - Each day beyond that, gain 1 level of exhaustion
+      - Resets when you eat
+
+      **Going Without Water:**
+      - Gain 1 exhaustion level at end of each day without enough water
+      - 2 levels if already exhausted
+      - Drinking half requirement still counts as without water

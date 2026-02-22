@@ -1,0 +1,232 @@
+# D&D 2024 Equipment Rules
+# All content paraphrased for educational reference
+
+category: Equipment
+source: "Player's Handbook 2024"
+
+rules:
+  - id: armor-class
+    title: Armor Class (AC)
+    subcategory: Armor
+    page: 219
+    content: |
+      Armor Class represents how difficult you are to hit effectively in combat.
+
+      **Base AC Calculation:**
+      - No armor: 10 + Dexterity modifier
+      - Light armor: Armor AC + full Dexterity modifier
+      - Medium armor: Armor AC + Dexterity modifier (max +2)
+      - Heavy armor: Armor AC only (no Dexterity modifier)
+
+      **Shields:** Add +2 to AC when wielded.
+
+  - id: light-armor
+    title: Light Armor
+    subcategory: Armor
+    page: 219
+    content: |
+      Light armor is made from supple and thin materials, favoring agile adventurers.
+
+      **Types:**
+      - **Padded:** AC 11 + Dex, disadvantage on Stealth
+      - **Leather:** AC 11 + Dex
+      - **Studded Leather:** AC 12 + Dex
+
+      **Benefits:** No restriction on Dexterity bonus, easier to sleep in than heavier armors.
+
+  - id: medium-armor
+    title: Medium Armor
+    subcategory: Armor
+    page: 220
+    content: |
+      Medium armor offers more protection but limits mobility somewhat.
+
+      **Types:**
+      - **Hide:** AC 12 + Dex (max 2)
+      - **Chain Shirt:** AC 13 + Dex (max 2)
+      - **Scale Mail:** AC 14 + Dex (max 2), Stealth disadvantage
+      - **Breastplate:** AC 14 + Dex (max 2)
+      - **Half Plate:** AC 15 + Dex (max 2), Stealth disadvantage
+
+      **Dexterity Cap:** Maximum +2 bonus from Dexterity.
+
+  - id: heavy-armor
+    title: Heavy Armor
+    subcategory: Armor
+    page: 220
+    content: |
+      Heavy armor offers the best protection but restricts movement significantly.
+
+      **Types:**
+      - **Ring Mail:** AC 14, Stealth disadvantage
+      - **Chain Mail:** AC 16, Stealth disadvantage, Str 13 required
+      - **Splint:** AC 17, Stealth disadvantage, Str 15 required
+      - **Plate:** AC 18, Stealth disadvantage, Str 15 required
+
+      **Strength Requirement:** Speed reduced by 10 feet if not met.
+
+  - id: donning-doffing
+    title: Donning and Doffing Armor
+    subcategory: Armor
+    page: 221
+    content: |
+      Putting on and taking off armor takes time.
+
+      **Don Times:**
+      - Light armor: 1 minute
+      - Medium armor: 5 minutes
+      - Heavy armor: 10 minutes
+      - Shield: 1 action
+
+      **Doff Times:**
+      - Light armor: 1 minute
+      - Medium armor: 5 minutes
+      - Heavy armor: 10 minutes (5 with help)
+      - Shield: 1 action
+
+  - id: weapon-properties
+    title: Weapon Properties
+    subcategory: Weapons
+    page: 213
+    content: |
+      Weapons have properties that modify how they're used in combat.
+
+      **Common Properties:**
+      - **Ammunition:** Requires and consumes ammo
+      - **Finesse:** Use Strength or Dexterity for attack/damage
+      - **Heavy:** Small creatures have disadvantage
+      - **Light:** Good for two-weapon fighting
+      - **Loading:** One attack per action regardless of extra attacks
+      - **Range:** Two numbers (normal/long range)
+      - **Reach:** Adds 5 feet to reach
+      - **Thrown:** Can throw for ranged attack
+      - **Two-Handed:** Requires both hands to attack
+      - **Versatile:** Can use one or two hands (different damage)
+
+  - id: simple-weapons
+    title: Simple Weapons
+    subcategory: Weapons
+    page: 212
+    content: |
+      Simple weapons are basic arms that most people can use effectively.
+
+      **Melee:**
+      - Club (1d4 bludgeoning, light)
+      - Dagger (1d4 piercing, finesse, light, thrown)
+      - Greatclub (1d8 bludgeoning, two-handed)
+      - Handaxe (1d6 slashing, light, thrown)
+      - Javelin (1d6 piercing, thrown)
+      - Light Hammer (1d4 bludgeoning, light, thrown)
+      - Mace (1d6 bludgeoning)
+      - Quarterstaff (1d6 bludgeoning, versatile 1d8)
+      - Sickle (1d4 slashing, light)
+      - Spear (1d6 piercing, thrown, versatile 1d8)
+
+  - id: martial-weapons
+    title: Martial Weapons
+    subcategory: Weapons
+    page: 212
+    content: |
+      Martial weapons require specialized training to use effectively.
+
+      **Popular Options:**
+      - Longsword (1d8 slashing, versatile 1d10)
+      - Rapier (1d8 piercing, finesse)
+      - Shortsword (1d6 piercing, finesse, light)
+      - Battleaxe (1d8 slashing, versatile 1d10)
+      - Greatsword (2d6 slashing, heavy, two-handed)
+      - Greataxe (1d12 slashing, heavy, two-handed)
+      - Warhammer (1d8 bludgeoning, versatile 1d10)
+      - Halberd (1d10 slashing, heavy, reach, two-handed)
+
+  - id: ranged-weapons
+    title: Ranged Weapons
+    subcategory: Weapons
+    page: 212
+    content: |
+      Ranged weapons let you attack from a distance.
+
+      **Simple Ranged:**
+      - Crossbow, Light (1d8 piercing, loading, two-handed, range 80/320)
+      - Dart (1d4 piercing, finesse, thrown, range 20/60)
+      - Shortbow (1d6 piercing, two-handed, range 80/320)
+      - Sling (1d4 bludgeoning, range 30/120)
+
+      **Martial Ranged:**
+      - Crossbow, Hand (1d6 piercing, light, loading, range 30/120)
+      - Crossbow, Heavy (1d10 piercing, heavy, loading, two-handed, range 100/400)
+      - Longbow (1d8 piercing, heavy, two-handed, range 150/600)
+
+  - id: weapon-range
+    title: Weapon Range
+    subcategory: Weapons
+    page: 195
+    content: |
+      Ranged and thrown weapons list two range numbers.
+
+      **Normal Range:** Attack rolls are made normally within this distance.
+
+      **Long Range:** Attacks beyond normal range but within long range have disadvantage.
+
+      **Beyond Long Range:** Targets beyond long range cannot be attacked with that weapon.
+
+      **Thrown Weapons:** Use Strength for attack/damage (or Dex if finesse).
+
+  - id: silvered-weapons
+    title: Silvered Weapons
+    subcategory: Weapons
+    page: 214
+    content: |
+      Some creatures have resistance or immunity to nonmagical weapons but are vulnerable to silver.
+
+      **Silvering Cost:** 100 gp for a weapon or 10 pieces of ammunition.
+
+      **Effect:** The weapon counts as silvered for overcoming certain resistances (e.g., werewolves, some devils).
+
+  - id: ammunition
+    title: Ammunition
+    subcategory: Weapons
+    page: 214
+    content: |
+      Weapons with the ammunition property require ammo to attack.
+
+      **Recovery:** After battle, you can recover half your expended ammunition by taking 1 minute to search.
+
+      **Types:**
+      - Arrows (20 for 1 gp)
+      - Bolts (20 for 1 gp)
+      - Blowgun Needles (50 for 1 gp)
+      - Sling Bullets (20 for 4 cp)
+
+  - id: adventuring-gear
+    title: Adventuring Gear
+    subcategory: Equipment
+    page: 222
+    content: |
+      Essential items for adventurers beyond weapons and armor.
+
+      **Key Items:**
+      - **Backpack:** Holds 30 pounds of gear
+      - **Bedroll:** For sleeping outdoors
+      - **Rations:** Food for one day
+      - **Rope (50 feet):** Hemp or silk
+      - **Torch:** Bright light 20 ft, dim light 20 ft more, burns 1 hour
+      - **Tinderbox:** Starts fires
+      - **Waterskin:** Holds liquid for one day
+      - **Healer's Kit:** 10 uses, stabilize without Medicine check
+
+  - id: equipment-packs
+    title: Equipment Packs
+    subcategory: Equipment
+    page: 225
+    content: |
+      Pre-assembled packs of gear for new adventurers.
+
+      **Common Packs:**
+      - **Burglar's Pack:** Thieves' tools, bag of caltrops, bell, candles, crowbar, etc.
+      - **Dungeoneer's Pack:** Backpack, crowbar, hammer, pitons, torches, rations, rope
+      - **Explorer's Pack:** Bedroll, mess kit, tinderbox, torches, rations, waterskin
+      - **Priest's Pack:** Holy symbol, prayer book, incense, vestments, rations
+      - **Scholar's Pack:** Book of lore, ink, parchment, small knife
+
+      **Benefit:** Buying a pack is cheaper than purchasing items individually.

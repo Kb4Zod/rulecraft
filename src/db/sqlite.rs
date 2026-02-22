@@ -1,5 +1,6 @@
 use sqlx::{sqlite::SqlitePoolOptions, SqlitePool};
 use crate::models::Rule;
+use std::path::Path;
 
 pub async fn init_pool(database_url: &str) -> Result<SqlitePool, sqlx::Error> {
     // Create database file if it doesn't exist
@@ -68,7 +69,24 @@ pub async fn run_migrations(pool: &SqlitePool) -> Result<(), sqlx::Error> {
         .await?;
 
     if count.0 == 0 {
-        seed_rules(pool).await?;
+        // Check if YAML rules directory exists with files
+        let yaml_dir = Path::new("data/rules");
+        let has_yaml_files = yaml_dir.exists()
+            && yaml_dir.is_dir()
+            && std::fs::read_dir(yaml_dir)
+                .map(|mut entries| entries.any(|e| {
+                    e.ok()
+                        .map(|entry| entry.path().extension().map(|ext| ext == "yaml").unwrap_or(false))
+                        .unwrap_or(false)
+                }))
+                .unwrap_or(false);
+
+        if has_yaml_files {
+            tracing::info!("YAML rules directory found at data/rules/ - run import_rules to load them");
+        } else {
+            // Fall back to inline seeds for Docker without volume mount
+            seed_rules(pool).await?;
+        }
     }
 
     Ok(())
@@ -205,4 +223,59 @@ pub async fn fuzzy_search(pool: &SqlitePool, query: &str, limit: i32) -> Result<
     .bind(limit)
     .fetch_all(pool)
     .await
+}
+
+/// Upsert a rule - insert if new, update if exists
+/// Returns true if a new rule was inserted, false if an existing rule was updated
+pub async fn upsert_rule(pool: &SqlitePool, rule: &Rule) -> Result<bool, sqlx::Error> {
+    // Check if rule exists
+    let existing: Option<(String,)> = sqlx::query_as("SELECT id FROM rules WHERE id = ?")
+        .bind(&rule.id)
+        .fetch_optional(pool)
+        .await?;
+
+    if existing.is_some() {
+        // Update existing rule
+        sqlx::query(
+            r#"
+            UPDATE rules SET
+                title = ?,
+                category = ?,
+                subcategory = ?,
+                content = ?,
+                source = ?,
+                page = ?,
+                updated_at = datetime('now')
+            WHERE id = ?
+            "#,
+        )
+        .bind(&rule.title)
+        .bind(&rule.category)
+        .bind(&rule.subcategory)
+        .bind(&rule.content)
+        .bind(&rule.source)
+        .bind(&rule.page)
+        .bind(&rule.id)
+        .execute(pool)
+        .await?;
+        Ok(false)
+    } else {
+        // Insert new rule
+        sqlx::query(
+            r#"
+            INSERT INTO rules (id, title, category, subcategory, content, source, page, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
+            "#,
+        )
+        .bind(&rule.id)
+        .bind(&rule.title)
+        .bind(&rule.category)
+        .bind(&rule.subcategory)
+        .bind(&rule.content)
+        .bind(&rule.source)
+        .bind(&rule.page)
+        .execute(pool)
+        .await?;
+        Ok(true)
+    }
 }

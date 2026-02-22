@@ -1,0 +1,405 @@
+# D&D 2024 Combat Rules
+# All content paraphrased for educational reference
+
+category: Combat
+source: "Player's Handbook 2024"
+
+rules:
+  - id: adv-disadv
+    title: Advantage and Disadvantage
+    subcategory: Rolling
+    page: 25
+    content: |
+      When you have advantage, roll two d20s and use the higher result. When you have disadvantage, roll two d20s and use the lower result.
+
+      **Key Rules:**
+      - Multiple sources of advantage don't stack (still one extra die)
+      - Multiple sources of disadvantage don't stack
+      - If you have both advantage and disadvantage, they cancel out regardless of how many sources of each
+      - Some features grant rerolls instead of advantage - these are different mechanics
+
+  - id: critical-hit
+    title: Critical Hit
+    subcategory: Rolling
+    page: 195
+    content: |
+      Rolling a natural 20 on an attack roll scores a critical hit. Roll all of the attack's damage dice twice and add them together, then add relevant modifiers normally.
+
+      **Important Notes:**
+      - Only a natural 20 triggers a critical hit (not a modified total of 20+)
+      - Ability modifiers are NOT doubled
+      - Extra damage dice from features like Sneak Attack ARE doubled
+      - A critical hit automatically hits regardless of the target's AC
+
+  - id: critical-miss
+    title: Critical Miss
+    subcategory: Rolling
+    page: 195
+    content: |
+      Rolling a natural 1 on an attack roll is an automatic miss, regardless of any modifiers or the target's Armor Class.
+
+      **Note:** A natural 1 is only an automatic miss for attack rolls. Ability checks and saving throws with a natural 1 can still succeed if modifiers bring the total high enough.
+
+  - id: attack-action
+    title: Attack Action
+    subcategory: Actions
+    page: 189
+    content: |
+      The Attack action lets you make one melee or ranged attack. Features like Extra Attack allow additional attacks when you take this action.
+
+      **Making an Attack:**
+      1. Choose a target within range
+      2. Determine modifiers (cover, advantage, etc.)
+      3. Roll the d20 and add appropriate modifiers
+      4. Compare to target's AC; equal or higher hits
+      5. Roll damage if the attack hits
+
+  - id: opportunity-attack
+    title: Opportunity Attack
+    subcategory: Reactions
+    page: 195
+    content: |
+      When a hostile creature you can see moves out of your reach, you can use your reaction to make one melee attack against it. The attack occurs just before the creature leaves your reach.
+
+      **Avoiding Opportunity Attacks:**
+      - The Disengage action prevents opportunity attacks for the turn
+      - Teleportation doesn't provoke opportunity attacks
+      - Being moved against your will (pushed, pulled) doesn't provoke
+      - Features like the Mobile feat can negate opportunity attacks
+
+  - id: dash-action
+    title: Dash Action
+    subcategory: Actions
+    page: 189
+    content: |
+      Taking the Dash action gives you extra movement equal to your speed (after modifiers) for the current turn.
+
+      **Example:** With 30 feet of speed, Dash grants 30 additional feet, for 60 feet total movement that turn.
+
+  - id: dodge-action
+    title: Dodge Action
+    subcategory: Actions
+    page: 189
+    content: |
+      When you Dodge, attack rolls against you have disadvantage (if you can see the attacker), and you make Dexterity saving throws with advantage. These benefits last until the start of your next turn.
+
+      **Ends Early If:**
+      - You become incapacitated
+      - Your speed drops to 0
+
+  - id: disengage-action
+    title: Disengage Action
+    subcategory: Actions
+    page: 189
+    content: |
+      Taking the Disengage action prevents hostile creatures from making opportunity attacks against you for the rest of your turn.
+
+      **Note:** This doesn't affect other reactions creatures might have, only opportunity attacks triggered by your movement.
+
+  - id: help-action
+    title: Help Action
+    subcategory: Actions
+    page: 189
+    content: |
+      You can help another creature with a task, giving them advantage on their next ability check for that task (if made before the start of your next turn).
+
+      **In Combat:** You can help an ally attack a creature within 5 feet of you. The ally gains advantage on their next attack roll against that creature before your next turn.
+
+  - id: hide-action
+    title: Hide Action
+    subcategory: Actions
+    page: 189
+    content: |
+      You attempt to become hidden by making a Dexterity (Stealth) check. You must have something to hide behind or within, and can't be in plain sight of the creature you're hiding from.
+
+      **While Hidden:**
+      - You have advantage on attack rolls against creatures that can't see you
+      - Creatures have disadvantage on attack rolls against you
+      - You reveal your location when you attack, cast a spell, or make noise
+
+  - id: ready-action
+    title: Ready Action
+    subcategory: Actions
+    page: 193
+    content: |
+      You prepare to act later using your reaction. Specify a trigger and the action you'll take in response.
+
+      **Rules:**
+      - When the trigger occurs, you can take your reaction immediately after or ignore it
+      - Readying a spell requires concentration and uses the spell slot even if not cast
+      - You can ready movement up to your speed
+
+  - id: search-action
+    title: Search Action
+    subcategory: Actions
+    page: 193
+    content: |
+      You make a Wisdom (Perception) check or an Intelligence (Investigation) check to find something. The DM determines which check is appropriate based on what you're searching for.
+
+  - id: use-object-action
+    title: Use an Object Action
+    subcategory: Actions
+    page: 193
+    content: |
+      This action covers using objects that require a full action, such as activating certain magic items or using a special object feature.
+
+      **Free Object Interactions:** Drawing a weapon, opening a door, or picking up an item can often be done as part of your move or action without using the Use an Object action.
+
+  - id: grappling
+    title: Grappling
+    subcategory: Special Attacks
+    page: 197
+    content: |
+      To grapple, use the Attack action to make a special melee attack. Replace one attack with a grapple attempt using Strength (Athletics) against the target's Strength (Athletics) or Dexterity (Acrobatics).
+
+      **Requirements:**
+      - Target must be no more than one size larger than you
+      - You need a free hand
+      - On success, target's speed becomes 0
+
+      **Escaping:** The grappled creature can use its action to escape with a Strength (Athletics) or Dexterity (Acrobatics) check contested by your Strength (Athletics).
+
+  - id: shoving
+    title: Shoving a Creature
+    subcategory: Special Attacks
+    page: 198
+    content: |
+      Using the Attack action, you can shove a creature to knock it prone or push it away. Make a Strength (Athletics) check contested by the target's Strength (Athletics) or Dexterity (Acrobatics).
+
+      **On Success (choose one):**
+      - Push the target 5 feet away from you
+      - Knock the target prone
+
+      **Limitations:** Target can be at most one size larger than you.
+
+  - id: two-weapon-fighting
+    title: Two-Weapon Fighting
+    subcategory: Special Attacks
+    page: 198
+    content: |
+      When you take the Attack action with a light melee weapon, you can make one additional attack with a different light melee weapon you're holding.
+
+      **Rules:**
+      - Both weapons must have the light property
+      - You don't add your ability modifier to the damage of the bonus attack (unless negative)
+      - The Two-Weapon Fighting style allows adding the modifier
+
+  - id: cover
+    title: Cover
+    subcategory: Environment
+    page: 196
+    content: |
+      Obstacles between you and an attacker can provide cover, making you harder to hit.
+
+      **Cover Types:**
+      - **Half Cover (+2 AC, +2 Dex saves):** Obstacle blocks at least half your body (low wall, furniture, another creature)
+      - **Three-Quarters Cover (+5 AC, +5 Dex saves):** About three-quarters of you is covered (portcullis, arrow slit)
+      - **Total Cover:** Completely concealed; can't be targeted directly by attacks or spells
+
+  - id: difficult-terrain
+    title: Difficult Terrain
+    subcategory: Environment
+    page: 190
+    content: |
+      Moving through difficult terrain costs 1 extra foot of movement per foot traveled. Rubble, undergrowth, steep stairs, snow, and shallow water are examples.
+
+      **Stacking:** Multiple sources of difficult terrain don't stack. Moving 1 foot through difficult terrain costs 2 feet of movement, regardless of how many sources apply.
+
+  - id: mounted-combat
+    title: Mounted Combat
+    subcategory: Special Rules
+    page: 198
+    content: |
+      A willing creature at least one size larger than you with appropriate anatomy can serve as a mount.
+
+      **Mounting/Dismounting:** Costs half your speed.
+
+      **Controlling a Mount:** While mounted, you can either control the mount or let it act independently. Controlled mounts act on your turn and can only Dash, Disengage, or Dodge.
+
+      **Falling Off:** If knocked prone while mounted, you must make a DC 10 Dexterity save or fall off, landing prone within 5 feet.
+
+  - id: underwater-combat
+    title: Underwater Combat
+    subcategory: Special Rules
+    page: 198
+    content: |
+      Underwater combat imposes restrictions on weapons and movement.
+
+      **Melee Attacks:** Creatures without a swimming speed have disadvantage on melee attacks unless using a dagger, javelin, shortsword, spear, or trident.
+
+      **Ranged Attacks:** Ranged weapon attacks automatically miss beyond normal range. Within normal range, attacks have disadvantage unless using a crossbow, net, or weapon thrown like a javelin.
+
+  - id: falling
+    title: Falling
+    subcategory: Environment
+    page: 183
+    content: |
+      A creature takes 1d6 bludgeoning damage for every 10 feet it falls, to a maximum of 20d6 (200 feet).
+
+      **Landing Prone:** The creature lands prone unless it avoids taking damage from the fall.
+
+  - id: suffocating
+    title: Suffocating
+    subcategory: Environment
+    page: 183
+    content: |
+      A creature can hold its breath for a number of minutes equal to 1 + its Constitution modifier (minimum 30 seconds).
+
+      **Running Out of Air:** When out of breath or choking, a creature can survive a number of rounds equal to its Constitution modifier (minimum 1). At the start of its next turn after that, it drops to 0 hit points and is dying.
+
+  - id: initiative
+    title: Initiative
+    subcategory: Turn Order
+    page: 192
+    content: |
+      At the start of combat, everyone rolls initiative (a Dexterity check) to determine turn order. Higher results go first.
+
+      **Ties:** The DM decides the order among tied creatures, often by comparing Dexterity scores.
+
+      **Surprise:** If you're surprised, you can't move or take actions on your first turn and can't take reactions until that turn ends.
+
+  - id: surprise
+    title: Surprise
+    subcategory: Turn Order
+    page: 192
+    content: |
+      The DM determines who might be surprised at the start of combat. A creature that doesn't notice a threat is surprised.
+
+      **Effects of Surprise:**
+      - A surprised creature can't move or take actions on its first turn
+      - A surprised creature can't take reactions until its first turn ends
+      - You can be surprised even if others in your group aren't
+
+  - id: movement-in-combat
+    title: Movement in Combat
+    subcategory: Movement
+    page: 190
+    content: |
+      On your turn, you can move a distance up to your speed. You can break up movement around your actions and other activities.
+
+      **Standing Up:** Rising from prone costs half your movement speed (not extra feet, but half your total speed for that turn).
+
+      **Moving Through Creatures:** You can move through a nonhostile creature's space. You can move through a hostile creature's space only if it's at least two sizes larger or smaller than you.
+
+  - id: squeezing
+    title: Squeezing into Smaller Spaces
+    subcategory: Movement
+    page: 191
+    content: |
+      A creature can squeeze through a space large enough for a creature one size smaller than itself.
+
+      **While Squeezing:**
+      - Each foot of movement costs 1 extra foot
+      - You have disadvantage on attack rolls and Dexterity saving throws
+      - Attack rolls against you have advantage
+
+  - id: death-saving-throws
+    title: Death Saving Throws
+    subcategory: Dying
+    page: 186
+    content: |
+      When you start your turn at 0 hit points, you must make a death saving throw to determine whether you cling to life.
+
+      **Rolling:**
+      - Roll a d20 (no modifiers unless specified by features)
+      - 10 or higher: Success
+      - Below 10: Failure
+      - Natural 20: Regain 1 hit point
+      - Natural 1: Counts as two failures
+
+      **Three Successes:** You stabilize (unconscious but no longer dying).
+      **Three Failures:** You die.
+
+  - id: stabilizing
+    title: Stabilizing a Creature
+    subcategory: Dying
+    page: 186
+    content: |
+      You can use your action to administer first aid to an unconscious creature at 0 hit points. Make a DC 10 Wisdom (Medicine) check. On success, the creature is stable.
+
+      **Stable Creature:**
+      - No longer makes death saving throws
+      - Remains unconscious
+      - Regains 1 hit point after 1d4 hours (if not healed sooner)
+      - Starts dying again if it takes damage
+
+  - id: instant-death
+    title: Instant Death
+    subcategory: Dying
+    page: 186
+    content: |
+      When damage reduces you to 0 hit points and remaining damage equals or exceeds your hit point maximum, you die instantly.
+
+      **Example:** A character with 12 maximum hit points at 6 hit points takes 18 damage. This drops them to 0 with 12 damage remaining, which equals their max HP, causing instant death.
+
+  - id: damage-resistance
+    title: Damage Resistance and Vulnerability
+    subcategory: Damage
+    page: 185
+    content: |
+      Resistance halves the damage taken from a specific type. Vulnerability doubles it.
+
+      **Order of Operations:**
+      1. Apply all modifiers to damage first
+      2. Then apply resistance (halve the total)
+      3. Then apply vulnerability (double the total)
+
+      **Multiple Instances:** Multiple sources of resistance or vulnerability to the same damage type don't stack.
+
+  - id: damage-types
+    title: Damage Types
+    subcategory: Damage
+    page: 185
+    content: |
+      Different attacks, spells, and effects deal specific damage types:
+
+      - **Acid:** Corrosive substances
+      - **Bludgeoning:** Blunt force (clubs, falling)
+      - **Cold:** Extreme cold (frost spells, icy environments)
+      - **Fire:** Flames and heat
+      - **Force:** Pure magical energy
+      - **Lightning:** Electrical damage
+      - **Necrotic:** Life-draining energy
+      - **Piercing:** Puncturing attacks (arrows, teeth)
+      - **Poison:** Toxins and venoms
+      - **Psychic:** Mental assault
+      - **Radiant:** Holy power and searing light
+      - **Slashing:** Cutting attacks (swords, claws)
+      - **Thunder:** Concussive sound
+
+  - id: temporary-hit-points
+    title: Temporary Hit Points
+    subcategory: Hit Points
+    page: 186
+    content: |
+      Temporary hit points are a buffer against damage, separate from your actual hit points.
+
+      **Rules:**
+      - Damage reduces temporary HP first
+      - Lost temporary HP can't be healed; they're not real HP
+      - Temporary HP don't stack; if you gain more, choose whether to keep old or new
+      - They last until depleted or until you finish a long rest (unless specified otherwise)
+
+  - id: ranged-attacks-close
+    title: Ranged Attacks in Close Combat
+    subcategory: Attacking
+    page: 195
+    content: |
+      Making a ranged attack while a hostile creature is within 5 feet of you imposes disadvantage on the attack roll. This applies to both ranged weapon attacks and ranged spell attacks.
+
+      **Exception:** The Crossbow Expert feat removes this disadvantage for ranged weapon attacks.
+
+  - id: attack-rolls
+    title: Attack Rolls
+    subcategory: Attacking
+    page: 194
+    content: |
+      To make an attack roll, roll a d20 and add the appropriate modifiers.
+
+      **Melee Weapons:** Add Strength modifier (or Dexterity for finesse weapons) + proficiency bonus if proficient.
+
+      **Ranged Weapons:** Add Dexterity modifier (or Strength for thrown weapons) + proficiency bonus if proficient.
+
+      **Spell Attacks:** Add spellcasting ability modifier + proficiency bonus.
+
+      **Hit:** If total equals or exceeds target's AC, the attack hits.
