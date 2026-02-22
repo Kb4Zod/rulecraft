@@ -1,11 +1,11 @@
 <div class="ruling-response">
     <div class="question-asked">
-        <h3>Question</h3>
+        <h3>Thy Query</h3>
         <p>{{ question }}</p>
     </div>
 
     <div class="ruling-answer">
-        <h3>Ruling</h3>
+        <h3>The Oracle Speaks</h3>
         <div class="answer-content">
             {{ answer }}
         </div>
@@ -13,7 +13,7 @@
 
     {% if !cited_rules.is_empty() %}
     <div class="cited-rules">
-        <h3>Related Rules</h3>
+        <h3>Referenced Passages</h3>
         <div class="rules-list compact">
             {% for rule in cited_rules %}
             <a href="/rules/{{ rule.id }}" class="rule-link">
@@ -27,7 +27,7 @@
 
     <div class="ruling-actions">
         <button onclick="copyRuling()" class="btn btn-secondary">Copy Ruling</button>
-        <a href="/scenario" class="btn btn-primary">Ask Another Question</a>
+        <a href="/scenario" class="btn btn-primary">Ask Another Query</a>
     </div>
 </div>
 
@@ -35,7 +35,7 @@
 function copyRuling() {
     const answer = document.querySelector('.answer-content').innerText;
     navigator.clipboard.writeText(answer).then(() => {
-        alert('Ruling copied to clipboard!');
+        alert('The ruling hath been copied to thy clipboard!');
     });
 }
 </script>

@@ -1,6 +1,6 @@
-<div class="rule-card" data-rule-id="{{ rule.id }}">
+<article class="rule-card" data-rule-id="{{ rule.id }}">
     <div class="rule-card-header">
-        <span class="category-tag">{{ rule.category }}</span>
+        <span class="category-badge">{{ rule.category }}</span>
         {% include "partials/bookmark_btn.html" %}
     </div>
     <h3 class="rule-title">
@@ -15,4 +15,4 @@
         <span class="page">p. {{ page }}</span>
         {% endif %}
     </div>
-</div>
+</article>
