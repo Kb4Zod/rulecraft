@@ -4,30 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Rulecraft{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/styles.css">
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <script src="/static/js/bookmarks.js" defer></script>
     <script src="/static/js/search.js" defer></script>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="/" class="logo">Rulecraft</a>
-            <div class="nav-links">
-                <a href="/rules">Rules</a>
-                <a href="/search">Search</a>
-                <a href="/scenario">Ask Scenario</a>
-                <a href="#" onclick="showBookmarks()">Bookmarks</a>
-            </div>
-        </nav>
-    </header>
+    <div class="tome-container">
+        <header>
+            <nav>
+                <a href="/" class="logo">Rulecraft</a>
+                <div class="nav-links">
+                    <a href="/rules">Tomes</a>
+                    <a href="/search">Seek</a>
+                    <a href="/scenario">Oracle</a>
+                    <a href="#" onclick="showBookmarks()">Marks</a>
+                </div>
+            </nav>
+        </header>
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
 
-    <footer>
-        <p>Rulecraft - D&D 2024 Rules Assistant</p>
-    </footer>
+        <footer>
+            <div class="footer-ornament">&#10022; &#10022; &#10022;</div>
+            <p class="footer-text">Rulecraft &mdash; A Grimoire of Rules for the 2024 Edition</p>
+        </footer>
+    </div>
 </body>
 </html>

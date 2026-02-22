@@ -73,12 +73,12 @@ function updateBookmarkButton(ruleId, bookmarked) {
     buttons.forEach(btn => {
         if (bookmarked) {
             btn.classList.add('bookmarked');
-            btn.querySelector('.bookmark-icon').textContent = '★';
-            btn.querySelector('.bookmark-label').textContent = 'Bookmarked';
+            btn.querySelector('.bookmark-icon').textContent = '\u2605';
+            btn.querySelector('.bookmark-label').textContent = 'Marked';
         } else {
             btn.classList.remove('bookmarked');
-            btn.querySelector('.bookmark-icon').textContent = '☆';
-            btn.querySelector('.bookmark-label').textContent = 'Bookmark';
+            btn.querySelector('.bookmark-icon').textContent = '\u2606';
+            btn.querySelector('.bookmark-label').textContent = 'Mark';
         }
     });
 }
@@ -91,7 +91,7 @@ function showBookmarks() {
     const entries = Object.entries(bookmarks);
 
     if (entries.length === 0) {
-        alert('No bookmarks yet. Click the bookmark button on any rule to save it.');
+        alert('No marks yet. Click the mark button on any rule to save it.');
         return;
     }
 
@@ -101,7 +101,7 @@ function showBookmarks() {
     modal.innerHTML = `
         <div class="bookmarks-content">
             <div class="bookmarks-header">
-                <h2>Bookmarked Rules</h2>
+                <h2>Thy Marked Passages</h2>
                 <button onclick="closeBookmarksModal()" class="close-btn">&times;</button>
             </div>
             <div class="bookmarks-list">
@@ -120,7 +120,7 @@ function showBookmarks() {
         </div>
     `;
 
-    // Add modal styles
+    // Add modal styles with grimoire theme
     const style = document.createElement('style');
     style.textContent = `
         .bookmarks-modal {
@@ -129,60 +129,117 @@ function showBookmarks() {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(26, 15, 10, 0.9);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
         }
         .bookmarks-content {
-            background: var(--color-surface);
-            border-radius: var(--radius);
-            padding: 1.5rem;
+            background: #f4e4c1;
+            border: 3px solid #c9a227;
+            border-radius: 16px;
+            padding: 2rem;
             max-width: 500px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
+            box-shadow: 0 8px 30px rgba(45, 24, 16, 0.4);
         }
         .bookmarks-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #704214;
+        }
+        .bookmarks-header h2 {
+            font-family: 'Cinzel Decorative', serif;
+            color: #722f37;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
         }
         .close-btn {
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 2rem;
             cursor: pointer;
-            color: var(--color-text-muted);
+            color: #722f37;
+            transition: color 0.3s;
+        }
+        .close-btn:hover {
+            color: #501c22;
         }
         .bookmark-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.5rem;
-            border-bottom: 1px solid var(--color-border);
+            padding: 0.75rem 1rem;
+            background: #faf3e3;
+            border: 1px solid #e8d5a3;
+            border-left: 3px solid #722f37;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+        .bookmark-item:hover {
+            background: #f4e4c1;
+            border-color: #722f37;
         }
         .bookmark-item a {
-            color: var(--color-text);
+            color: #2d1810;
             text-decoration: none;
+            font-family: 'Crimson Text', serif;
+            font-size: 1rem;
         }
         .bookmark-item a:hover {
-            color: var(--color-primary);
+            color: #722f37;
         }
         .remove-btn {
             background: transparent;
-            border: 1px solid var(--color-secondary);
-            color: var(--color-secondary);
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
+            border: 1px solid #722f37;
+            color: #722f37;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
             cursor: pointer;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+        .remove-btn:hover {
+            background: #722f37;
+            color: #f4e4c1;
         }
         .bookmarks-actions {
             display: flex;
             gap: 0.5rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 2px solid #704214;
+        }
+        .bookmarks-actions .btn {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .bookmarks-actions .btn-secondary {
+            background: #e8d5a3;
+            border: 1px solid #704214;
+            color: #2d1810;
+        }
+        .bookmarks-actions .btn-secondary:hover {
+            background: #722f37;
+            border-color: #722f37;
+            color: #f4e4c1;
         }
     `;
 
@@ -269,14 +326,14 @@ function importBookmarks() {
  * Clear all bookmarks
  */
 function clearAllBookmarks() {
-    if (confirm('Are you sure you want to clear all bookmarks?')) {
+    if (confirm('Art thou certain thou wish to clear all marks?')) {
         saveBookmarks({});
         closeBookmarksModal();
         // Update all bookmark buttons on page
         document.querySelectorAll('.bookmark-btn').forEach(btn => {
             btn.classList.remove('bookmarked');
-            btn.querySelector('.bookmark-icon').textContent = '☆';
-            btn.querySelector('.bookmark-label').textContent = 'Bookmark';
+            btn.querySelector('.bookmark-icon').textContent = '\u2606';
+            btn.querySelector('.bookmark-label').textContent = 'Mark';
         });
     }
 }
@@ -288,8 +345,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const ruleId = btn.dataset.ruleId;
         if (ruleId && isBookmarked(ruleId)) {
             btn.classList.add('bookmarked');
-            btn.querySelector('.bookmark-icon').textContent = '★';
-            btn.querySelector('.bookmark-label').textContent = 'Bookmarked';
+            btn.querySelector('.bookmark-icon').textContent = '\u2605';
+            btn.querySelector('.bookmark-label').textContent = 'Marked';
         }
     });
 });

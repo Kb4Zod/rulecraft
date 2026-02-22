@@ -4,23 +4,27 @@
 
 {% block content %}
 <div class="page-header">
-    <h1>Ask a Scenario Question</h1>
-    <p>Get AI-powered rulings for your D&D 2024 questions</p>
+    <h1>The Oracle</h1>
+    <p>Pose thy query and receive wisdom with citations most scholarly</p>
+</div>
+
+<div class="divider">
+    <span class="divider-icon">&#9884;</span>
 </div>
 
 <section class="scenario-form-section">
     <form action="/scenario/ask" method="post" class="scenario-form" hx-post="/scenario/ask" hx-target="#scenario-response" hx-swap="innerHTML">
         <div class="form-group">
-            <label for="question">Your Question</label>
+            <label for="question">Thy Query</label>
             <textarea
                 id="question"
                 name="question"
                 rows="4"
-                placeholder="e.g., Can a rogue use Sneak Attack if they have advantage but are within 5 feet of an enemy with no allies nearby?"
+                placeholder="Inscribe thy scenario here... e.g., 'What befalls a wizard who attempts to cast whilst grappled?'"
                 required
             ></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Get Ruling</button>
+        <button type="submit" class="oracle-submit">&#10022; Seek Divine Judgment &#10022;</button>
     </form>
 </section>
 
@@ -29,12 +33,16 @@
 </section>
 
 <section class="tips">
-    <h3>Tips for Better Rulings</h3>
+    <h3>Counsel for Better Rulings</h3>
     <ul>
         <li>Be specific about the situation and characters involved</li>
         <li>Mention any relevant conditions or abilities</li>
         <li>Ask one question at a time for clearer answers</li>
-        <li>Specify if you want RAW (Rules as Written) or RAI (Rules as Intended)</li>
+        <li>Specify if thou seekest RAW (Rules as Written) or RAI (Rules as Intended)</li>
     </ul>
 </section>
+
+<div class="divider">
+    <span class="divider-icon">&#10087;</span>
+</div>
 {% endblock %}

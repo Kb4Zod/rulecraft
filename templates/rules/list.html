@@ -4,26 +4,39 @@
 
 {% block content %}
 <div class="page-header">
-    <h1>Rules</h1>
-    <p>Browse D&D 2024 rules by category</p>
+    <h1>Sacred Tomes</h1>
+    <p>Browse the collected wisdom by category</p>
+</div>
+
+<div class="divider">
+    <span class="divider-icon">&#9884;</span>
 </div>
 
 <div class="rules-filters">
     <form action="/search" method="get" class="inline-search">
-        <input type="text" name="q" placeholder="Filter rules...">
-        <button type="submit">Filter</button>
+        <input type="text" name="q" placeholder="Filter the tomes...">
+        <button type="submit">Seek</button>
     </form>
+</div>
+
+<div class="section-header">
+    <span class="section-icon">&#128214;</span>
+    <h2>Recent Inscriptions</h2>
 </div>
 
 <div class="rules-list">
     {% if rules.is_empty() %}
     <div class="empty-state">
-        <p>No rules found. Rules will appear here once added to the database.</p>
+        <p>No tomes have been inscribed yet. Rules will appear here once added to the archives.</p>
     </div>
     {% else %}
     {% for rule in rules %}
     {% include "partials/rule_card.html" %}
     {% endfor %}
     {% endif %}
+</div>
+
+<div class="divider">
+    <span class="divider-icon">&#10087;</span>
 </div>
 {% endblock %}

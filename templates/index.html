@@ -3,35 +3,51 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<div class="hero">
+<!-- Hero Section -->
+<section class="hero">
+    <span class="hero-icon">&#128220;</span>
     <h1>Rulecraft</h1>
-    <p class="subtitle">D&D 2024 Rules Lookup & AI-Powered Rulings</p>
+    <p class="subtitle">A Compendium of Arcane Laws &amp; Divine Wisdom for the Modern Adventurer</p>
+</section>
+
+<div class="divider">
+    <span class="divider-icon">&#9884;</span>
 </div>
 
+<!-- Search Section -->
 <section class="search-section">
+    <div class="wax-seal">R</div>
     <form action="/search" method="get" class="search-form">
-        <input type="text" name="q" placeholder="Search rules..." class="search-input">
-        <button type="submit" class="search-btn">Search</button>
+        <input type="text" name="q" placeholder="Search the ancient texts..." class="search-input">
+        <button type="submit" class="search-btn">Seek</button>
     </form>
 </section>
 
+<!-- Feature Cards -->
 <section class="features">
     <div class="feature-card">
-        <h3>Rules Lookup</h3>
-        <p>Search and browse D&D 2024 rules with full-text and semantic search.</p>
-        <a href="/rules" class="btn">Browse Rules</a>
+        <span class="feature-icon">&#128218;</span>
+        <h3>Sacred Tomes</h3>
+        <p>Peruse the collected wisdom of dungeon and dragon, bound in mystic knowledge.</p>
+        <a href="/rules" class="feature-link">Enter the Archives</a>
     </div>
 
     <div class="feature-card">
-        <h3>AI Rulings</h3>
-        <p>Ask scenario questions and get AI-powered rulings with rule citations.</p>
-        <a href="/scenario" class="btn">Ask a Question</a>
+        <span class="feature-icon">&#128302;</span>
+        <h3>The Oracle</h3>
+        <p>Seek counsel from the all-knowing Oracle for judgments on matters arcane.</p>
+        <a href="/scenario" class="feature-link">Consult the Oracle</a>
     </div>
 
     <div class="feature-card">
+        <span class="feature-icon">&#128367;</span>
         <h3>Bookmarks</h3>
-        <p>Save frequently referenced rules for quick access during play.</p>
-        <a href="#" onclick="showBookmarks()" class="btn">View Bookmarks</a>
+        <p>Mark passages most vital to thy quests with enchanted bookmarks.</p>
+        <a href="#" onclick="showBookmarks()" class="feature-link">View Thy Marks</a>
     </div>
 </section>
+
+<div class="divider">
+    <span class="divider-icon">&#9753;</span>
+</div>
 {% endblock %}

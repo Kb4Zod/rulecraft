@@ -4,16 +4,22 @@
 
 {% block content %}
 <div class="page-header">
-    <h1>Search Results</h1>
+    <h1>Seek the Texts</h1>
     {% if !query.is_empty() %}
-    <p>Results for "{{ query }}"</p>
+    <p>Revelations for "{{ query }}"</p>
+    {% else %}
+    <p>Search through the ancient archives</p>
     {% endif %}
+</div>
+
+<div class="divider">
+    <span class="divider-icon">&#9884;</span>
 </div>
 
 <section class="search-section">
     <form action="/search" method="get" class="search-form">
-        <input type="text" name="q" value="{{ query }}" placeholder="Search rules..." class="search-input">
-        <button type="submit" class="search-btn">Search</button>
+        <input type="text" name="q" value="{{ query }}" placeholder="Search the ancient texts..." class="search-input">
+        <button type="submit" class="search-btn">Seek</button>
     </form>
 </section>
 
@@ -21,18 +27,26 @@
     {% if results.is_empty() %}
     <div class="empty-state">
         {% if query.is_empty() %}
-        <p>Enter a search term to find rules.</p>
+        <p>Inscribe thy query to search the tomes.</p>
         {% else %}
-        <p>No rules found matching "{{ query }}". Try different keywords.</p>
+        <p>No passages found matching "{{ query }}". Try different incantations.</p>
         {% endif %}
     </div>
     {% else %}
-    <p class="results-count">Found {{ results.len() }} result(s)</p>
+    <div class="section-header">
+        <span class="section-icon">&#128214;</span>
+        <h2>Discovered Passages</h2>
+    </div>
+    <p class="results-count">Found {{ results.len() }} inscription(s)</p>
     <div class="rules-list">
         {% for rule in results %}
         {% include "partials/rule_card.html" %}
         {% endfor %}
     </div>
     {% endif %}
+</div>
+
+<div class="divider">
+    <span class="divider-icon">&#10087;</span>
 </div>
 {% endblock %}
