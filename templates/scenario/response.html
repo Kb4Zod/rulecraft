@@ -7,7 +7,7 @@
     <div class="ruling-answer">
         <h3>The Oracle Speaks</h3>
         <div class="answer-content">
-            {{ answer }}
+            {{ answer|safe }}
         </div>
     </div>
 
@@ -32,10 +32,10 @@
 </div>
 
 <script>
-function copyRuling() {
-    const answer = document.querySelector('.answer-content').innerText;
-    navigator.clipboard.writeText(answer).then(() => {
-        alert('The ruling hath been copied to thy clipboard!');
-    });
-}
+    function copyRuling() {
+        const answer = document.querySelector('.answer-content').innerText;
+        navigator.clipboard.writeText(answer).then(() => {
+            alert('The ruling hath been copied to thy clipboard!');
+        });
+    }
 </script>

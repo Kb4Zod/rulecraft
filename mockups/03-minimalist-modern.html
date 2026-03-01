@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rulecraft - D&D 2024 Rules</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #fafafa;
+            --color-surface: #ffffff;
+            --color-surface-elevated: #ffffff;
+            --color-text: #1a1a1a;
+            --color-text-secondary: #6b6b6b;
+            --color-text-tertiary: #999999;
+            --color-accent: #e63946;
+            --color-accent-light: #fff0f1;
+            --color-border: #e8e8e8;
+            --color-border-light: #f0f0f0;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --font-display: 'DM Serif Display', serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-reading: 'Source Serif 4', serif;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        header {
+            background: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(255,255,255,0.9);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--color-text);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s var(--ease-out);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent);
+            transition: width 0.3s var(--ease-out);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Main content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0 4rem;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--color-accent-light);
+            color: var(--color-accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 400;
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        /* Search Section */
+        .search-section {
+            padding: 2rem 0 4rem;
+        }
+
+        .search-container {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .search-wrapper {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+            transition: all 0.3s var(--ease-out);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .search-wrapper:focus-within {
+            border-color: var(--color-text);
+            box-shadow: var(--shadow-md);
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            font-family: var(--font-body);
+            color: var(--color-text);
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--color-text-tertiary);
+        }
+
+        .search-btn {
+            background: var(--color-text);
+            color: var(--color-surface);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s var(--ease-out);
+        }
+
+        .search-btn:hover {
+            background: var(--color-accent);
+            transform: scale(1.02);
+        }
+
+        .search-hints {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .search-hint {
+            font-size: 0.8rem;
+            color: var(--color-text-tertiary);
+            background: var(--color-surface);
+            padding: 0.3rem 0.8rem;
+            border-radius: 100px;
+            border: 1px solid var(--color-border-light);
+            cursor: pointer;
+            transition: all 0.2s var(--ease-out);
+        }
+
+        .search-hint:hover {
+            border-color: var(--color-text-secondary);
+            color: var(--color-text-secondary);
+        }
+
+        /* Feature Cards */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            padding: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            transition: all 0.3s var(--ease-out);
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            border-color: var(--color-text);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--color-bg);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .feature-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--color-text);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-top: 1.25rem;
+            transition: gap 0.2s var(--ease-out);
+        }
+
+        .feature-link:hover {
+            gap: 0.5rem;
+        }
+
+        /* Section Header */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 3rem 0 1.5rem;
+            border-top: 1px solid var(--color-border);
+            margin-top: 2rem;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .section-header a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Rules List */
+        .rules-list {
+            display: grid;
+            gap: 1px;
+            background: var(--color-border);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .rule-item {
+            background: var(--color-surface);
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s var(--ease-out);
+            cursor: pointer;
+        }
+
+        .rule-item:hover {
+            background: var(--color-bg);
+        }
+
+        .rule-content {
+            flex: 1;
+        }
+
+        .rule-content h4 {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .rule-content h4 a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .rule-content h4 a:hover {
+            color: var(--color-accent);
+        }
+
+        .rule-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: var(--color-text-tertiary);
+        }
+
+        .category-pill {
+            background: var(--color-bg);
+            padding: 0.2rem 0.6rem;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .rule-actions {
+            display: flex;
+            gap: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .rule-item:hover .rule-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--color-text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .action-btn:hover {
+            border-color: var(--color-text);
+            color: var(--color-text);
+        }
+
+        /* AI Section */
+        .ai-section {
+            margin: 4rem 0;
+            padding: 3rem;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+        }
+
+        .ai-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .ai-header h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .ai-header p {
+            color: var(--color-text-secondary);
+        }
+
+        .ai-form {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .ai-form textarea {
+            width: 100%;
+            min-height: 140px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .ai-form textarea::placeholder {
+            color: var(--color-text-tertiary);
+        }
+
+        .ai-form textarea:focus {
+            border-color: var(--color-text);
+        }
+
+        .ai-submit {
+            width: 100%;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--color-text);
+            color: var(--color-surface);
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s var(--ease-out);
+        }
+
+        .ai-submit:hover {
+            background: var(--color-accent);
+            transform: scale(1.01);
+        }
+
+        /* AI Response */
+        .ai-response {
+            max-width: 700px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .response-question {
+            background: var(--color-bg);
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+        }
+
+        .response-question label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .response-question p {
+            color: var(--color-text-secondary);
+            font-style: italic;
+        }
+
+        .response-answer {
+            font-family: var(--font-reading);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--color-text);
+        }
+
+        .response-answer p {
+            margin-bottom: 1rem;
+        }
+
+        .citations {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .citations h4 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .citation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .citation-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: var(--color-bg);
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .citation-item:hover {
+            background: var(--color-accent-light);
+        }
+
+        .citation-item span:first-child {
+            color: var(--color-text);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .citation-item .category-pill {
+            font-size: 0.65rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--color-border);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            color: var(--color-text-tertiary);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            main {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 3rem 0 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .search-wrapper {
+                flex-direction: column;
+            }
+
+            .search-btn {
+                width: 100%;
+            }
+
+            .ai-section {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* Smooth animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero, .search-section, .features, .ai-section {
+            animation: fadeInUp 0.6s var(--ease-out) backwards;
+        }
+
+        .search-section { animation-delay: 0.1s; }
+        .features { animation-delay: 0.2s; }
+        .ai-section { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo">Rulecraft</a>
+            <div class="nav-links">
+                <a href="/rules">Rules</a>
+                <a href="/search">Search</a>
+                <a href="/scenario">Ask AI</a>
+                <a href="#">Bookmarks</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <span class="hero-badge">D&D 2024 Edition</span>
+            <h1>Rules at your fingertips</h1>
+            <p>The complete D&D 2024 ruleset with AI-powered scenario analysis. Search, bookmark, and get instant rulings.</p>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <form class="search-wrapper">
+                    <input type="text" class="search-input" placeholder="Search rules...">
+                    <button type="submit" class="search-btn">Search</button>
+                </form>
+                <div class="search-hints">
+                    <span class="search-hint">Combat</span>
+                    <span class="search-hint">Spellcasting</span>
+                    <span class="search-hint">Conditions</span>
+                    <span class="search-hint">Ability Checks</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Cards -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">📖</div>
+                <h3>Rules Library</h3>
+                <p>Browse the complete D&D 2024 ruleset with full-text and semantic search capabilities.</p>
+                <a href="/rules" class="feature-link">Browse rules →</a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <h3>AI Rulings</h3>
+                <p>Ask complex scenario questions and get AI-powered answers with rule citations.</p>
+                <a href="/scenario" class="feature-link">Ask a question →</a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📌</div>
+                <h3>Bookmarks</h3>
+                <p>Save frequently used rules for quick access during your gaming sessions.</p>
+                <a href="#" class="feature-link">View bookmarks →</a>
+            </div>
+        </section>
+
+        <!-- Rules List -->
+        <div class="section-header">
+            <h2>Recent Rules</h2>
+            <a href="/rules">View all →</a>
+        </div>
+
+        <div class="rules-list">
+            <article class="rule-item">
+                <div class="rule-content">
+                    <h4><a href="#">Actions in Combat</a></h4>
+                    <div class="rule-meta">
+                        <span class="category-pill">Combat</span>
+                        <span>Chapter 9</span>
+                    </div>
+                </div>
+                <div class="rule-actions">
+                    <button class="action-btn" title="Bookmark">☆</button>
+                    <button class="action-btn" title="Share">↗</button>
+                </div>
+            </article>
+
+            <article class="rule-item">
+                <div class="rule-content">
+                    <h4><a href="#">Concentration</a></h4>
+                    <div class="rule-meta">
+                        <span class="category-pill">Spellcasting</span>
+                        <span>Chapter 7</span>
+                    </div>
+                </div>
+                <div class="rule-actions">
+                    <button class="action-btn" title="Bookmark">★</button>
+                    <button class="action-btn" title="Share">↗</button>
+                </div>
+            </article>
+
+            <article class="rule-item">
+                <div class="rule-content">
+                    <h4><a href="#">The Grappled Condition</a></h4>
+                    <div class="rule-meta">
+                        <span class="category-pill">Conditions</span>
+                        <span>Appendix A</span>
+                    </div>
+                </div>
+                <div class="rule-actions">
+                    <button class="action-btn" title="Bookmark">☆</button>
+                    <button class="action-btn" title="Share">↗</button>
+                </div>
+            </article>
+        </div>
+
+        <!-- AI Section -->
+        <section class="ai-section">
+            <div class="ai-header">
+                <h2>Ask a Question</h2>
+                <p>Describe your scenario and get an AI-powered ruling with citations</p>
+            </div>
+
+            <form class="ai-form">
+                <textarea placeholder="E.g., Can a rogue use Sneak Attack when attacking with a thrown dagger?"></textarea>
+                <button type="submit" class="ai-submit">Get Ruling</button>
+            </form>
+
+            <!-- Example Response -->
+            <div class="ai-response">
+                <div class="response-question">
+                    <label>Your Question</label>
+                    <p>Can a rogue use Sneak Attack when attacking with a thrown dagger?</p>
+                </div>
+
+                <div class="response-answer">
+                    <p>Yes, a rogue can absolutely use Sneak Attack when throwing a dagger.</p>
+
+                    <p>Sneak Attack requires a finesse or ranged weapon. The dagger has the finesse property, and this property is retained when the weapon is thrown. The thrown property allows you to make a ranged attack, but it doesn't change the weapon's other properties.</p>
+
+                    <p>As long as the standard Sneak Attack conditions are met (advantage on the attack, or an enemy of the target within 5 feet and no disadvantage), the extra damage applies.</p>
+                </div>
+
+                <div class="citations">
+                    <h4>Referenced Rules</h4>
+                    <div class="citation-list">
+                        <a href="#" class="citation-item">
+                            <span>Sneak Attack</span>
+                            <span class="category-pill">Class Feature</span>
+                        </a>
+                        <a href="#" class="citation-item">
+                            <span>Weapon Properties: Finesse</span>
+                            <span class="category-pill">Equipment</span>
+                        </a>
+                        <a href="#" class="citation-item">
+                            <span>Ranged Attacks</span>
+                            <span class="category-pill">Combat</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>Rulecraft — D&D 2024 Rules Lookup & AI Ruling Assistant</p>
+        </div>
+    </footer>
+</body>
+</html>

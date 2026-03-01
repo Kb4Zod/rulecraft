@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rulecraft Design Mockups - Choose Your Style</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0b;
+            --surface: #141416;
+            --border: #2a2a2e;
+            --text: #fafafa;
+            --text-dim: #888;
+            --accent: #6366f1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 3rem 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        header h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+        }
+
+        .designs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .design-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .design-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-preview {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-preview iframe {
+            width: 200%;
+            height: 200%;
+            transform: scale(0.5);
+            transform-origin: top left;
+            border: none;
+            pointer-events: none;
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 60%, var(--surface));
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-number {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-content h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-content p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #4f46e5;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-dim);
+        }
+
+        /* Comparison Table */
+        .comparison-section {
+            margin-top: 4rem;
+            padding: 2rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .comparison-section h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: var(--text-dim);
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td:first-child {
+            font-weight: 500;
+        }
+
+        .stars {
+            color: #fbbf24;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        @media (max-width: 900px) {
+            .designs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .comparison-section {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Rulecraft Design Concepts</h1>
+            <p>5 distinctly different design directions for the D&D 2024 Rules Lookup application</p>
+        </header>
+
+        <!-- Final Direction -->
+        <section
+            style="margin-bottom: 3rem; padding: 2rem; background: linear-gradient(135deg, #1a1a2e, #16213e); border: 2px solid #6366f1; border-radius: 16px;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                <span
+                    style="background: #22c55e; color: #0a0a0b; font-size: 0.75rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px;">Final
+                    Direction</span>
+                <h2 style="font-family: 'DM Serif Display', serif; font-size: 1.5rem; font-weight: 400;">Ancient
+                    Grimoire (Refined)</h2>
+            </div>
+            <p style="color: #888; margin-bottom: 1.5rem;">Combines the medieval manuscript aesthetic from
+                <strong>Ancient Grimoire</strong> (parchment, burgundy, gold, blackletter fonts, wax seals) with the
+                generous, comfortable spacing from <strong>Illustrated Storybook</strong>.
+            </p>
+            <div style="display: flex; gap: 1rem;">
+                <a href="06-grimoire-refined.html" target="_blank"
+                    style="flex: 1; padding: 1rem; background: #6366f1; color: white; text-decoration: none; text-align: center; border-radius: 8px; font-weight: 500; transition: background 0.2s;">View
+                    Final Mockup</a>
+                <a href="01-ancient-grimoire.html" target="_blank"
+                    style="padding: 1rem 1.5rem; border: 1px solid #2a2a2e; color: #888; text-decoration: none; border-radius: 8px; transition: all 0.2s;">Compare:
+                    Original Grimoire</a>
+                <a href="05-illustrated-storybook.html" target="_blank"
+                    style="padding: 1rem 1.5rem; border: 1px solid #2a2a2e; color: #888; text-decoration: none; border-radius: 8px; transition: all 0.2s;">Compare:
+                    Storybook Spacing</a>
+            </div>
+        </section>
+
+        <h2 style="font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: #888; margin-bottom: 1.5rem;">
+            Classic Design Concepts</h2>
+
+        <div class="designs-grid">
+            <!-- Ancient Grimoire -->
+            <article class="design-card">
+                <div class="card-preview">
+                    <iframe src="01-ancient-grimoire.html" loading="lazy"></iframe>
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <span class="card-number">01</span>
+                    <h2>Ancient Grimoire</h2>
+                    <p>Medieval manuscript aesthetic with parchment textures, illuminated letters, and warm candlelit
+                        colors. Rules displayed as ancient tome pages.</p>
+                    <div class="card-tags">
+                        <span class="tag">Fantasy Immersive</span>
+                        <span class="tag">High Visual Complexity</span>
+                        <span class="tag">Warm Palette</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="01-ancient-grimoire.html" class="btn btn-primary" target="_blank">View Full Mockup</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Cyberpunk Terminal -->
+            <article class="design-card">
+                <div class="card-preview">
+                    <iframe src="02-cyberpunk-terminal.html" loading="lazy"></iframe>
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <span class="card-number">02</span>
+                    <h2>Cyberpunk Terminal</h2>
+                    <p>Neon hacker interface with CRT scan lines, glitch effects, and command-line inspired layouts.
+                        Rules displayed as "data files".</p>
+                    <div class="card-tags">
+                        <span class="tag">High-Tech Contrast</span>
+                        <span class="tag">Neon Colors</span>
+                        <span class="tag">Retro-Futuristic</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="02-cyberpunk-terminal.html" class="btn btn-primary" target="_blank">View Full
+                            Mockup</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Minimalist Modern -->
+            <article class="design-card">
+                <div class="card-preview">
+                    <iframe src="03-minimalist-modern.html" loading="lazy"></iframe>
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <span class="card-number">03</span>
+                    <h2>Minimalist Modern</h2>
+                    <p>Apple-inspired clean design with refined typography, generous whitespace, and subtle
+                        interactions. Rules in elegant card layouts.</p>
+                    <div class="card-tags">
+                        <span class="tag">Clean & Professional</span>
+                        <span class="tag">High Readability</span>
+                        <span class="tag">Mobile-Friendly</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="03-minimalist-modern.html" class="btn btn-primary" target="_blank">View Full Mockup</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- War Room -->
+            <article class="design-card">
+                <div class="card-preview">
+                    <iframe src="04-war-room.html" loading="lazy"></iframe>
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <span class="card-number">04</span>
+                    <h2>Game Master's War Room</h2>
+                    <p>Tactical dashboard interface with multiple panels, status indicators, and quick-action toolbar.
+                        Built for power users.</p>
+                    <div class="card-tags">
+                        <span class="tag">Dashboard Style</span>
+                        <span class="tag">Information Dense</span>
+                        <span class="tag">Power User</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="04-war-room.html" class="btn btn-primary" target="_blank">View Full Mockup</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Illustrated Storybook -->
+            <article class="design-card">
+                <div class="card-preview">
+                    <iframe src="05-illustrated-storybook.html" loading="lazy"></iframe>
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <span class="card-number">05</span>
+                    <h2>Illustrated Storybook</h2>
+                    <p>Soft watercolor aesthetic with hand-drawn style elements and warm, inviting colors. Rules
+                        presented as friendly story entries.</p>
+                    <div class="card-tags">
+                        <span class="tag">Whimsical & Warm</span>
+                        <span class="tag">Family-Friendly</span>
+                        <span class="tag">Artistic</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="05-illustrated-storybook.html" class="btn btn-primary" target="_blank">View Full
+                            Mockup</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <h2 style="font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: #888; margin: 3rem 0 1.5rem 0;">
+            Modern Fantasy D&amp;D Concepts</h2>
+
+        <div class="designs-grid">
+            <!-- Neo Arcane -->
+            <article class="design-card">
+                <div class="card-preview">
+                    <iframe src="07-neo-arcane.html" loading="lazy"></iframe>
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <span class="card-number" style="background: #a855f7;">07</span>
+                    <h2>Neo Arcane</h2>
+                    <p>A sleek dark mode UI utilizing deep purples, electric blues, and frosted glass panels for a
+                        modern magical interface.</p>
+                    <div class="card-tags">
+                        <span class="tag">Glassmorphism</span>
+                        <span class="tag">Neon Magic</span>
+                        <span class="tag">High Modern</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="07-neo-arcane.html" class="btn btn-primary" style="background: #a855f7;"
+                            target="_blank">View Full Mockup</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Elven Glass -->
+            <article class="design-card">
+                <div class="card-preview">
+                    <iframe src="08-elven-glass.html" loading="lazy"></iframe>
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <span class="card-number" style="background: #2b7a54;">08</span>
+                    <h2>Elven Glass</h2>
+                    <p>A graceful, light theme inspired by high-elven aesthetics with deep greens, golds, and polished
+                        translucent layers.</p>
+                    <div class="card-tags">
+                        <span class="tag">Nature & Frost</span>
+                        <span class="tag">Elegant Serif</span>
+                        <span class="tag">High Legibility</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="08-elven-glass.html" class="btn btn-primary" style="background: #2b7a54;"
+                            target="_blank">View Full Mockup</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Dwarven Forge -->
+            <article class="design-card">
+                <div class="card-preview">
+                    <iframe src="09-dwarven-forge.html" loading="lazy"></iframe>
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <span class="card-number" style="background: #f59e0b;">09</span>
+                    <h2>Dwarven Forge</h2>
+                    <p>A sturdy, brutalist-inspired modern UI using deep slate grays, glowing embers, and sharp
+                        geometric layouts.</p>
+                    <div class="card-tags">
+                        <span class="tag">Industrial</span>
+                        <span class="tag">Brutalist Modern</span>
+                        <span class="tag">Rugged</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="09-dwarven-forge.html" class="btn btn-primary"
+                            style="background: #f59e0b; color: #111;" target="_blank">View Full Mockup</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Astral Plane -->
+            <article class="design-card">
+                <div class="card-preview">
+                    <iframe src="10-astral-plane.html" loading="lazy"></iframe>
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <span class="card-number" style="background: #38bdf8;">10</span>
+                    <h2>Astral Plane</h2>
+                    <p>A mysterious cosmic design utilizing deep blacks, starry backgrounds, and soft, floaty ethereal
+                        UI elements.</p>
+                    <div class="card-tags">
+                        <span class="tag">Cosmic Magic</span>
+                        <span class="tag">Ethereal Dark Mode</span>
+                        <span class="tag">Fluid UI</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="10-astral-plane.html" class="btn btn-primary" style="background: #38bdf8; color: #111;"
+                            target="_blank">View Full Mockup</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Gothic Shadow -->
+            <article class="design-card">
+                <div class="card-preview">
+                    <iframe src="11-gothic-shadow.html" loading="lazy"></iframe>
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <span class="card-number" style="background: #991b1b;">11</span>
+                    <h2>Gothic Shadow</h2>
+                    <p>A high-contrast, moody aesthetic focusing on deep crimsons and pure blacks. Brutalist and
+                        grimdark minimalist.</p>
+                    <div class="card-tags">
+                        <span class="tag">Dark Fantasy</span>
+                        <span class="tag">Minimalist</span>
+                        <span class="tag">High Contrast</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="11-gothic-shadow.html" class="btn btn-primary" style="background: #991b1b;"
+                            target="_blank">View Full Mockup</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- Comparison Table -->
+        <section class="comparison-section">
+            <h2>Quick Comparison</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Neo Arcane</th>
+                        <th>Elven Glass</th>
+                        <th>Dwarven Forge</th>
+                        <th>Astral Plane</th>
+                        <th>Gothic Shadow</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Aesthetic</td>
+                        <td>Glassmorphism</td>
+                        <td>Clean Nature</td>
+                        <td>Brutalist</td>
+                        <td>Ethereal Void</td>
+                        <td>Grimdark Minimal</td>
+                    </tr>
+                    <tr>
+                        <td>Fantasy Immersion</td>
+                        <td><span class="stars">★★★★★</span></td>
+                        <td><span class="stars">★★★★☆</span></td>
+                        <td><span class="stars">★★★★★</span></td>
+                        <td><span class="stars">★★★★☆</span></td>
+                        <td><span class="stars">★★★★★</span></td>
+                    </tr>
+                    <tr>
+                        <td>Performance/Speed</td>
+                        <td><span class="stars">★★★☆☆</span></td>
+                        <td><span class="stars">★★★★★</span></td>
+                        <td><span class="stars">★★★★☆</span></td>
+                        <td><span class="stars">★★★☆☆</span></td>
+                        <td><span class="stars">★★★★★</span></td>
+                    </tr>
+                    <tr>
+                        <td>Modern UI Feel</td>
+                        <td><span class="stars">★★★★★</span></td>
+                        <td><span class="stars">★★★★★</span></td>
+                        <td><span class="stars">★★★★☆</span></td>
+                        <td><span class="stars">★★★★★</span></td>
+                        <td><span class="stars">★★★☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td>Best For</td>
+                        <td>Tech Magician</td>
+                        <td>Graceful Scholar</td>
+                        <td>Tactical Fighter</td>
+                        <td>Planar Walker</td>
+                        <td>Grim Survivor</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer>
+            <p>Selected: <strong>Ancient Grimoire (Refined)</strong> — Grimoire aesthetic + Storybook spacing</p>
+        </footer>
+    </div>
+</body>
+
+</html>

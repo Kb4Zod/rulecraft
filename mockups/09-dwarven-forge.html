@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dwarven Forge | Rulecraft</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Montserrat:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1a1a1c;
+            --surface-dark: #111112;
+            --surface-light: #28282b;
+            --primary-amber: #f59e0b;
+            /* Ember glow */
+            --primary-red: #dc2626;
+            /* Heat */
+            --text-main: #e5e7eb;
+            --text-muted: #8a8d93;
+            --border-metal: #3f3f46;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            background-image:
+                radial-gradient(circle at 50% 120%, rgba(245, 158, 11, 0.15), transparent 60%);
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        /* Subtle textured grain effect for a stone/metal feel */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opactiy='0.02'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand {
+            font-family: 'Teko', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: var(--surface-dark);
+            border-bottom: 4px solid var(--border-metal);
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .brand {
+            font-size: 2.5rem;
+            color: var(--text-main);
+            position: relative;
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+            line-height: 1;
+        }
+
+        .brand::before {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 80%;
+            background: var(--primary-amber);
+            box-shadow: 0 0 8px var(--primary-amber);
+        }
+
+        .nav-items {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-item {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .nav-item:hover {
+            color: var(--primary-amber);
+        }
+
+        /* Main brutalist layout */
+        .layout {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 1000px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Left Panel - Control Station */
+        .control-station {
+            background: var(--surface-light);
+            border: 2px solid var(--border-metal);
+            border-radius: 4px;
+            padding: 2rem;
+            box-shadow: 8px 8px 0px var(--surface-dark);
+            height: fit-content;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary-amber);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-metal);
+            padding-bottom: 0.5rem;
+        }
+
+        .search-block {
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--surface-dark);
+            border: 2px solid var(--border-metal);
+            padding: 1rem;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-amber);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+        }
+
+        .action-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .action-item {
+            background: var(--surface-dark);
+            border: 2px solid var(--border-metal);
+            margin-bottom: 1rem;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .action-item span {
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .action-item svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-muted);
+            transition: fill 0.2s;
+        }
+
+        .action-item:hover {
+            border-color: var(--primary-amber);
+            transform: translateX(5px);
+        }
+
+        .action-item:hover svg {
+            fill: var(--primary-amber);
+        }
+
+        /* Right Panel - Massive Data Cards */
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .data-card {
+            background: var(--surface-light);
+            border: 2px solid var(--border-metal);
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Rivet details */
+        .data-card::before,
+        .data-card::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--surface-dark);
+            border: 1px solid var(--border-metal);
+            border-radius: 50%;
+        }
+
+        .data-card::before {
+            top: 10px;
+            left: 10px;
+            box-shadow: calc(100% - 20px) 0 0 -1px var(--surface-dark), calc(100% - 20px) 0 0 0 var(--border-metal);
+        }
+
+        .data-card::after {
+            bottom: 10px;
+            left: 10px;
+            box-shadow: calc(100% - 20px) 0 0 -1px var(--surface-dark), calc(100% - 20px) 0 0 0 var(--border-metal);
+        }
+
+        .data-card:hover {
+            border-color: var(--primary-amber);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.15), inset 0 0 20px rgba(245, 158, 11, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--surface-dark);
+            border: 2px solid var(--primary-amber);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-amber);
+            font-weight: 800;
+        }
+
+        .data-card h3 {
+            font-size: 2.2rem;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .data-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .btn-forge {
+            display: inline-block;
+            background: var(--primary-red);
+            color: #fff;
+            text-transform: uppercase;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            padding: 0.5rem 1.5rem;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-forge:hover {
+            background: var(--primary-amber);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+            color: var(--surface-dark);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="top-bar">
+        <div class="brand">Rulecraft</div>
+        <nav class="nav-items">
+            <a href="#" class="nav-item">Forges</a>
+            <a href="#" class="nav-item">Armories</a>
+            <a href="#" class="nav-item">Archives</a>
+        </nav>
+    </header>
+
+    <main class="layout">
+        <!-- Sidebar -->
+        <aside class="control-station">
+            <h2 class="section-title">Query Console</h2>
+            <div class="search-block">
+                <input type="text" class="search-input" placeholder="ENTER SEARCH TERM...">
+            </div>
+
+            <ul class="action-list">
+                <li class="action-item">
+                    <span>Smithing Rules</span>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                    </svg>
+                </li>
+                <li class="action-item">
+                    <span>Combat Maneuvers</span>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                    </svg>
+                </li>
+                <li class="action-item">
+                    <span>Condition Benchmarks</span>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                    </svg>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <section class="data-grid">
+            <article class="data-card">
+                <div class="card-header">
+                    <div class="card-icon">01</div>
+                    <h3>Core Mechanics</h3>
+                </div>
+                <p>The foundational anvil upon which all adventuring laws are struck. Consult this block for ability
+                    scores, proficiency scaling, and saving throws.</p>
+                <a href="#" class="btn-forge">Inspect</a>
+            </article>
+
+            <article class="data-card">
+                <div class="card-header">
+                    <div class="card-icon">02</div>
+                    <h3>Equipment & Trade</h3>
+                </div>
+                <p>Metrics for masterwork weapons, solid armor plating, magical components, and subterranean currency
+                    conversions.</p>
+                <a href="#" class="btn-forge">Inspect</a>
+            </article>
+
+            <article class="data-card">
+                <div class="card-header">
+                    <div class="card-icon">03</div>
+                    <h3>Dungeon Hazards</h3>
+                </div>
+                <p>Trap schematics, natural cave-ins, subterranean beasts, and environmental endurance checks.</p>
+                <a href="#" class="btn-forge">Inspect</a>
+            </article>
+
+            <article class="data-card">
+                <div class="card-header">
+                    <div class="card-icon">04</div>
+                    <h3>Magical Metallurgy</h3>
+                </div>
+                <p>Enchantment parameters, rune carving tables, and magical item creation times spanning the realms.</p>
+                <a href="#" class="btn-forge">Inspect</a>
+            </article>
+        </section>
+    </main>
+
+</body>
+
+</html>

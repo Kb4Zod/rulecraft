@@ -22,11 +22,17 @@ serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 
 # HTTP utilities
-tower-http = { version = "0.5", features = ["fs", "cors"] }
+tower-http = { version = "0.5", features = ["fs", "cors", "trace", "request-id"] }
+tower = "0.4"
+tower_governor = "0.4"
+governor = "0.6"
+
+# Time handling
+chrono = "0.4"
 
 # Logging
 tracing = "0.1"
-tracing-subscriber = "0.3"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 
 # Configuration
 dotenvy = "0.15"
@@ -48,6 +54,7 @@ glob = "0.3"
 
 # CLI argument parsing
 clap = { version = "4", features = ["derive"] }
+pulldown-cmark = "0.13.1"
 
 [dev-dependencies]
 tokio-test = "0.4"

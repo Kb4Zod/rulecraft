@@ -279,3 +279,12 @@ pub async fn upsert_rule(pool: &SqlitePool, rule: &Rule) -> Result<bool, sqlx::E
         Ok(true)
     }
 }
+
+/// Delete a rule by its ID
+pub async fn delete_rule(pool: &SqlitePool, id: &str) -> Result<(), sqlx::Error> {
+    sqlx::query("DELETE FROM rules WHERE id = ?")
+        .bind(id)
+        .execute(pool)
+        .await?;
+    Ok(())
+}

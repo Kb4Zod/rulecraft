@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RULECRAFT // TERMINAL v2024.1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0a0a0f;
+            --color-bg-panel: #0d0d14;
+            --color-bg-input: #06060a;
+            --color-cyan: #00ffff;
+            --color-cyan-dim: #00aaaa;
+            --color-magenta: #ff00ff;
+            --color-magenta-dim: #aa00aa;
+            --color-green: #00ff41;
+            --color-green-dim: #00aa2a;
+            --color-yellow: #ffff00;
+            --color-orange: #ff8800;
+            --color-red: #ff3333;
+            --color-text: #e0e0e0;
+            --color-text-dim: #666677;
+            --color-border: #1a1a2e;
+            --color-border-glow: #00ffff33;
+            --font-display: 'Orbitron', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-terminal: 'Share Tech Mono', monospace;
+            --scanline-opacity: 0.03;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-mono);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* CRT Scanline effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 255, var(--scanline-opacity)) 2px,
+                rgba(0, 255, 255, var(--scanline-opacity)) 4px
+            );
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Screen flicker */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            pointer-events: none;
+            z-index: 9998;
+            animation: flicker 0.15s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.97; }
+            50% { opacity: 1; }
+            100% { opacity: 0.98; }
+        }
+
+        /* Vignette effect */
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+            pointer-events: none;
+            z-index: 9997;
+        }
+
+        /* Header */
+        header {
+            background: var(--color-bg-panel);
+            border-bottom: 1px solid var(--color-cyan);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 0 20px var(--color-border-glow);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-cyan);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow:
+                0 0 10px var(--color-cyan),
+                0 0 20px var(--color-cyan),
+                0 0 40px var(--color-cyan);
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow:
+                    0 0 10px var(--color-cyan),
+                    0 0 20px var(--color-cyan),
+                    0 0 40px var(--color-cyan);
+            }
+            to {
+                text-shadow:
+                    0 0 5px var(--color-cyan),
+                    0 0 10px var(--color-cyan),
+                    0 0 20px var(--color-cyan);
+            }
+        }
+
+        .logo-version {
+            font-size: 0.6rem;
+            color: var(--color-text-dim);
+            display: block;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-links a {
+            font-family: var(--font-terminal);
+            color: var(--color-text-dim);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--color-border);
+            background: var(--color-bg-input);
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::before {
+            content: '>';
+            margin-right: 0.5rem;
+            color: var(--color-green);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-cyan);
+            border-color: var(--color-cyan);
+            box-shadow: 0 0 10px var(--color-border-glow);
+        }
+
+        .nav-links a:hover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,255,255,0.1), transparent);
+            animation: shine 0.5s forwards;
+        }
+
+        @keyframes shine {
+            to { left: 100%; }
+        }
+
+        /* Main content */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section - Terminal Boot */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .boot-sequence {
+            font-family: var(--font-terminal);
+            color: var(--color-green);
+            font-size: 0.8rem;
+            margin-bottom: 2rem;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .boot-line {
+            opacity: 0;
+            animation: bootIn 0.1s forwards;
+        }
+
+        .boot-line:nth-child(1) { animation-delay: 0.1s; }
+        .boot-line:nth-child(2) { animation-delay: 0.3s; }
+        .boot-line:nth-child(3) { animation-delay: 0.5s; }
+        .boot-line:nth-child(4) { animation-delay: 0.7s; }
+
+        @keyframes bootIn {
+            to { opacity: 1; }
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--color-magenta);
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            text-shadow:
+                0 0 20px var(--color-magenta),
+                0 0 40px var(--color-magenta),
+                4px 4px 0 var(--color-cyan);
+            margin-bottom: 0.5rem;
+            animation: glitchTitle 3s infinite;
+        }
+
+        @keyframes glitchTitle {
+            0%, 90%, 100% {
+                transform: translate(0);
+                text-shadow:
+                    0 0 20px var(--color-magenta),
+                    0 0 40px var(--color-magenta),
+                    4px 4px 0 var(--color-cyan);
+            }
+            92% {
+                transform: translate(-2px, 1px);
+                text-shadow:
+                    0 0 20px var(--color-magenta),
+                    0 0 40px var(--color-magenta),
+                    -4px 4px 0 var(--color-cyan);
+            }
+            94% {
+                transform: translate(2px, -1px);
+                text-shadow:
+                    0 0 20px var(--color-magenta),
+                    0 0 40px var(--color-magenta),
+                    4px -4px 0 var(--color-cyan);
+            }
+        }
+
+        .subtitle {
+            font-family: var(--font-terminal);
+            font-size: 1rem;
+            color: var(--color-text-dim);
+            letter-spacing: 4px;
+        }
+
+        .subtitle span {
+            color: var(--color-cyan);
+        }
+
+        /* Status bar */
+        .status-bar {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: var(--color-text-dim);
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.online { background: var(--color-green); }
+        .status-dot.warning { background: var(--color-yellow); }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 5px currentColor; }
+            50% { opacity: 0.5; box-shadow: 0 0 2px currentColor; }
+        }
+
+        /* Search Section - Command Line */
+        .search-section {
+            margin: 3rem 0;
+        }
+
+        .terminal-window {
+            background: var(--color-bg-panel);
+            border: 1px solid var(--color-cyan);
+            border-radius: 4px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 0 30px var(--color-border-glow);
+        }
+
+        .terminal-header {
+            background: var(--color-bg-input);
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: var(--color-red); }
+        .terminal-dot.yellow { background: var(--color-yellow); }
+        .terminal-dot.green { background: var(--color-green); }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--color-text-dim);
+        }
+
+        .terminal-body {
+            padding: 1.5rem;
+        }
+
+        .command-line {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .prompt {
+            color: var(--color-green);
+            font-family: var(--font-terminal);
+            white-space: nowrap;
+        }
+
+        .command-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--color-text);
+            font-family: var(--font-terminal);
+            font-size: 1rem;
+            outline: none;
+            caret-color: var(--color-cyan);
+        }
+
+        .cursor {
+            width: 10px;
+            height: 20px;
+            background: var(--color-cyan);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, var(--color-cyan), var(--color-magenta));
+            border: none;
+            padding: 0.5rem 1.5rem;
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            color: var(--color-bg);
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            box-shadow: 0 0 20px var(--color-cyan);
+            transform: scale(1.05);
+        }
+
+        /* Feature Cards - Data Panels */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--color-bg-panel);
+            border: 1px solid var(--color-border);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-cyan), var(--color-magenta));
+        }
+
+        .feature-card:hover {
+            border-color: var(--color-cyan);
+            box-shadow: 0 0 20px var(--color-border-glow);
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            background: var(--color-bg-input);
+            padding: 1rem;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h3 {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--color-cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .card-id {
+            font-size: 0.7rem;
+            color: var(--color-text-dim);
+            font-family: var(--font-terminal);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body p {
+            color: var(--color-text-dim);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid var(--color-cyan);
+            color: var(--color-cyan);
+            text-decoration: none;
+            font-family: var(--font-terminal);
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '[ ';
+        }
+
+        .btn::after {
+            content: ' ]';
+        }
+
+        .btn:hover {
+            background: var(--color-cyan);
+            color: var(--color-bg);
+            box-shadow: 0 0 10px var(--color-cyan);
+        }
+
+        /* Rules List - Data Files */
+        .section-header {
+            margin: 3rem 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--color-magenta);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .section-header h2::before {
+            content: '// ';
+            color: var(--color-text-dim);
+        }
+
+        .file-count {
+            font-size: 0.75rem;
+            color: var(--color-text-dim);
+        }
+
+        .rules-list {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .rule-entry {
+            background: var(--color-bg-panel);
+            border: 1px solid var(--color-border);
+            padding: 1rem 1.5rem;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .rule-entry:hover {
+            border-color: var(--color-green);
+            background: var(--color-bg-input);
+        }
+
+        .file-icon {
+            color: var(--color-yellow);
+            font-family: var(--font-terminal);
+            font-size: 0.8rem;
+        }
+
+        .rule-info h4 {
+            color: var(--color-text);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .rule-info h4 a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .rule-entry:hover .rule-info h4 a {
+            color: var(--color-green);
+        }
+
+        .rule-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: var(--color-text-dim);
+        }
+
+        .category-tag {
+            color: var(--color-cyan);
+            padding: 0.2rem 0.5rem;
+            background: rgba(0, 255, 255, 0.1);
+            font-family: var(--font-terminal);
+            font-size: 0.7rem;
+        }
+
+        .rule-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            width: 30px;
+            height: 30px;
+            background: var(--color-bg-input);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-dim);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.8rem;
+        }
+
+        .action-btn:hover {
+            border-color: var(--color-cyan);
+            color: var(--color-cyan);
+        }
+
+        /* AI Analysis Section */
+        .ai-section {
+            margin-top: 4rem;
+            background: var(--color-bg-panel);
+            border: 1px solid var(--color-magenta);
+            position: relative;
+        }
+
+        .ai-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-magenta), var(--color-cyan), var(--color-magenta));
+            animation: borderGlow 3s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .ai-header {
+            background: var(--color-bg-input);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-header h2 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--color-magenta);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .ai-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--color-green);
+        }
+
+        .ai-body {
+            padding: 2rem;
+        }
+
+        .ai-form textarea {
+            width: 100%;
+            min-height: 120px;
+            background: var(--color-bg-input);
+            border: 1px solid var(--color-border);
+            padding: 1rem;
+            color: var(--color-text);
+            font-family: var(--font-terminal);
+            font-size: 0.9rem;
+            resize: vertical;
+            margin-bottom: 1rem;
+        }
+
+        .ai-form textarea::placeholder {
+            color: var(--color-text-dim);
+        }
+
+        .ai-form textarea:focus {
+            outline: none;
+            border-color: var(--color-magenta);
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.2);
+        }
+
+        .ai-submit {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--color-magenta), var(--color-cyan));
+            border: none;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--color-bg);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .ai-submit:hover {
+            box-shadow: 0 0 30px var(--color-magenta);
+            transform: scale(1.02);
+        }
+
+        /* AI Response */
+        .ai-response {
+            margin-top: 2rem;
+            border: 1px solid var(--color-border);
+            background: var(--color-bg-input);
+        }
+
+        .response-header {
+            background: var(--color-bg-panel);
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .response-header span {
+            font-size: 0.75rem;
+            color: var(--color-green);
+            font-family: var(--font-terminal);
+        }
+
+        .confidence-meter {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.7rem;
+            color: var(--color-text-dim);
+        }
+
+        .confidence-bar {
+            width: 60px;
+            height: 6px;
+            background: var(--color-border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            width: 87%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-green), var(--color-cyan));
+        }
+
+        .response-body {
+            padding: 1.5rem;
+        }
+
+        .query-echo {
+            padding: 1rem;
+            background: var(--color-bg-panel);
+            border-left: 2px solid var(--color-yellow);
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--color-text-dim);
+        }
+
+        .query-echo::before {
+            content: '> QUERY: ';
+            color: var(--color-yellow);
+        }
+
+        .analysis-output {
+            font-family: var(--font-terminal);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .analysis-output p {
+            margin-bottom: 1rem;
+        }
+
+        .typing-effect {
+            border-right: 2px solid var(--color-cyan);
+            animation: typing 0.5s step-end infinite alternate;
+        }
+
+        @keyframes typing {
+            50% { border-color: transparent; }
+        }
+
+        .citations {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed var(--color-border);
+        }
+
+        .citations h4 {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            color: var(--color-cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .citation-link {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            background: var(--color-bg-panel);
+            border: 1px solid var(--color-border);
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .citation-link:hover {
+            border-color: var(--color-cyan);
+        }
+
+        .citation-link span:first-child {
+            color: var(--color-text);
+            font-size: 0.85rem;
+        }
+
+        .citation-link .category-tag {
+            font-size: 0.65rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-bg-panel);
+            border-top: 1px solid var(--color-border);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--color-text-dim);
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            color: var(--color-cyan);
+            letter-spacing: 2px;
+        }
+
+        /* Loading animation for matrix effect */
+        .matrix-loader {
+            font-family: var(--font-terminal);
+            color: var(--color-green);
+            font-size: 0.7rem;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+                letter-spacing: 4px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .boot-sequence {
+                display: none;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Glitch text effect for hover */
+        .glitch-text:hover {
+            animation: glitch 0.3s infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="vignette"></div>
+
+    <header>
+        <nav>
+            <a href="/" class="logo">
+                RULECRAFT
+                <span class="logo-version">TERMINAL v2024.1</span>
+            </a>
+            <div class="nav-links">
+                <a href="/rules">DATABASE</a>
+                <a href="/search">QUERY</a>
+                <a href="/scenario">ANALYZE</a>
+                <a href="#">CACHE</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="boot-sequence">
+                <div class="boot-line">[BOOT] Initializing RULECRAFT system...</div>
+                <div class="boot-line">[LOAD] D&D 2024 ruleset loaded: 847 entries</div>
+                <div class="boot-line">[CONN] AI analysis module: ONLINE</div>
+                <div class="boot-line">[READY] Terminal ready for input_</div>
+            </div>
+
+            <h1 class="glitch-text">RULECRAFT</h1>
+            <p class="subtitle">D&D <span>2024</span> // RULES DATABASE + AI ANALYSIS</p>
+
+            <div class="status-bar">
+                <div class="status-item">
+                    <span class="status-dot online"></span>
+                    SYSTEM ONLINE
+                </div>
+                <div class="status-item">
+                    <span class="status-dot online"></span>
+                    847 RULES INDEXED
+                </div>
+                <div class="status-item">
+                    <span class="status-dot warning"></span>
+                    AI READY
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-title">rulecraft@terminal:~/query</span>
+                </div>
+                <div class="terminal-body">
+                    <form class="command-line">
+                        <span class="prompt">rulecraft@query:~$</span>
+                        <input type="text" class="command-input" placeholder="search --rules">
+                        <button type="submit" class="search-btn">EXEC</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Cards -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="card-header">
+                    <h3>RULES.DB</h3>
+                    <span class="card-id">MOD-001</span>
+                </div>
+                <div class="card-body">
+                    <p>Access the complete D&D 2024 ruleset. Full-text and semantic search enabled.</p>
+                    <a href="/rules" class="btn">ACCESS</a>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-header">
+                    <h3>AI.ANALYZE</h3>
+                    <span class="card-id">MOD-002</span>
+                </div>
+                <div class="card-body">
+                    <p>Submit scenarios for AI-powered analysis. Returns rulings with source citations.</p>
+                    <a href="/scenario" class="btn">INIT</a>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-header">
+                    <h3>CACHE.LOCAL</h3>
+                    <span class="card-id">MOD-003</span>
+                </div>
+                <div class="card-body">
+                    <p>Bookmarked rules stored locally. Offline-first architecture enabled.</p>
+                    <a href="#" class="btn">VIEW</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rules List -->
+        <section class="section-header">
+            <h2>RECENT DATA FILES</h2>
+            <span class="file-count">Showing 3 of 847</span>
+        </section>
+
+        <div class="rules-list">
+            <article class="rule-entry">
+                <span class="file-icon">📄</span>
+                <div class="rule-info">
+                    <h4><a href="#">actions_in_combat.rule</a></h4>
+                    <div class="rule-meta">
+                        <span class="category-tag">COMBAT</span>
+                        <span>Modified: 2024-01-15</span>
+                        <span>Size: 2.4kb</span>
+                    </div>
+                </div>
+                <div class="rule-actions">
+                    <button class="action-btn">☆</button>
+                    <button class="action-btn">↗</button>
+                </div>
+            </article>
+
+            <article class="rule-entry">
+                <span class="file-icon">📄</span>
+                <div class="rule-info">
+                    <h4><a href="#">concentration.rule</a></h4>
+                    <div class="rule-meta">
+                        <span class="category-tag">SPELLCASTING</span>
+                        <span>Modified: 2024-01-14</span>
+                        <span>Size: 1.8kb</span>
+                    </div>
+                </div>
+                <div class="rule-actions">
+                    <button class="action-btn">★</button>
+                    <button class="action-btn">↗</button>
+                </div>
+            </article>
+
+            <article class="rule-entry">
+                <span class="file-icon">📄</span>
+                <div class="rule-info">
+                    <h4><a href="#">grappled_condition.rule</a></h4>
+                    <div class="rule-meta">
+                        <span class="category-tag">CONDITIONS</span>
+                        <span>Modified: 2024-01-12</span>
+                        <span>Size: 1.2kb</span>
+                    </div>
+                </div>
+                <div class="rule-actions">
+                    <button class="action-btn">☆</button>
+                    <button class="action-btn">↗</button>
+                </div>
+            </article>
+        </div>
+
+        <!-- AI Section -->
+        <section class="ai-section">
+            <div class="ai-header">
+                <h2>SYSTEM ANALYSIS</h2>
+                <div class="ai-status">
+                    <span class="status-dot online"></span>
+                    AI MODULE ONLINE
+                </div>
+            </div>
+
+            <div class="ai-body">
+                <form class="ai-form">
+                    <textarea placeholder="// Enter scenario for analysis...
+// Example: Can a rogue use Sneak Attack when attacking with a thrown dagger?"></textarea>
+                    <button type="submit" class="ai-submit">▶ EXECUTE ANALYSIS</button>
+                </form>
+
+                <!-- Example Response -->
+                <div class="ai-response">
+                    <div class="response-header">
+                        <span>[ ANALYSIS COMPLETE ]</span>
+                        <div class="confidence-meter">
+                            CONFIDENCE:
+                            <div class="confidence-bar">
+                                <div class="confidence-fill"></div>
+                            </div>
+                            87%
+                        </div>
+                    </div>
+
+                    <div class="response-body">
+                        <div class="query-echo">
+                            Can a rogue use Sneak Attack when attacking with a thrown dagger?
+                        </div>
+
+                        <div class="analysis-output">
+                            <p><span style="color: var(--color-green);">[RESULT]</span> AFFIRMATIVE</p>
+
+                            <p>Sneak Attack requires a finesse OR ranged weapon. The dagger has the finesse property (PHB 149). When thrown, the attack uses the ranged attack rules but the weapon retains its properties.</p>
+
+                            <p>Requirements for Sneak Attack activation:</p>
+                            <p style="color: var(--color-cyan);">
+                                → Finesse/ranged weapon: ✓ SATISFIED<br>
+                                → Advantage OR ally within 5ft: REQUIRED<br>
+                                → No disadvantage: REQUIRED
+                            </p>
+
+                            <p><span style="color: var(--color-yellow);">[NOTE]</span> The thrown property does not negate finesse. All standard Sneak Attack conditions must still be met.</p>
+                        </div>
+
+                        <div class="citations">
+                            <h4>SOURCE FILES REFERENCED</h4>
+                            <a href="#" class="citation-link">
+                                <span>sneak_attack.rule</span>
+                                <span class="category-tag">CLASS</span>
+                            </a>
+                            <a href="#" class="citation-link">
+                                <span>weapon_properties.rule</span>
+                                <span class="category-tag">EQUIPMENT</span>
+                            </a>
+                            <a href="#" class="citation-link">
+                                <span>ranged_attacks.rule</span>
+                                <span class="category-tag">COMBAT</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <span class="footer-logo">RULECRAFT // TERMINAL</span>
+            <span>D&D 2024 Rules Database + AI Analysis System</span>
+            <span class="matrix-loader">SYS_READY</span>
+        </div>
+    </footer>
+
+    <script>
+        // Typing effect for input placeholder
+        const input = document.querySelector('.command-input');
+        const placeholders = ['search --rules "combat"', 'find --category spellcasting', 'query --recent', 'help --commands'];
+        let currentPlaceholder = 0;
+
+        setInterval(() => {
+            currentPlaceholder = (currentPlaceholder + 1) % placeholders.length;
+            input.placeholder = placeholders[currentPlaceholder];
+        }, 3000);
+    </script>
+</body>
+</html>

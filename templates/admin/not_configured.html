@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - Rulecraft{% endblock %}
+
+{% block content %}
+<div class="admin-login-wrapper">
+    <div class="admin-login-card">
+        <div class="admin-ornament">⚠</div>
+        <h1>Admin <span>Unavailable</span></h1>
+        <p class="lead">The admin panel is not configured. Set the <code>ADMIN_API_KEY</code> environment variable and
+            restart the server to enable admin access.</p>
+        <a href="/" class="btn btn-secondary">Return Home</a>
+    </div>
+</div>
+{% endblock %}

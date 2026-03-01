@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="page-header">
-    <h1>Seek the Texts</h1>
+    <h1>Seek the <span>Texts</span></h1>
     {% if !query.is_empty() %}
     <p>Revelations for "{{ query }}"</p>
     {% else %}
@@ -12,14 +12,10 @@
     {% endif %}
 </div>
 
-<div class="divider">
-    <span class="divider-icon">&#9884;</span>
-</div>
-
 <section class="search-section">
-    <form action="/search" method="get" class="search-form">
-        <input type="text" name="q" value="{{ query }}" placeholder="Search the ancient texts..." class="search-input">
-        <button type="submit" class="search-btn">Seek</button>
+    <form action="/search" method="get" class="search-wrapper" style="margin: 0 auto;">
+        <input type="text" name="q" value="{{ query }}" placeholder="Search the archives..." class="search-input">
+        <button type="submit" class="search-btn">⚲</button>
     </form>
 </section>
 
@@ -34,7 +30,6 @@
     </div>
     {% else %}
     <div class="section-header">
-        <span class="section-icon">&#128214;</span>
         <h2>Discovered Passages</h2>
     </div>
     <p class="results-count">Found {{ results.len() }} inscription(s)</p>
@@ -46,7 +41,5 @@
     {% endif %}
 </div>
 
-<div class="divider">
-    <span class="divider-icon">&#10087;</span>
-</div>
+
 {% endblock %}

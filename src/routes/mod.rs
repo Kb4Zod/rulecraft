@@ -1,5 +1,4 @@
 use axum::{
-    extract::State,
     response::Html,
     routing::get,
     Router,
@@ -7,16 +6,19 @@ use axum::{
 use askama::Template;
 use sqlx::SqlitePool;
 
+use crate::middleware::RateLimitState;
 use crate::Config;
 
 pub mod rules;
 pub mod search;
 pub mod scenario;
+pub mod admin;
 
 #[derive(Clone)]
 pub struct AppState {
     pub db: SqlitePool,
     pub config: Config,
+    pub rate_limiter: RateLimitState,
 }
 
 #[derive(Template)]
@@ -39,6 +41,7 @@ pub fn router() -> Router<AppState> {
         .merge(rules::router())
         .merge(search::router())
         .merge(scenario::router())
+        .merge(admin::router())
 }
 
 pub async fn index() -> Html<String> {

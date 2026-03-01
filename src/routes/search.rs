@@ -1,13 +1,16 @@
 use axum::{
-    extract::{Query, State},
-    response::{Html, Json},
+    extract::{ConnectInfo, Query, State},
+    http::{HeaderMap, StatusCode},
+    response::{Html, IntoResponse, Json},
     routing::get,
     Router,
 };
 use askama::Template;
 use serde::{Deserialize, Serialize};
+use std::net::SocketAddr;
 
 use super::AppState;
+use crate::middleware::extract_client_ip;
 use crate::models::Rule;
 
 #[derive(Deserialize)]
@@ -39,9 +42,30 @@ pub fn router() -> Router<AppState> {
 
 async fn search_rules(
     State(state): State<AppState>,
+    headers: HeaderMap,
+    ConnectInfo(addr): ConnectInfo<SocketAddr>,
     Query(params): Query<SearchQuery>,
-) -> Html<String> {
+) -> impl IntoResponse {
+    // Build a minimal request to extract IP
+    let mut req = axum::http::Request::new(());
+    *req.headers_mut() = headers;
+    req.extensions_mut().insert(ConnectInfo(addr));
+    let client_ip = extract_client_ip(&req);
+
+    // Check rate limit
+    if let Err(e) = state.rate_limiter.check_rate_limit(client_ip, "/search", "GET").await {
+        tracing::warn!("Search rate limit exceeded for IP {}", client_ip);
+        return e.into_response();
+    }
+
     let query = params.q.unwrap_or_default();
+
+    // Validate query length
+    let query = if query.len() > 500 {
+        query[..500].to_string()
+    } else {
+        query
+    };
 
     let results = if query.is_empty() {
         vec![]
@@ -56,18 +80,42 @@ async fn search_rules(
         query,
         results,
     };
-    Html(template.render().unwrap_or_else(|_| "Error rendering template".to_string()))
+    Html(template.render().unwrap_or_else(|_| "Error rendering template".to_string())).into_response()
 }
 
 async fn api_search(
     State(state): State<AppState>,
+    headers: HeaderMap,
+    ConnectInfo(addr): ConnectInfo<SocketAddr>,
     Query(params): Query<SearchQuery>,
-) -> Json<Vec<SearchSuggestion>> {
+) -> impl IntoResponse {
+    // Build a minimal request to extract IP
+    let mut req = axum::http::Request::new(());
+    *req.headers_mut() = headers;
+    req.extensions_mut().insert(ConnectInfo(addr));
+    let client_ip = extract_client_ip(&req);
+
+    // Check rate limit
+    if let Err(_) = state.rate_limiter.check_rate_limit(client_ip, "/api/search", "GET").await {
+        tracing::warn!("API search rate limit exceeded for IP {}", client_ip);
+        return (
+            StatusCode::TOO_MANY_REQUESTS,
+            Json(serde_json::json!({"error": "Rate limit exceeded"})),
+        ).into_response();
+    }
+
     let query = params.q.unwrap_or_default();
 
+    // Validate query length
     if query.len() < 2 {
-        return Json(vec![]);
+        return Json(Vec::<SearchSuggestion>::new()).into_response();
     }
+
+    let query = if query.len() > 500 {
+        query[..500].to_string()
+    } else {
+        query
+    };
 
     // Use fuzzy search for suggestions
     let results = crate::db::fuzzy_search(&state.db, &query, 8)
@@ -77,11 +125,7 @@ async fn api_search(
     let suggestions: Vec<SearchSuggestion> = results
         .into_iter()
         .map(|rule| {
-            let excerpt = if rule.content.len() > 100 {
-                format!("{}...", &rule.content[..100])
-            } else {
-                rule.content.clone()
-            };
+            let excerpt = rule.excerpt(100);
             SearchSuggestion {
                 id: rule.id,
                 title: rule.title,
@@ -91,5 +135,5 @@ async fn api_search(
         })
         .collect();
 
-    Json(suggestions)
+    Json(suggestions).into_response()
 }

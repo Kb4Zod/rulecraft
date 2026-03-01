@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - Rulecraft{% endblock %}
+
+{% block content %}
+<div class="admin-header">
+    <h1>Archive <span>Management</span></h1>
+    <div class="admin-header-actions">
+        <a href="/admin/rules/new" class="btn btn-primary">✦ Add New Rule</a>
+        <a href="/admin/logout" class="btn btn-secondary">Logout</a>
+    </div>
+</div>
+
+{% if let Some(msg) = message %}
+<div class="admin-success">{{ msg }}</div>
+{% endif %}
+
+<div class="admin-stats">
+    <div class="stat-card">
+        <span class="stat-number">{{ rules.len() }}</span>
+        <span class="stat-label">Total Rules</span>
+    </div>
+</div>
+
+<div class="admin-table-wrapper">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Source</th>
+                <th>Page</th>
+                <th class="actions-col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rule in rules %}
+            <tr>
+                <td>
+                    <a href="/rules/{{ rule.id }}" class="admin-rule-link">{{ rule.title }}</a>
+                    <span class="admin-rule-id">{{ rule.id }}</span>
+                </td>
+                <td><span class="category-badge">{{ rule.category }}</span></td>
+                <td class="source-cell">{{ rule.source }}</td>
+                <td>{% if let Some(p) = rule.page %}{{ p }}{% else %}—{% endif %}</td>
+                <td class="actions-col">
+                    <a href="/admin/rules/{{ rule.id }}/edit" class="btn-sm btn-edit" title="Edit">✎</a>
+                    <form action="/admin/rules/{{ rule.id }}/delete" method="post" style="display:inline"
+                        onsubmit="return confirm('Delete this rule? This cannot be undone.')">
+                        <button type="submit" class="btn-sm btn-delete" title="Delete">✕</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

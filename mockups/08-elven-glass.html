@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elven Glass | Rulecraft</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f6f8f6;
+            --text-dark: #1f2924;
+            --text-light: #495e54;
+            --accent-green: #2b7a54;
+            --accent-gold: #cba85a;
+            --surface: rgba(255, 255, 255, 0.85);
+            --border: rgba(43, 122, 84, 0.15);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            background-image:
+                radial-gradient(circle at top right, rgba(203, 168, 90, 0.1), transparent 50%),
+                radial-gradient(circle at bottom left, rgba(43, 122, 84, 0.1), transparent 50%);
+            font-family: 'Lato', sans-serif;
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+        }
+
+        /* Nav */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5rem;
+        }
+
+        .brand {
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .brand::after {
+            content: '✧';
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            position: absolute;
+            top: 0;
+            right: -1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-green);
+        }
+
+        /* Decorative Line under nav */
+        .nav-border {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 0 5rem;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .content-left {
+            max-width: 600px;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        h1 span {
+            color: var(--accent-green);
+            font-style: italic;
+        }
+
+        p.lead {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        /* Search */
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.5rem 2rem;
+            padding-right: 4rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            /* Slightly sharp, elegant edge */
+            font-family: 'Lato', sans-serif;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(203, 168, 90, 0.1);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            padding: 0 2rem;
+            background: transparent;
+            border: none;
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .search-wrapper:hover .search-btn {
+            transform: scale(1.1);
+        }
+
+        /* Cards Layout */
+        .content-right {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            position: relative;
+        }
+
+        /* Decorative Leaf/Swirl */
+        .bg-ornament {
+            position: absolute;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40rem;
+            color: var(--accent-green);
+            opacity: 0.03;
+            z-index: -1;
+            font-family: 'Cormorant Garamond', serif;
+            pointer-events: none;
+        }
+
+        .menu-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--accent-green);
+            transform: scaleY(0);
+            transition: transform 0.4s ease;
+            transform-origin: bottom;
+        }
+
+        .menu-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 35px rgba(43, 122, 84, 0.08);
+            border-color: rgba(43, 122, 84, 0.3);
+        }
+
+        .menu-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .card-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-style: italic;
+            color: var(--accent-gold);
+            opacity: 0.7;
+            min-width: 40px;
+        }
+
+        .card-text h3 {
+            font-size: 1.8rem;
+            margin: 0 0 0.5rem 0;
+            color: var(--text-dark);
+        }
+
+        .card-text p {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Floating interaction */
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .content-left {
+                text-align: center;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="#" class="brand">Rulecraft</a>
+        <div class="nav-links">
+            <a href="#">Tomes</a>
+            <a href="#">Lore</a>
+            <a href="#">Guidance</a>
+        </div>
+    </nav>
+    <div class="nav-border"></div>
+
+    <div class="container">
+        <div class="content-left">
+            <h1>Wisdom of the <span>Ancients</span></h1>
+            <p class="lead">Delve into the refined rules, mechanics, and elegant philosophies governing the realms of
+                imagination.</p>
+
+            <div class="search-wrapper">
+                <input type="text" class="search-input" placeholder="Seek knowledge...">
+                <button class="search-btn">⚲</button>
+            </div>
+        </div>
+
+        <div class="content-right float">
+            <span class="bg-ornament">❦</span>
+
+            <a href="#" class="menu-card">
+                <div class="card-number">I.</div>
+                <div class="card-text">
+                    <h3>The Lexicon</h3>
+                    <p>Core rules and regulations structured with utmost clarity. Character pathways and physical domain
+                        rulings.</p>
+                </div>
+            </a>
+
+            <a href="#" class="menu-card">
+                <div class="card-number">II.</div>
+                <div class="card-text">
+                    <h3>Weave Sight</h3>
+                    <p>The compendium of spells and incantations. Observe the flow of magic and its effects on the
+                        material plane.</p>
+                </div>
+            </a>
+
+            <a href="#" class="menu-card">
+                <div class="card-number">III.</div>
+                <div class="card-text">
+                    <h3>Arbiter's Tools</h3>
+                    <p>Refined instruments for the Game Master to adjudicate fate, balance conflict, and structure the
+                        narrative.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</body>
+
+</html>

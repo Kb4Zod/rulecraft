@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - Rulecraft{% endblock %}
+
+{% block content %}
+<div class="admin-login-wrapper">
+    <div class="admin-login-card">
+        <div class="admin-ornament">⚙</div>
+        <h1>Keeper's <span>Gate</span></h1>
+        <p class="lead">Enter the admin key to manage the sacred archives.</p>
+
+        {% if let Some(err) = error %}
+        <div class="admin-error">{{ err }}</div>
+        {% endif %}
+
+        <form action="/admin/login" method="post" class="admin-login-form">
+            <div class="form-group">
+                <label for="admin_key">Admin Key</label>
+                <input type="password" id="admin_key" name="admin_key" placeholder="Enter thy key..." required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%">Unlock the Archives</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -3,51 +3,44 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<section class="hero">
-    <span class="hero-icon">&#128220;</span>
-    <h1>Rulecraft</h1>
-    <p class="subtitle">A Compendium of Arcane Laws &amp; Divine Wisdom for the Modern Adventurer</p>
-</section>
+<div class="split-layout">
+    <div class="content-left">
+        <h1>Wisdom of the <span>Ancients</span></h1>
+        <p class="lead">Delve into the refined rules, mechanics, and elegant philosophies governing the realms of
+            imagination.</p>
 
-<div class="divider">
-    <span class="divider-icon">&#9884;</span>
-</div>
-
-<!-- Search Section -->
-<section class="search-section">
-    <div class="wax-seal">R</div>
-    <form action="/search" method="get" class="search-form">
-        <input type="text" name="q" placeholder="Search the ancient texts..." class="search-input">
-        <button type="submit" class="search-btn">Seek</button>
-    </form>
-</section>
-
-<!-- Feature Cards -->
-<section class="features">
-    <div class="feature-card">
-        <span class="feature-icon">&#128218;</span>
-        <h3>Sacred Tomes</h3>
-        <p>Peruse the collected wisdom of dungeon and dragon, bound in mystic knowledge.</p>
-        <a href="/rules" class="feature-link">Enter the Archives</a>
+        <form action="/search" method="get" class="search-wrapper">
+            <input type="text" name="q" class="search-input" placeholder="Seek knowledge...">
+            <button type="submit" class="search-btn">⚲</button>
+        </form>
     </div>
 
-    <div class="feature-card">
-        <span class="feature-icon">&#128302;</span>
-        <h3>The Oracle</h3>
-        <p>Seek counsel from the all-knowing Oracle for judgments on matters arcane.</p>
-        <a href="/scenario" class="feature-link">Consult the Oracle</a>
-    </div>
+    <div class="content-right float">
+        <span class="bg-ornament">❦</span>
 
-    <div class="feature-card">
-        <span class="feature-icon">&#128367;</span>
-        <h3>Bookmarks</h3>
-        <p>Mark passages most vital to thy quests with enchanted bookmarks.</p>
-        <a href="#" onclick="showBookmarks()" class="feature-link">View Thy Marks</a>
-    </div>
-</section>
+        <a href="/rules" class="menu-card">
+            <div class="card-number">I.</div>
+            <div class="card-text">
+                <h3>Sacred Tomes</h3>
+                <p>Peruse the collected wisdom of dungeon and dragon, bound in mystic knowledge.</p>
+            </div>
+        </a>
 
-<div class="divider">
-    <span class="divider-icon">&#9753;</span>
+        <a href="/scenario" class="menu-card">
+            <div class="card-number">II.</div>
+            <div class="card-text">
+                <h3>The Oracle</h3>
+                <p>Seek counsel from the all-knowing Oracle for judgments on matters arcane.</p>
+            </div>
+        </a>
+
+        <a href="#" onclick="showBookmarks()" class="menu-card">
+            <div class="card-number">III.</div>
+            <div class="card-text">
+                <h3>Bookmarks</h3>
+                <p>Mark passages most vital to thy quests with enchanted bookmarks.</p>
+            </div>
+        </a>
+    </div>
 </div>
 {% endblock %}

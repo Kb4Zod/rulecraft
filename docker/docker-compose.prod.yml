@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  rulecraft:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: rulecraft
+    # Only bind to localhost - Caddy will proxy
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      - DATABASE_URL=sqlite:./data/rulecraft.db
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-sonnet-4-20250514}
+      - ADMIN_API_KEY=${ADMIN_API_KEY}
+      - AI_RATE_LIMIT_PER_HOUR=${AI_RATE_LIMIT_PER_HOUR:-5}
+      - SEARCH_RATE_LIMIT_PER_MINUTE=${SEARCH_RATE_LIMIT_PER_MINUTE:-30}
+      - RUST_LOG=rulecraft=info,tower_http=info
+    volumes:
+      - rulecraft_data:/app/data
+    restart: unless-stopped
+    # Resource limits for security
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+    # Security options
+    security_opt:
+      - no-new-privileges:true
+    # Read-only root filesystem where possible
+    read_only: true
+    tmpfs:
+      - /tmp:size=64M,mode=1777
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: rulecraft-caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    restart: unless-stopped
+    depends_on:
+      - rulecraft
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  rulecraft_data:
+    driver: local
+  caddy_data:
+    driver: local
+  caddy_config:
+    driver: local
+
+networks:
+  default:
+    driver: bridge

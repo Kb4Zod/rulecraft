@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astral Plane | Rulecraft</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@1,600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-void: #030005;
+            --text-starlight: #e2e8f0;
+            --text-deep: #64748b;
+            /* Ethereal gradients */
+            --gradient-nebula: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(56, 189, 248, 0.4));
+            --glow: rgba(139, 92, 246, 0.3);
+            --card-bg: rgba(15, 23, 42, 0.4);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-void);
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-starlight);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Starry parallax background trick */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background:
+                radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0, 0, 0, 0)),
+                radial-gradient(1px 1px at 40px 70px, rgba(255, 255, 255, 0.8), rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 90px 40px, rgba(255, 255, 255, 0.9), rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0, 0, 0, 0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: drift 100s linear infinite;
+        }
+
+        /* Nebula orb */
+        .nebula {
+            position: fixed;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, rgba(3, 0, 5, 0) 70%);
+            filter: blur(80px);
+            z-index: -1;
+            pointer-events: none;
+            animation: pulse-nebula 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes drift {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 200px 200px;
+            }
+        }
+
+        @keyframes pulse-nebula {
+            0% {
+                transform: translateX(-50%) scale(1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateX(-50%) scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        h1,
+        h2,
+        .brand {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        /* Nav */
+        nav {
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 2rem;
+            background: var(--gradient-nebula);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-starlight);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            transition: text-shadow 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            text-shadow: 0 0 10px #38bdf8;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            margin: 5rem 0;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin: 0 0 1rem 0;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: var(--text-deep);
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+            line-height: 1.6;
+        }
+
+        /* Cosmic Search Bar */
+        .search-wrapper {
+            max-width: 600px;
+            margin: 0 auto 5rem auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.2rem 2rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            color: var(--text-starlight);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 300;
+            text-align: center;
+            outline: none;
+            transition: all 0.4s ease;
+            box-sizing: border-box;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .search-input:focus {
+            border-color: rgba(139, 92, 246, 0.5);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 40px var(--glow), inset 0 0 20px rgba(139, 92, 246, 0.1);
+        }
+
+        /* Floating Constellation Cards */
+        .constellation-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            padding: 0 2rem 5rem 2rem;
+        }
+
+        .node-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .node-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.2), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .node-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(139, 92, 246, 0.1);
+        }
+
+        .node-card:hover::before {
+            opacity: 1;
+        }
+
+        .mystic-sigil {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-nebula);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gentle-spin 20s linear infinite;
+        }
+
+        @keyframes gentle-spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .node-card h2 {
+            font-size: 1.8rem;
+            margin: 0 0 1rem 0;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .node-card p {
+            color: var(--text-deep);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="stars"></div>
+    <div class="nebula"></div>
+
+    <nav>
+        <a href="#" class="brand">Rulecraft</a>
+        <div class="nav-links">
+            <a href="#">Phenomena</a>
+            <a href="#">Entities</a>
+            <a href="#">Realms</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="hero">
+            <h1>The Cosmic Archive</h1>
+            <p>Drift through the infinite sea of mechanics. Consult the vast constellations of spells, creatures, and
+                the fundamental rules binding the multiverse.</p>
+        </div>
+
+        <div class="search-wrapper">
+            <input type="text" class="search-input" placeholder="Gaze into the void...">
+        </div>
+
+        <div class="constellation-grid">
+            <a href="#" class="node-card">
+                <div class="mystic-sigil">✦</div>
+                <h2>Fundamental Laws</h2>
+                <p>The core physics of adventuring, reality manipulation checks, gravity, and planar movement.</p>
+            </a>
+
+            <a href="#" class="node-card">
+                <div class="mystic-sigil">✧</div>
+                <h2>Eldritch Lore</h2>
+                <p>A compendium of magics structured from cantrips to universe-altering incantations.</p>
+            </a>
+
+            <a href="#" class="node-card">
+                <div class="mystic-sigil">❂</div>
+                <h2>Astral Bestiary</h2>
+                <p>Statistics, weaknesses, and habitats of entities traversing the multi-dimensional void.</p>
+            </a>
+        </div>
+    </main>
+
+</body>
+
+</html>

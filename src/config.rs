@@ -6,6 +6,9 @@ pub struct Config {
     pub claude_api_key: Option<String>,
     pub claude_model: String,
     pub port: u16,
+    pub admin_api_key: Option<String>,
+    pub ai_rate_limit_per_hour: u32,
+    pub search_rate_limit_per_minute: u32,
 }
 
 impl Config {
@@ -20,6 +23,15 @@ impl Config {
                 .ok()
                 .and_then(|p| p.parse().ok())
                 .unwrap_or(3000),
+            admin_api_key: env::var("ADMIN_API_KEY").ok(),
+            ai_rate_limit_per_hour: env::var("AI_RATE_LIMIT_PER_HOUR")
+                .ok()
+                .and_then(|v| v.parse().ok())
+                .unwrap_or(5),
+            search_rate_limit_per_minute: env::var("SEARCH_RATE_LIMIT_PER_MINUTE")
+                .ok()
+                .and_then(|v| v.parse().ok())
+                .unwrap_or(30),
         }
     }
 }

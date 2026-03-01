@@ -1,8 +1,8 @@
 # Rulecraft Dockerfile
 # Multi-stage build for Rust + HTMX application
 
-# Build stage
-FROM rust:latest AS builder
+# Build stage - pinned version for reproducibility
+FROM rust:1.82-bookworm AS builder
 
 WORKDIR /app
 

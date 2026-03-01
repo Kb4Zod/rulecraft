@@ -7,7 +7,7 @@
         <a href="/rules/{{ rule.id }}">{{ rule.title }}</a>
     </h3>
     <p class="rule-excerpt">
-        {{ rule.content|truncate(150) }}
+        {{ rule.excerpt(150) }}
     </p>
     <div class="rule-card-footer">
         <span class="source">{{ rule.source }}</span>

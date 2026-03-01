@@ -4,27 +4,20 @@
 
 {% block content %}
 <div class="page-header">
-    <h1>The Oracle</h1>
+    <h1>The <span>Oracle</span></h1>
     <p>Pose thy query and receive wisdom with citations most scholarly</p>
 </div>
 
-<div class="divider">
-    <span class="divider-icon">&#9884;</span>
-</div>
-
 <section class="scenario-form-section">
-    <form action="/scenario/ask" method="post" class="scenario-form" hx-post="/scenario/ask" hx-target="#scenario-response" hx-swap="innerHTML">
+    <form action="/scenario/ask" method="post" class="scenario-form" hx-post="/scenario/ask"
+        hx-target="#scenario-response" hx-swap="innerHTML">
         <div class="form-group">
             <label for="question">Thy Query</label>
-            <textarea
-                id="question"
-                name="question"
-                rows="4"
+            <textarea id="question" name="question" rows="4"
                 placeholder="Inscribe thy scenario here... e.g., 'What befalls a wizard who attempts to cast whilst grappled?'"
-                required
-            ></textarea>
+                required></textarea>
         </div>
-        <button type="submit" class="oracle-submit">&#10022; Seek Divine Judgment &#10022;</button>
+        <button type="submit" class="oracle-submit">Seek Divine Judgment</button>
     </form>
 </section>
 
@@ -42,7 +35,5 @@
     </ul>
 </section>
 
-<div class="divider">
-    <span class="divider-icon">&#10087;</span>
-</div>
+
 {% endblock %}

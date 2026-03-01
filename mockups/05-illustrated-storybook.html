@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rulecraft - Your D&D Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito:ital,wght@0,400;0,500;0,600;0,700&family=Pangolin&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-cream: #fdf8f0;
+            --color-parchment: #f5ebe0;
+            --color-sage: #9caf88;
+            --color-sage-dark: #7d9169;
+            --color-sage-light: #d4e4c9;
+            --color-forest: #4a6741;
+            --color-gold: #d4a574;
+            --color-gold-light: #e8c9a0;
+            --color-brown: #6b5344;
+            --color-brown-light: #8b7355;
+            --color-sky: #a8c5d9;
+            --color-sky-light: #d0e3ef;
+            --color-rose: #d4a5a5;
+            --color-text: #3d3426;
+            --color-text-light: #5c513f;
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Nunito', sans-serif;
+            --font-handwritten: 'Pangolin', cursive;
+            --shadow-soft: 0 4px 20px rgba(107, 83, 68, 0.1);
+            --shadow-card: 0 2px 12px rgba(107, 83, 68, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-cream);
+            color: var(--color-text);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* Watercolor wash background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(212, 228, 201, 0.4) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 30%, rgba(168, 197, 217, 0.3) 0%, transparent 40%),
+                radial-gradient(ellipse at 60% 80%, rgba(212, 165, 116, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 10% 90%, rgba(212, 165, 165, 0.2) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(180deg, var(--color-cream) 0%, rgba(253, 248, 240, 0.95) 100%);
+            border-bottom: 2px solid var(--color-sage-light);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-forest);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-family: var(--font-handwritten);
+            color: var(--color-brown);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-sage);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-forest);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Main content */
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Decorative hand-drawn border */
+        .decorative-border {
+            border: 3px solid var(--color-sage-light);
+            border-radius: 20px;
+            position: relative;
+            padding: 3rem;
+            margin: 2rem 0;
+            background: rgba(253, 248, 240, 0.8);
+        }
+
+        .decorative-border::before {
+            content: '~';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-cream);
+            padding: 0 1rem;
+            font-size: 1.5rem;
+            color: var(--color-sage);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .hero-illustration {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: var(--color-forest);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--color-gold);
+            font-style: italic;
+        }
+
+        .hero p {
+            font-family: var(--font-handwritten);
+            font-size: 1.3rem;
+            color: var(--color-brown-light);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Vine/leaf divider */
+        .leaf-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+            gap: 1rem;
+            color: var(--color-sage);
+        }
+
+        .leaf-divider::before,
+        .leaf-divider::after {
+            content: '';
+            height: 2px;
+            width: 60px;
+            background: linear-gradient(90deg, transparent, var(--color-sage-light), transparent);
+        }
+
+        /* Search Section */
+        .search-section {
+            margin: 2rem 0;
+        }
+
+        .search-form {
+            background: white;
+            border: 2px solid var(--color-sage-light);
+            border-radius: 50px;
+            padding: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s;
+        }
+
+        .search-form:focus-within {
+            border-color: var(--color-sage);
+            box-shadow: 0 4px 30px rgba(156, 175, 136, 0.2);
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 0.75rem 1.25rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--color-text);
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--color-brown-light);
+            font-style: italic;
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, var(--color-sage), var(--color-sage-dark));
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-family: var(--font-handwritten);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(156, 175, 136, 0.4);
+        }
+
+        /* Feature Cards */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            border: 2px solid var(--color-parchment);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-sage), var(--color-gold), var(--color-sky));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-card);
+            border-color: var(--color-sage-light);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-forest);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-link {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: var(--color-sage-light);
+            color: var(--color-forest);
+            text-decoration: none;
+            border-radius: 20px;
+            font-family: var(--font-handwritten);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .feature-link:hover {
+            background: var(--color-sage);
+            color: white;
+        }
+
+        /* Section Header with illustration */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 3rem 0 1.5rem;
+        }
+
+        .section-icon {
+            font-size: 2rem;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-forest);
+        }
+
+        /* Rules List - Story entries */
+        .rules-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .rule-entry {
+            background: white;
+            border: 2px solid var(--color-parchment);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .rule-entry:hover {
+            border-color: var(--color-sage);
+            background: rgba(212, 228, 201, 0.1);
+            transform: translateX(5px);
+        }
+
+        .rule-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .rule-content {
+            flex: 1;
+        }
+
+        .rule-content h4 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 0.25rem;
+        }
+
+        .rule-content h4 a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .rule-entry:hover .rule-content h4 a {
+            color: var(--color-forest);
+        }
+
+        .rule-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--color-brown-light);
+        }
+
+        .category-badge {
+            background: var(--color-sage-light);
+            color: var(--color-forest);
+            padding: 0.15rem 0.6rem;
+            border-radius: 10px;
+            font-family: var(--font-handwritten);
+            font-size: 0.8rem;
+        }
+
+        .bookmark-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: all 0.3s;
+        }
+
+        .rule-entry:hover .bookmark-btn {
+            opacity: 1;
+        }
+
+        .bookmark-btn:hover {
+            transform: scale(1.2);
+        }
+
+        /* AI Oracle Section - Scroll styling */
+        .oracle-section {
+            margin: 3rem 0;
+            background: linear-gradient(135deg, var(--color-parchment) 0%, var(--color-cream) 100%);
+            border: 3px solid var(--color-gold-light);
+            border-radius: 30px;
+            padding: 3rem;
+            position: relative;
+        }
+
+        .oracle-section::before,
+        .oracle-section::after {
+            content: '✦';
+            position: absolute;
+            font-size: 1.5rem;
+            color: var(--color-gold);
+        }
+
+        .oracle-section::before {
+            top: 1rem;
+            left: 1.5rem;
+        }
+
+        .oracle-section::after {
+            bottom: 1rem;
+            right: 1.5rem;
+        }
+
+        .oracle-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .oracle-header h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--color-brown);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .oracle-header p {
+            font-family: var(--font-handwritten);
+            color: var(--color-brown-light);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .oracle-form {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .oracle-form textarea {
+            width: 100%;
+            min-height: 120px;
+            border: 2px solid var(--color-gold-light);
+            border-radius: 16px;
+            padding: 1.25rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            resize: vertical;
+            background: white;
+            color: var(--color-text);
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .oracle-form textarea::placeholder {
+            color: var(--color-brown-light);
+            font-style: italic;
+        }
+
+        .oracle-form textarea:focus {
+            border-color: var(--color-gold);
+            box-shadow: 0 4px 20px rgba(212, 165, 116, 0.2);
+        }
+
+        .oracle-submit {
+            display: block;
+            width: 100%;
+            margin-top: 1rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--color-gold), var(--color-gold-light));
+            color: var(--color-brown);
+            border: none;
+            border-radius: 50px;
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .oracle-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 25px rgba(212, 165, 116, 0.4);
+        }
+
+        /* Oracle Response - Speech bubble/scroll */
+        .oracle-response {
+            margin-top: 2rem;
+            background: white;
+            border: 2px solid var(--color-sage-light);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .oracle-response::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 30px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-left: 2px solid var(--color-sage-light);
+            border-top: 2px solid var(--color-sage-light);
+            transform: rotate(45deg);
+        }
+
+        .response-question {
+            background: var(--color-sky-light);
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .response-question label {
+            font-family: var(--font-handwritten);
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .response-question p {
+            font-style: italic;
+            color: var(--color-text);
+        }
+
+        .response-answer {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: var(--color-text);
+        }
+
+        .response-answer p {
+            margin-bottom: 1rem;
+        }
+
+        .response-answer p:first-of-type::first-letter {
+            font-size: 2.5rem;
+            float: left;
+            line-height: 1;
+            padding-right: 0.5rem;
+            color: var(--color-forest);
+            font-weight: 600;
+        }
+
+        .citations {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px dashed var(--color-sage-light);
+        }
+
+        .citations h4 {
+            font-family: var(--font-handwritten);
+            font-size: 1rem;
+            color: var(--color-brown-light);
+            margin-bottom: 0.75rem;
+        }
+
+        .citation-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .citation-tag {
+            background: var(--color-sage-light);
+            color: var(--color-forest);
+            padding: 0.35rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .citation-tag:hover {
+            background: var(--color-sage);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-parchment);
+            border-top: 3px solid var(--color-sage-light);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-illustration {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-text {
+            font-family: var(--font-handwritten);
+            color: var(--color-brown-light);
+            font-size: 1.1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .decorative-border {
+                padding: 2rem 1.5rem;
+            }
+
+            .oracle-section {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* Gentle animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero, .features, .rules-list, .oracle-section {
+            animation: fadeIn 0.8s ease-out backwards;
+        }
+
+        .features { animation-delay: 0.1s; }
+        .rules-list { animation-delay: 0.2s; }
+        .oracle-section { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo">
+                <span class="logo-icon">📖</span>
+                Rulecraft
+            </a>
+            <div class="nav-links">
+                <a href="/rules">Rules</a>
+                <a href="/search">Search</a>
+                <a href="/scenario">Ask</a>
+                <a href="#">Bookmarks</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-illustration">🐉</div>
+            <h1>Your D&D <span>Adventure</span> Guide</h1>
+            <p>Discover rules, get answers, and keep your game flowing smoothly</p>
+        </section>
+
+        <div class="leaf-divider">🌿</div>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <form class="search-form">
+                <input type="text" class="search-input" placeholder="What would you like to know?">
+                <button type="submit" class="search-btn">Search ✨</button>
+            </form>
+        </section>
+
+        <!-- Feature Cards -->
+        <section class="features">
+            <div class="feature-card">
+                <span class="feature-icon">📚</span>
+                <h3>Rules Library</h3>
+                <p>Browse through all the D&D 2024 rules, organized and easy to find</p>
+                <a href="/rules" class="feature-link">Explore →</a>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🔮</span>
+                <h3>Ask the Oracle</h3>
+                <p>Describe any scenario and get helpful rulings with page references</p>
+                <a href="/scenario" class="feature-link">Ask Now →</a>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🌟</span>
+                <h3>Your Favorites</h3>
+                <p>Save the rules you use most for quick access during your games</p>
+                <a href="#" class="feature-link">View →</a>
+            </div>
+        </section>
+
+        <!-- Rules List -->
+        <div class="section-header">
+            <span class="section-icon">📜</span>
+            <h2>Popular Rules</h2>
+        </div>
+
+        <div class="rules-list">
+            <article class="rule-entry">
+                <span class="rule-icon">⚔️</span>
+                <div class="rule-content">
+                    <h4><a href="#">Actions in Combat</a></h4>
+                    <div class="rule-meta">
+                        <span class="category-badge">Combat</span>
+                        <span>From Chapter 9</span>
+                    </div>
+                </div>
+                <button class="bookmark-btn">☆</button>
+            </article>
+
+            <article class="rule-entry">
+                <span class="rule-icon">✨</span>
+                <div class="rule-content">
+                    <h4><a href="#">Concentration</a></h4>
+                    <div class="rule-meta">
+                        <span class="category-badge">Spellcasting</span>
+                        <span>From Chapter 7</span>
+                    </div>
+                </div>
+                <button class="bookmark-btn">★</button>
+            </article>
+
+            <article class="rule-entry">
+                <span class="rule-icon">🤝</span>
+                <div class="rule-content">
+                    <h4><a href="#">The Grappled Condition</a></h4>
+                    <div class="rule-meta">
+                        <span class="category-badge">Conditions</span>
+                        <span>From Appendix A</span>
+                    </div>
+                </div>
+                <button class="bookmark-btn">☆</button>
+            </article>
+        </div>
+
+        <div class="leaf-divider">🍃</div>
+
+        <!-- Oracle Section -->
+        <section class="oracle-section">
+            <div class="oracle-header">
+                <h2>🔮 The Oracle</h2>
+                <p>Ask your question and receive wisdom from the ancient tomes</p>
+            </div>
+
+            <form class="oracle-form">
+                <textarea placeholder="Tell me about your situation... For example: 'Can a rogue use Sneak Attack when throwing a dagger?'"></textarea>
+                <button type="submit" class="oracle-submit">Seek Guidance ✨</button>
+            </form>
+
+            <!-- Example Response -->
+            <div class="oracle-response">
+                <div class="response-question">
+                    <label>Your question:</label>
+                    <p>Can a rogue use Sneak Attack when attacking with a thrown dagger?</p>
+                </div>
+
+                <div class="response-answer">
+                    <p>Yes, dear adventurer! A rogue can absolutely use their Sneak Attack when throwing a dagger at their foes.</p>
+
+                    <p>Here's why this works: Sneak Attack requires either a finesse weapon or a ranged weapon. The humble dagger has the finesse property, which it keeps even when thrown through the air. The thrown property simply lets you make a ranged attack with it - it doesn't take away its other qualities!</p>
+
+                    <p>Just remember that you'll still need either advantage on your attack roll, or have a friend standing next to your target (within 5 feet) to add those lovely extra damage dice.</p>
+                </div>
+
+                <div class="citations">
+                    <h4>📖 Referenced from these rules:</h4>
+                    <div class="citation-list">
+                        <a href="#" class="citation-tag">
+                            <span>🗡️</span> Sneak Attack
+                        </a>
+                        <a href="#" class="citation-tag">
+                            <span>⚔️</span> Weapon Properties
+                        </a>
+                        <a href="#" class="citation-tag">
+                            <span>🎯</span> Ranged Attacks
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-illustration">🏰 📖 🐲</div>
+            <p class="footer-text">Rulecraft ~ Your friendly D&D 2024 companion</p>
+        </div>
+    </footer>
+</body>
+</html>
