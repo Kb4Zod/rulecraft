@@ -1,0 +1,11 @@
+# Add Spell and Equipment Categories
+
+- [x] Investigate existing models and schema for `Category`
+- [x] Update database schema/migrations if Category is an enum
+- [x] Update backend models (`src/models/` or wherever rules are parsed) to accept `Spells` and `Equipment` categories
+- [x] Update data import logic to support the new categories mapping
+- [x] Update search queries and backend logic to filter by `Spells` and `Equipment`
+- [x] Fix `import_rules` to auto-create DB file (use `init_pool` instead of raw `connect`)
+- [x] Update frontend UI (templates) to display and allow searching for these categories
+- [x] Add category filter tabs to rules list page (`/rules?category=Spells`)
+- [x] Verify the application runs, data imports correctly, and search works for the new categories

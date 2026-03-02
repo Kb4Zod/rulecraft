@@ -1,0 +1,73 @@
+# Spells & Equipment Categories — Progress Report
+
+## Final Status: COMPLETE ✅
+
+All tasks finished and verified. Spells and Equipment categories are fully functional in search, browsing, and category filtering.
+
+---
+
+## What Was Done
+
+| Item | Status |
+|------|--------|
+| Investigated category architecture (free-text string, no enum) | ✅ Done |
+| `equipment.yaml` — already existed, 14 Equipment rules | ✅ Pre-existing |
+| `spells.yaml` — created with Fireball & Magic Missile | ✅ Created |
+| Fixed `import_rules` to auto-create DB file via `init_pool` | ✅ Fixed |
+| Rebuilt database from scratch with all 134 rules | ✅ Done |
+| Added fuzzy-search fallback to `routes/search.rs` | ✅ Applied |
+| Added category filter tabs to rules list page | ✅ Applied |
+| Added CSS for category filter UI | ✅ Applied |
+| All searches verified (Fireball, Magic Missile, Longsword, Plate) | ✅ Passing |
+| Category filtering verified (Spells: 2, Equipment: 14, All: 134) | ✅ Passing |
+
+---
+
+## Issues Encountered & Resolved
+
+### 1. Fireball / Magic Missile — Not Searchable (RESOLVED)
+**Symptom:** Searching for "Fireball" returned zero results via both FTS and fuzzy API.
+
+**Root Cause:** Two issues compounded:
+1. The Docker container (prod compose) was still running on port 3000 with its own separate DB containing only 10 seed rules. Curl requests hit the Docker container instead of the native server.
+2. The original DB had been corrupted by running the importer while the server held a WAL write lock.
+
+**Fix:**
+- Stopped the Docker container
+- Deleted the old DB file
+- Fixed `import_rules` to use `rulecraft::db::init_pool()` (auto-creates DB file)
+- Ran the importer from scratch → 134 rules inserted including 2 Spells
+- Started native server on port 3999 to avoid Docker port conflicts
+
+### 2. import_rules Can't Create DB File (RESOLVED)
+**Symptom:** After deleting the corrupted DB, `import_rules` failed with "unable to open database file".
+
+**Root Cause:** `import_rules` used `SqlitePoolOptions::new().connect()` which requires the file to already exist. The server's `init_pool` function creates the file automatically, but the importer didn't use it.
+
+**Fix:** Changed `import_rules.rs` line 169 to use `rulecraft::db::init_pool(&database_url)` instead of raw `SqlitePoolOptions`.
+
+### 3. No Category Filtering on Rules Page (RESOLVED)
+**Symptom:** The rules list page showed all rules with no way to filter by category.
+
+**Fix:** Added `?category=` query parameter support to the `/rules` route, category filter tab bar to `list.html`, and pill-button CSS styling.
+
+---
+
+## Verification Results (port 3999)
+
+| Test | Result |
+|------|--------|
+| `GET /api/search?q=Fireball` | ✅ Returns spell with "Spells" category |
+| `GET /api/search?q=Magic+Missile` | ✅ Returns spell with "Spells" category |
+| `GET /api/search?q=Longsword` | ✅ Returns "Martial Weapons" with "Equipment" category |
+| `GET /api/search?q=Plate` | ✅ Returns Heavy Armor and Medium Armor |
+| `GET /search?q=Fireball` (HTML) | ✅ "Found 1 inscription(s)" with Spells badge |
+| `GET /rules?category=Spells` | ✅ 2 tomes displayed |
+| `GET /rules?category=Equipment` | ✅ 14 tomes displayed |
+| `GET /rules` (all) | ✅ 134 tomes, 9 categories |
+
+---
+
+## Port Convention (going forward)
+- **Local testing:** port 3999 (`PORT=3999 cargo run --bin rulecraft`)
+- **Docker:** port 3000 (as configured in `docker-compose.yml`)
