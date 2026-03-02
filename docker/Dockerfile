@@ -2,7 +2,7 @@
 # Multi-stage build for Rust + HTMX application
 
 # Build stage - pinned version for reproducibility
-FROM rust:1.82-bookworm AS builder
+FROM rust:1.85-bookworm AS builder
 
 WORKDIR /app
 
@@ -12,17 +12,27 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy manifests
-COPY Cargo.toml ./
+# Copy manifests first for dependency caching
+COPY Cargo.toml Cargo.lock ./
 
-# Copy full source for build
+# Create dummy source to pre-build dependencies
+# This layer is cached until Cargo.toml or Cargo.lock changes
+RUN mkdir -p src/bin && \
+    echo "fn main() {}" > src/main.rs && \
+    echo "" > src/lib.rs && \
+    echo "fn main() {}" > src/bin/import_rules.rs && \
+    cargo build --release && \
+    rm -rf src
+
+# Copy full source and assets for build
 COPY src ./src
 COPY templates ./templates
 COPY static ./static
 COPY migrations ./migrations
+COPY data/rules ./rules
 
-# Build release binary
-RUN cargo build --release
+# Rebuild with real source (dependencies are cached)
+RUN touch src/main.rs src/lib.rs && cargo build --release
 
 # Runtime stage
 FROM debian:bookworm-slim AS runtime
@@ -39,20 +49,25 @@ RUN apt-get update && apt-get install -y \
 # Create non-root user
 RUN useradd -m -u 1000 rulecraft
 
-# Copy binary and assets
+# Copy binaries and assets
 COPY --from=builder /app/target/release/rulecraft /app/rulecraft
+COPY --from=builder /app/target/release/import_rules /app/import_rules
 COPY --from=builder /app/templates /app/templates
 COPY --from=builder /app/static /app/static
 COPY --from=builder /app/migrations /app/migrations
+COPY --from=builder /app/rules /app/rules
 
-# Create data directory
+# Create data directory for SQLite (volume mount point)
 RUN mkdir -p /app/data && chown -R rulecraft:rulecraft /app
 
 USER rulecraft
 
-# Set environment
+# Set environment defaults
 ENV DATABASE_URL=sqlite:./data/rulecraft.db
 ENV PORT=3000
+ENV RUST_LOG=rulecraft=info,tower_http=info
+ENV AI_RATE_LIMIT_PER_HOUR=5
+ENV SEARCH_RATE_LIMIT_PER_MINUTE=30
 
 EXPOSE 3000
 
