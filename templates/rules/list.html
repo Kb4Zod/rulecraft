@@ -15,8 +15,20 @@
     </form>
 </div>
 
+<div class="category-filters">
+    <a href="/rules" class="category-filter{% if active_category.is_empty() %} active{% endif %}">All</a>
+    {% for cat in categories %}
+    <a href="/rules?category={{ cat.name }}" class="category-filter{% if cat.active %} active{% endif %}">{{ cat.name }}</a>
+    {% endfor %}
+</div>
+
 <div class="section-header">
-    <h2>Recent Inscriptions</h2>
+    {% if active_category.is_empty() %}
+    <h2>All Inscriptions</h2>
+    {% else %}
+    <h2>{{ active_category }}</h2>
+    {% endif %}
+    <p class="results-count">{{ rules.len() }} tome(s)</p>
 </div>
 
 <div class="rules-list">

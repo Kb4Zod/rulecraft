@@ -162,14 +162,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         return Ok(());
     }
 
-    // Connect to database
+    // Connect to database (auto-creates file if missing)
     println!();
     println!("Connecting to database...");
 
-    let pool = sqlx::sqlite::SqlitePoolOptions::new()
-        .max_connections(1)
-        .connect(&database_url)
-        .await?;
+    let pool = rulecraft::db::init_pool(&database_url).await?;
 
     // Run migrations to ensure schema exists
     rulecraft::db::run_migrations(&pool).await?;

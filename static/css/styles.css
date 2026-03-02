@@ -479,6 +479,41 @@ mark {
     border: 1px solid var(--border);
 }
 
+/* Category Filters */
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.category-filter {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-light);
+    background: var(--surface-solid);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.category-filter:hover {
+    color: var(--accent-green);
+    border-color: var(--accent-green);
+    background: rgba(43, 122, 84, 0.1);
+}
+
+.category-filter.active {
+    color: var(--accent-green);
+    background: rgba(43, 122, 84, 0.15);
+    border-color: var(--accent-green);
+}
+
 /* Bookmark Button */
 .bookmark-btn {
     background: transparent;

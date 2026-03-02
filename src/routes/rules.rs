@@ -1,5 +1,5 @@
 use axum::{
-    extract::{Path, State},
+    extract::{Path, Query, State},
     http::{HeaderMap, StatusCode},
     response::{Html, IntoResponse, Json},
     routing::{get, post},
@@ -12,11 +12,23 @@ use pulldown_cmark::{Parser, html};
 use super::AppState;
 use crate::models::Rule;
 
+#[derive(Deserialize)]
+pub struct RulesListQuery {
+    category: Option<String>,
+}
+
+struct CategoryTab {
+    name: String,
+    active: bool,
+}
+
 #[derive(Template)]
 #[template(path = "rules/list.html")]
 struct RulesListTemplate {
     title: String,
     rules: Vec<Rule>,
+    categories: Vec<CategoryTab>,
+    active_category: String,
 }
 
 #[derive(Template)]
@@ -133,12 +145,36 @@ pub fn router() -> Router<AppState> {
         .route("/api/rules", post(create_rule))
 }
 
-async fn list_rules(State(state): State<AppState>) -> Html<String> {
-    let rules = crate::db::get_all_rules(&state.db).await.unwrap_or_default();
+async fn list_rules(
+    State(state): State<AppState>,
+    Query(params): Query<RulesListQuery>,
+) -> Html<String> {
+    let all_rules = crate::db::get_all_rules(&state.db).await.unwrap_or_default();
+    let active_category = params.category.unwrap_or_default();
+
+    // Extract unique categories
+    let mut cat_names: Vec<String> = all_rules.iter().map(|r| r.category.clone()).collect();
+    cat_names.sort();
+    cat_names.dedup();
+    let categories: Vec<CategoryTab> = cat_names.into_iter().map(|name| {
+        let active = name == active_category;
+        CategoryTab { name, active }
+    }).collect();
+    let rules = if active_category.is_empty() {
+        all_rules
+    } else {
+        all_rules.into_iter().filter(|r| r.category == active_category).collect()
+    };
 
     let template = RulesListTemplate {
-        title: "Rules".to_string(),
+        title: if active_category.is_empty() {
+            "Rules".to_string()
+        } else {
+            format!("{} Rules", active_category)
+        },
         rules,
+        categories,
+        active_category,
     };
     Html(template.render().unwrap_or_else(|_| "Error rendering template".to_string()))
 }
