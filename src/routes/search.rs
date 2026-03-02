@@ -70,9 +70,18 @@ async fn search_rules(
     let results = if query.is_empty() {
         vec![]
     } else {
-        crate::search::fulltext::search(&state.db, &query)
+        let fts_results = crate::search::fulltext::search(&state.db, &query)
             .await
-            .unwrap_or_default()
+            .unwrap_or_default();
+
+        // Fall back to fuzzy search if FTS returns no results
+        if fts_results.is_empty() {
+            crate::db::fuzzy_search(&state.db, &query, 20)
+                .await
+                .unwrap_or_default()
+        } else {
+            fts_results
+        }
     };
 
     let template = SearchResultsTemplate {

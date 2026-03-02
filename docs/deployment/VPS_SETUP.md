@@ -226,6 +226,9 @@ docker compose -f docker-compose.prod.yml build
 # Start services
 docker compose -f docker-compose.prod.yml up -d
 
+# Import YAML rules into the container's database
+docker compose -f docker-compose.prod.yml exec rulecraft ./import_rules --rules-dir /app/rules
+
 # Check status
 docker compose -f docker-compose.prod.yml ps
 docker compose -f docker-compose.prod.yml logs -f

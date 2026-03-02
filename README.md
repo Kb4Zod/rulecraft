@@ -50,7 +50,10 @@ cargo run
 ```bash
 # Build and run with Docker Compose
 cd docker
-docker-compose up --build
+docker-compose up --build -d
+
+# Import YAML rules into the container's database
+docker exec rulecraft ./import_rules --rules-dir /app/rules
 
 # With vector search (Qdrant)
 docker-compose --profile vector-search up --build
