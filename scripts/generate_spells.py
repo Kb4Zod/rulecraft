@@ -1,0 +1,194 @@
+import yaml
+
+spells_data = {
+    "category": "Spells",
+    "source": "Player's Handbook 2024",
+    "rules": [
+        # CANTRIPS
+        {
+            "id": "spell-acid-splash",
+            "title": "Acid Splash",
+            "subcategory": "Evocation Cantrip",
+            "page": 236,
+            "content": "**Classes:** Artificer, Sorcerer, Wizard\n**Casting Time:** 1 Action\n**Range:** 60 feet\n**Components:** V, S\n**Duration:** Instantaneous\n\nYou hurl a bubble of acid. Choose one creature or two creatures that are within 5 feet of each other within range. A target must succeed on a Dexterity saving throw or take 1d6 Acid damage.\n\n*Cantrip Upgrade:* The damage increases by 1d6 when you reach levels 5 (2d6), 11 (3d6), and 17 (4d6)."
+        },
+        {
+            "id": "spell-blade-ward",
+            "title": "Blade Ward",
+            "subcategory": "Abjuration Cantrip",
+            "page": 242,
+            "content": "**Classes:** Bard, Sorcerer, Warlock, Wizard\n**Casting Time:** 1 Reaction, which you take when a creature you can see makes an attack roll against you\n**Range:** Self\n**Components:** V, S\n**Duration:** Instantaneous\n\nYou trace a sigil of warding in the air. Until the end of the current turn, you impose Disadvantage on the attack roll that triggered the reaction, as well as on any other attack rolls made against you."
+        },
+        {
+            "id": "spell-chill-touch",
+            "title": "Chill Touch",
+            "subcategory": "Necromancy Cantrip",
+            "page": 248,
+            "content": "**Classes:** Sorcerer, Warlock, Wizard\n**Casting Time:** 1 Action\n**Range:** Touch\n**Components:** V, S\n**Duration:** 1 round\n\nYou create a ghostly, skeletal hand and make a melee spell attack against a creature within your reach. On a hit, the target takes 1d8 Necrotic damage, and it can't regain hit points until the start of your next turn. If you hit an Undead target, it also has Disadvantage on attack rolls against you until the end of your next turn.\n\n*Cantrip Upgrade:* This spell's damage increases by 1d8 when you reach levels 5 (2d8), 11 (3d8), and 17 (4d8)."
+        },
+        {
+            "id": "spell-eldritch-blast",
+            "title": "Eldritch Blast",
+            "subcategory": "Evocation Cantrip",
+            "page": 265,
+            "content": "**Classes:** Warlock\n**Casting Time:** 1 Action\n**Range:** 120 feet\n**Components:** V, S\n**Duration:** Instantaneous\n\nA beam of crackling energy streaks toward a creature within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 Force damage.\n\n*Cantrip Upgrade:* Gathered energy allows you to create more than one beam: two beams at level 5, three at level 11, and four at level 17. You can direct the beams at the same target or at different ones. Make a separate attack roll for each beam."
+        },
+        {
+            "id": "spell-fire-bolt",
+            "title": "Fire Bolt",
+            "subcategory": "Evocation Cantrip",
+            "page": 272,
+            "content": "**Classes:** Artificer, Sorcerer, Wizard\n**Casting Time:** 1 Action\n**Range:** 120 feet\n**Components:** V, S\n**Duration:** Instantaneous\n\nYou hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 Fire damage. A flammable object hit by this spell ignites if it isn't being worn or carried.\n\n*Cantrip Upgrade:* This spell's damage increases by 1d10 when you reach levels 5 (2d10), 11 (3d10), and 17 (4d10)."
+        },
+        {
+            "id": "spell-guidance",
+            "title": "Guidance",
+            "subcategory": "Divination Cantrip",
+            "page": 279,
+            "content": "**Classes:** Artificer, Cleric, Druid\n**Casting Time:** 1 Reaction, which you take when you or an ally you can see within 30 feet of you fails an ability check\n**Range:** 30 feet\n**Components:** V, S\n**Duration:** Instantaneous\n\nYou channel a brief flash of divine insight. The creature that failed the ability check can roll a d4 and add the number rolled to the check, potentially turning it into a success. Once a creature rolls the d4 for this spell, that creature can't benefit from the spell again until it finishes a Long Rest."
+        },
+        {
+            "id": "spell-mage-hand",
+            "title": "Mage Hand",
+            "subcategory": "Conjuration Cantrip",
+            "page": 298,
+            "content": "**Classes:** Artificer, Bard, Sorcerer, Warlock, Wizard\n**Casting Time:** 1 Action\n**Range:** 30 feet\n**Components:** V, S\n**Duration:** 1 minute\n\nA spectral, floating hand appears at a point you choose within range. The hand lasts for the duration or until you dismiss it as an action. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again.\n\nYou can use your action to control the hand. You can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial. You can move the hand up to 30 feet each time you use it.\nThe hand can't attack, activate magic items, or carry more than 10 pounds."
+        },
+        {
+            "id": "spell-minor-illusion",
+            "title": "Minor Illusion",
+            "subcategory": "Illusion Cantrip",
+            "page": 303,
+            "content": "**Classes:** Bard, Sorcerer, Warlock, Wizard\n**Casting Time:** 1 Action\n**Range:** 30 feet\n**Components:** S, M (a bit of fleece)\n**Duration:** 1 minute\n\nYou create a sound or an image of an object within range that lasts for the duration. The illusion also ends if you dismiss it as an action or cast this spell again.\nIf you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else's voice, a lion's roar, a beating of drums, or any other sound you choose.\nIf you create an image of an object, it must be no larger than a 5-foot cube. The image can't create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion.\nIf a creature uses its action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC."
+        },
+        {
+            "id": "spell-prestidigitation",
+            "title": "Prestidigitation",
+            "subcategory": "Transmutation Cantrip",
+            "page": 309,
+            "content": "**Classes:** Artificer, Bard, Sorcerer, Warlock, Wizard\n**Casting Time:** 1 Action\n**Range:** 10 feet\n**Components:** V, S\n**Duration:** Up to 1 hour\n\nThis spell is a minor magical trick that novice spellcasters use for practice. You create one of the following magical effects within range:\n- You create an instantaneous, harmless sensory effect, such as a shower of sparks.\n- You instantaneously light or snuff out a candle, a torch, or a small campfire.\n- You instantaneously clean or soil an object no larger than 1 cubic foot.\n- You chill, warm, or flavor up to 1 cubic foot of nonliving material for 1 hour.\n- You make a color, a small mark, or a symbol appear on an object or a surface for 1 hour.\n- You create a nonmagical trinket or an illusory image that can fit in your hand and that lasts until the end of your next turn.\nIf you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time."
+        },
+        {
+            "id": "spell-shillelagh",
+            "title": "Shillelagh",
+            "subcategory": "Transmutation Cantrip",
+            "page": 320,
+            "content": "**Classes:** Druid\n**Casting Time:** 1 Bonus Action\n**Range:** Touch\n**Components:** V, S, M (mistletoe, a shamrock leaf, and a club or quarterstaff)\n**Duration:** 1 minute\n\nThe wood of a club or quarterstaff you are holding is imbued with nature's power. For the duration, you can use your spellcasting ability instead of Strength for the attack and damage rolls of melee attacks using that weapon, and the weapon's damage die becomes a d8. The weapon also becomes magical, if it isn't already. The spell ends if you cast it again or if you let go of the weapon.\n\n*Cantrip Upgrade:* The weapon's damage die changes when you reach levels 5 (d10), 11 (d12), and 17 (2d6)."
+        },
+        {
+            "id": "spell-vicious-mockery",
+            "title": "Vicious Mockery",
+            "subcategory": "Enchantment Cantrip",
+            "page": 338,
+            "content": "**Classes:** Bard\n**Casting Time:** 1 Action\n**Range:** 60 feet\n**Components:** V\n**Duration:** Instantaneous\n\nYou unleash a string of insults laced with subtle enchantments at a creature you can see within range. If the target can hear you (though it need not understand you), it must succeed on a Wisdom saving throw or take 1d6 Psychic damage and have Disadvantage on the next attack roll it makes before the end of its next turn.\n\n*Cantrip Upgrade:* This spell's damage increases by 1d6 when you reach levels 5 (2d6), 11 (3d6), and 17 (4d6)."
+        },
+
+        # LEVEL 1
+        {
+            "id": "spell-cure-wounds",
+            "title": "Cure Wounds",
+            "subcategory": "Level 1 Abjuration",
+            "page": 258,
+            "content": "**Classes:** Artificer, Bard, Cleric, Druid, Paladin, Ranger\n**Casting Time:** 1 Action\n**Range:** Touch\n**Components:** V, S\n**Duration:** Instantaneous\n\nA creature you touch regains hit points equal to 2d8 plus your spellcasting ability modifier. This spell has no effect on Constructs or Undead.\n\n*Using a Higher-Level Spell Slot:* The healing increases by 2d8 for each spell slot level above 1."
+        },
+        {
+            "id": "spell-healing-word",
+            "title": "Healing Word",
+            "subcategory": "Level 1 Evocation",
+            "page": 283,
+            "content": "**Classes:** Bard, Cleric, Druid\n**Casting Time:** 1 Bonus Action\n**Range:** 60 feet\n**Components:** V\n**Duration:** Instantaneous\n\nA creature of your choice that you can see within range regains hit points equal to 2d4 plus your spellcasting ability modifier. This spell has no effect on Constructs or Undead.\n\n*Using a Higher-Level Spell Slot:* The healing increases by 2d4 for each spell slot level above 1."
+        },
+        {
+            "id": "spell-magic-missile",
+            "title": "Magic Missile",
+            "subcategory": "Level 1 Evocation",
+            "page": 298,
+            "content": "**Classes:** Sorcerer, Wizard\n**Casting Time:** 1 Action\n**Range:** 120 feet\n**Components:** V, S\n**Duration:** Instantaneous\n\nYou create three glowing darts of magical force. Each dart hits a creature of your choice that you can see within range. A dart deals 1d4 + 1 Force damage to its target. The darts all strike simultaneously, and you can direct them to hit one creature or several.\n\n*Using a Higher-Level Spell Slot:* The spell creates one more dart for each spell slot level above 1."
+        },
+        {
+            "id": "spell-shield",
+            "title": "Shield",
+            "subcategory": "Level 1 Abjuration",
+            "page": 319,
+            "content": "**Classes:** Sorcerer, Wizard\n**Casting Time:** 1 Reaction, which you take when you are hit by an attack or targeted by the magic missile spell\n**Range:** Self\n**Components:** V, S\n**Duration:** 1 round\n\nAn invisible barrier of magical force appears and protects you. Until the start of your next turn, you have a +5 bonus to AC, including against the triggering attack, and you take no damage from magic missile."
+        },
+        {
+            "id": "spell-chromatic-orb",
+            "title": "Chromatic Orb",
+            "subcategory": "Level 1 Evocation",
+            "page": 249,
+            "content": "**Classes:** Sorcerer, Wizard\n**Casting Time:** 1 Action\n**Range:** 90 feet\n**Components:** V, S, M (a diamond worth at least 50 gp)\n**Duration:** Instantaneous\n\nYou hurl a 4-inch-diameter sphere of energy at a creature that you can see within range. You choose Acid, Cold, Fire, Lightning, Poison, or Thunder for the type of orb you create, and then make a ranged spell attack against the target. If the attack hits, the creature takes 3d8 damage of the chosen type. If you roll the same number on two or more of the d8s, the orb bounces to a different allowable target within 30 feet of the target. Make a new attack roll against the new target.\n\n*Using a Higher-Level Spell Slot:* The damage increases by 1d8 for each spell slot level above 1."
+        },
+
+        # LEVEL 2
+        {
+            "id": "spell-invisibility",
+            "title": "Invisibility",
+            "subcategory": "Level 2 Illusion",
+            "page": 289,
+            "content": "**Classes:** Artificer, Bard, Sorcerer, Warlock, Wizard\n**Casting Time:** 1 Action\n**Range:** Touch\n**Components:** V, S, M (an eyelash encased in gum arabic)\n**Duration:** Concentration, up to 1 hour\n\nA creature you touch has the Invisible condition until the spell ends. The spell ends early for that target if it makes an attack roll or casts a spell, or if it rolls initiative.\n\n*Using a Higher-Level Spell Slot:* You can target one additional creature for each spell slot level above 2."
+        },
+        {
+            "id": "spell-spiritual-weapon",
+            "title": "Spiritual Weapon",
+            "subcategory": "Level 2 Evocation",
+            "page": 325,
+            "content": "**Classes:** Cleric\n**Casting Time:** 1 Bonus Action\n**Range:** 60 feet\n**Components:** V, S\n**Duration:** Concentration, up to 1 minute\n\nYou create a floating, spectral weapon within range that lasts for the duration or until you cast this spell again. When you cast the spell, you can make a melee spell attack against a creature within 5 feet of the weapon. On a hit, the target takes Force damage equal to 1d8 plus your spellcasting ability modifier.\nAs a Bonus Action on your turn, you can move the weapon up to 20 feet and repeat the attack against a creature within 5 feet of it."
+        },
+
+        # LEVEL 3
+        {
+            "id": "spell-fireball",
+            "title": "Fireball",
+            "subcategory": "Level 3 Evocation",
+            "page": 272,
+            "content": "**Classes:** Sorcerer, Wizard\n**Casting Time:** 1 Action\n**Range:** 150 feet\n**Components:** V, S, M (bat guano and sulfur)\n**Duration:** Instantaneous\n\nA bright streak flashes from your pointing finger to a point you choose within range and then blossoms with a low roar into an explosion of flame. Each creature in a 20-foot-radius Sphere centered on that point must make a Dexterity saving throw. A target takes 8d6 Fire damage on a failed save, or half as much damage on a successful one.\nThe fire spreads around corners. It ignites flammable objects in the area that aren't being worn or carried.\n\n*Using a Higher-Level Spell Slot:* The damage increases by 1d6 for each spell slot level above 3."
+        },
+        {
+            "id": "spell-counterspell",
+            "title": "Counterspell",
+            "subcategory": "Level 3 Abjuration",
+            "page": 256,
+            "content": "**Classes:** Sorcerer, Warlock, Wizard\n**Casting Time:** 1 Reaction, which you take when you see a creature within 60 feet of you casting a spell\n**Range:** 60 feet\n**Components:** S\n**Duration:** Instantaneous\n\nYou attempt to interrupt a creature in the process of casting a spell. The target must make a Constitution saving throw. If it fails, the spell fails and has no effect. If the target's spell was level 4 or higher, the target has Advantage on the saving throw.\n\n*Using a Higher-Level Spell Slot:* If you cast this spell using a spell slot of level 4 or higher, the target doesn't gain Advantage on the saving throw if its spell is level 1 through the level of the spell slot you used."
+        },
+        {
+            "id": "spell-haste",
+            "title": "Haste",
+            "subcategory": "Level 3 Transmutation",
+            "page": 281,
+            "content": "**Classes:** Artificer, Sorcerer, Wizard\n**Casting Time:** 1 Action\n**Range:** 30 feet\n**Components:** V, S, M (a shaving of licorice root)\n**Duration:** Concentration, up to 1 minute\n\nChoose a willing creature that you can see within range. Until the spell ends, the target's Speed is doubled, it gains a +2 bonus to AC, it has Advantage on Dexterity saving throws, and it gets an additional action on each of its turns. That action can be used only to take the Attack (one attack only), Dash, Disengage, Hide, or Utilize action.\nWhen the spell ends, the target can't move or take actions until after its next turn, as a wave of lethargy sweeps over it."
+        },
+
+        # LEVEL 4
+        {
+            "id": "spell-polymorph",
+            "title": "Polymorph",
+            "subcategory": "Level 4 Transmutation",
+            "page": 308,
+            "content": "**Classes:** Bard, Druid, Sorcerer, Wizard\n**Casting Time:** 1 Action\n**Range:** 60 feet\n**Components:** V, S, M (a caterpillar cocoon)\n**Duration:** Concentration, up to 1 hour\n\nThis spell transforms a creature that you can see within range into a new form. An unwilling creature must make a Wisdom saving throw to avoid the effect. The spell has no effect on a Shapechanger or a creature with 0 hit points.\nThe transformation lasts for the duration, or until the target drops to 0 hit points or dies.\nThe new form can be any Beast whose Challenge Rating is equal to or less than the target's (or the target's level, if it doesn't have a CR). The target's game statistics, including mental ability scores, are replaced by the statistics of the chosen Beast. It retains its alignment and personality."
+        },
+
+        # LEVEL 5
+        {
+            "id": "spell-banishment",
+            "title": "Banishment",
+            "subcategory": "Level 5 Abjuration",
+            "page": 240,
+            "content": "**Classes:** Cleric, Paladin, Sorcerer, Warlock, Wizard\n**Casting Time:** 1 Action\n**Range:** 60 feet\n**Components:** V, S, M (an item distasteful to the target)\n**Duration:** Concentration, up to 1 minute\n\nYou attempt to send one creature that you can see within range to another plane of existence. The target must succeed on a Charisma saving throw or be transported to a harmless demiplane for the duration. While there, the target is Incapacitated.\nIf the target is native to a different plane of existence than the one you're on, it is instead banished with a faint popping noise, returning to its home plane. If the spell ends before 1 minute has passed, the target reappears in the space it left or in the nearest unoccupied space if that space is occupied. Otherwise, the target doesn't return."
+        },
+        
+        # LEVEL 9
+        {
+            "id": "spell-wish",
+            "title": "Wish",
+            "subcategory": "Level 9 Conjuration",
+            "page": 341,
+            "content": "**Classes:** Sorcerer, Wizard\n**Casting Time:** 1 Action\n**Range:** Self\n**Components:** V\n**Duration:** Instantaneous\n\nWish is the mightiest spell a mortal creature can cast. By simply speaking aloud, you can alter the very foundations of reality. The basic use of this spell is to duplicate any other spell of level 8 or lower. You don't need to meet any requirements in that spell, including costly components.\nAlternatively, you can create one of the following effects of your choice:\n- You create one object of up to 25,000 GP in value that isn't a magic item.\n- You allow up to twenty creatures that you can see to regain all hit points, and you end all effects on them described in the Greater Restoration spell.\n- You grant up to ten creatures that you can see resistance to a damage type you choose.\n- You grant up to ten creatures you can see immunity to a single spell or other magical effect for 8 hours.\n- You undo a single recent event by forcing a reroll of any roll made within the last round."
+        }
+    ]
+}
+
+with open("data/rules/spells.yaml", "w", encoding="utf-8") as f:
+    yaml.dump(spells_data, f, sort_keys=False, allow_unicode=True, width=120)
+
+print("Spells YAML generated successfully.")

@@ -1,0 +1,132 @@
+import yaml
+
+equipment_data = {
+    "category": "Equipment",
+    "source": "Player's Handbook 2024",
+    "rules": [
+        {
+            "id": "armor",
+            "title": "Armor",
+            "subcategory": "Armor",
+            "page": 213,
+            "content": "A character's Armor Class (AC) represents how well they avoid being wounded in battle. The armor you wear, the shield you carry, and your Dexterity modifier all contribute to your AC.\n\n**Armor Proficiency:** If you wear armor that you lack proficiency with, you have Disadvantage on any D20 Test that involves Strength or Dexterity, and you can't cast spells."
+        },
+        {
+            "id": "light-armor",
+            "title": "Light Armor",
+            "subcategory": "Armor",
+            "page": 213,
+            "content": "Light armor favors agile adventurers since it offers some protection without sacrificing mobility. When you wear light armor, you add your Dexterity modifier to the number shown on the table to determine your AC.\n\n**Types:**\n- **Padded:** AC 11 + Dex, Disadvantage on Stealth, 5 lb., 5 GP\n- **Leather:** AC 11 + Dex, 10 lb., 10 GP\n- **Studded Leather:** AC 12 + Dex, 13 lb., 45 GP"
+        },
+        {
+            "id": "medium-armor",
+            "title": "Medium Armor",
+            "subcategory": "Armor",
+            "page": 213,
+            "content": "Medium armor offers more protection but limits mobility. When you wear medium armor, you add your Dexterity modifier, up to a maximum of +2, to the number shown on the table to determine your AC.\n\n**Types:**\n- **Hide:** AC 12 + Dex (max 2), 12 lb., 10 GP\n- **Chain Shirt:** AC 13 + Dex (max 2), 20 lb., 50 GP\n- **Scale Mail:** AC 14 + Dex (max 2), Disadvantage on Stealth, 45 lb., 50 GP\n- **Breastplate:** AC 14 + Dex (max 2), 20 lb., 400 GP\n- **Half Plate:** AC 15 + Dex (max 2), Disadvantage on Stealth, 40 lb., 750 GP"
+        },
+        {
+            "id": "heavy-armor",
+            "title": "Heavy Armor",
+            "subcategory": "Armor",
+            "page": 213,
+            "content": "Heavy armor offers the best protection but requires strength or it reduces your speed by 10 feet. It doesn't let you add your Dexterity modifier to your AC.\n\n**Types:**\n- **Ring Mail:** AC 14, Disadvantage on Stealth, 40 lb., 30 GP\n- **Chain Mail:** AC 16, Str 13 req., Disadvantage on Stealth, 55 lb., 75 GP\n- **Splint:** AC 17, Str 15 req., Disadvantage on Stealth, 60 lb., 200 GP\n- **Plate:** AC 18, Str 15 req., Disadvantage on Stealth, 65 lb., 1500 GP"
+        },
+        {
+            "id": "shields",
+            "title": "Shields",
+            "subcategory": "Armor",
+            "page": 213,
+            "content": "A shield increases your AC by 2 while you wear it. You can benefit from only one shield at a time. It requires a Utilize action to don or doff a shield. A shield weighs 6 lb. and costs 10 GP."
+        },
+        {
+            "id": "donning-and-doffing-armor",
+            "title": "Donning and Doffing Armor",
+            "subcategory": "Armor",
+            "page": 214,
+            "content": "Putting on and taking off armor takes time.\n\n**Don times:**\n- Light Armor: 1 minute\n- Medium Armor: 5 minutes\n- Heavy Armor: 10 minutes\n- Shield: 1 action\n\n**Doff times:**\n- Light Armor: 1 minute\n- Medium Armor: 1 minute\n- Heavy Armor: 5 minutes\n- Shield: 1 action"
+        },
+        {
+            "id": "weapon-mastery",
+            "title": "Weapon Mastery",
+            "subcategory": "Weapons",
+            "page": 214,
+            "content": "Certain features (such as the Fighter's Weapon Mastery class feature) let a character use the mastery properties of specific weapons. If a character has a feature that lets them use the mastery property of a weapon, they can use it as described for each property.\n\nMastery properties include: Cleave, Graze, Nick, Push, Sap, Slow, Topple, and Vex."
+        },
+        {
+            "id": "weapon-mastery-properties",
+            "title": "Mastery Properties",
+            "subcategory": "Weapons",
+            "page": 214,
+            "content": "**Cleave:** If you hit a creature with a melee attack using this weapon, you can make a second attack against another creature within 5 feet that is also within your reach. Once per turn.\n**Graze:** If your attack roll misses, you deal damage equal to the ability modifier you used for the attack. (No damage if the attack roll was a 1).\n**Nick:** You can make the extra attack of the Light property as part of the initial Attack action instead of taking a Bonus Action. Once per turn.\n**Push:** If you hit a creature, you can push it up to 10 feet straight away from you if it is Large or smaller.\n**Sap:** If you hit a creature, it has Disadvantage on its next attack roll before the start of your next turn.\n**Slow:** If you hit a creature, its speed is reduced by 10 feet until the start of your next turn. Doesn't stack.\n**Topple:** If you hit a creature, it must succeed on a Constitution saving throw (DC 8 + appropriate ability modifier + Prof Bonus) or be knocked Prone.\n**Vex:** If you hit a creature, you have Advantage on your next attack roll against it before the end of your next turn."
+        },
+        {
+            "id": "weapon-properties",
+            "title": "Weapon Properties",
+            "subcategory": "Weapons",
+            "page": 214,
+            "content": "**Ammunition:** Requires an arrow, bolt, bullet, or similar to attack. Consumes upon firing. Can recover half the spent ammo after battle by taking a minute.\n**Finesse:** Use your choice of Strength or Dexterity for attack and damage rolls.\n**Heavy:** Small or Tiny creatures have Disadvantage on attack rolls with heavy weapons.\n**Light:** When you take the Attack action and attack with a Light weapon in one hand, you can make one extra attack as a Bonus Action later on the same turn using a different Light weapon in the other hand. Extra attack doesn't add ability modifier to damage unless it's negative.\n**Loading:** Can fire only one piece of ammunition from it when you use an action, bonus action, or reaction to fire it, regardless of the number of attacks you can normally make.\n**Range:** Lists normal and long range. Long range imposes Disadvantage. Can't attack beyond long range.\n**Reach:** Adds 5 feet to your reach.\n**Thrown:** Can be thrown to make a ranged attack. Uses the same modifier that it uses for melee attacks.\n**Two-Handed:** Requires two hands when you attack with it.\n**Versatile:** Can be used with one or two hands. Lists a damage die for two-handed use."
+        },
+        {
+            "id": "simple-melee-weapons",
+            "title": "Simple Melee Weapons",
+            "subcategory": "Weapons",
+            "page": 215,
+            "content": "- **Club:** 1d4 Bludgeoning, Light. Mastery: Slow\n- **Dagger:** 1d4 Piercing, Finesse, Light, Thrown (20/60). Mastery: Nick\n- **Greatclub:** 1d8 Bludgeoning, Two-Handed. Mastery: Push\n- **Handaxe:** 1d6 Slashing, Light, Thrown (20/60). Mastery: Vex\n- **Javelin:** 1d6 Piercing, Thrown (30/120). Mastery: Slow\n- **Light Hammer:** 1d4 Bludgeoning, Light, Thrown (20/60). Mastery: Nick\n- **Mace:** 1d6 Bludgeoning. Mastery: Sap\n- **Quarterstaff:** 1d6 Bludgeoning, Versatile (1d8). Mastery: Topple\n- **Sickle:** 1d4 Slashing, Light. Mastery: Nick\n- **Spear:** 1d6 Piercing, Thrown (20/60), Versatile (1d8). Mastery: Sap"
+        },
+        {
+            "id": "simple-ranged-weapons",
+            "title": "Simple Ranged Weapons",
+            "subcategory": "Weapons",
+            "page": 215,
+            "content": "- **Crossbow, Light:** 1d8 Piercing, Ammunition (Range 80/320), Loading, Two-Handed. Mastery: Slow\n- **Dart:** 1d4 Piercing, Finesse, Thrown (20/60). Mastery: Vex\n- **Shortbow:** 1d6 Piercing, Ammunition (Range 80/320), Two-Handed. Mastery: Vex\n- **Sling:** 1d4 Bludgeoning, Ammunition (Range 30/120). Mastery: Slow"
+        },
+        {
+            "id": "martial-melee-weapons",
+            "title": "Martial Melee Weapons",
+            "subcategory": "Weapons",
+            "page": 215,
+            "content": "- **Battleaxe:** 1d8 Slashing, Versatile (1d10). Mastery: Topple\n- **Flail:** 1d8 Bludgeoning. Mastery: Sap\n- **Glaive:** 1d10 Slashing, Heavy, Reach, Two-Handed. Mastery: Graze\n- **Greataxe:** 1d12 Slashing, Heavy, Two-Handed. Mastery: Cleave\n- **Greatsword:** 2d6 Slashing, Heavy, Two-Handed. Mastery: Graze\n- **Halberd:** 1d10 Slashing, Heavy, Reach, Two-Handed. Mastery: Cleave\n- **Lance:** 1d10 Piercing, Reach, Two-Handed unless mounted. Mastery: Topple\n- **Longsword:** 1d8 Slashing, Versatile (1d10). Mastery: Sap\n- **Maul:** 2d6 Bludgeoning, Heavy, Two-Handed. Mastery: Topple\n- **Morningstar:** 1d8 Piercing. Mastery: Sap\n- **Pike:** 1d10 Piercing, Heavy, Reach, Two-Handed. Mastery: Push\n- **Rapier:** 1d8 Piercing, Finesse. Mastery: Vex\n- **Scimitar:** 1d6 Slashing, Finesse, Light. Mastery: Nick\n- **Shortsword:** 1d6 Piercing, Finesse, Light. Mastery: Vex\n- **Trident:** 1d8 Piercing, Thrown (20/60), Versatile (1d10). Mastery: Topple\n- **War Pick:** 1d8 Piercing. Mastery: Sap\n- **Warhammer:** 1d8 Bludgeoning, Versatile (1d10). Mastery: Push\n- **Whip:** 1d4 Slashing, Finesse, Reach. Mastery: Slow"
+        },
+        {
+            "id": "martial-ranged-weapons",
+            "title": "Martial Ranged Weapons",
+            "subcategory": "Weapons",
+            "page": 215,
+            "content": "- **Blowgun:** 1 Piercing, Ammunition (Range 25/100), Loading. Mastery: Vex\n- **Crossbow, Hand:** 1d6 Piercing, Ammunition (Range 30/120), Light, Loading. Mastery: Vex\n- **Crossbow, Heavy:** 1d10 Piercing, Ammunition (Range 100/400), Heavy, Loading, Two-Handed. Mastery: Push\n- **Longbow:** 1d8 Piercing, Ammunition (Range 150/600), Heavy, Two-Handed. Mastery: Slow\n- **Musket:** 1d12 Piercing, Ammunition (Range 40/120), Loading, Two-Handed. Mastery: Slow\n- **Pistol:** 1d10 Piercing, Ammunition (Range 30/90), Loading. Mastery: Vex"
+        },
+        {
+            "id": "adventuring-gear",
+            "title": "Adventuring Gear",
+            "subcategory": "Equipment",
+            "page": 216,
+            "content": "This section covers utility tools explicitly needed for adventures.\n\n- **Ammunition:** Arrows (20) 1 GP, Blowgun Needles (50) 1 GP, Crossbow Bolts (20) 1 GP, Sling Bullets (20) 4 CP\n- **Antitoxin (vial):** 50 GP. Drink to get Advantage on saving throws against the Poisoned condition for 1 hour.\n- **Arcane Focus:** Used as a spellcasting focus. Examples: Crystal (10 GP), Orb (20 GP), Rod (10 GP), Staff (5 GP), Wand (10 GP).\n- **Druidic Focus:** Spellcasting focus. Sprig of Mistletoe (1 GP), Totem (1 GP), Wooden Staff (5 GP), Yew Wand (10 GP).\n- **Holy Symbol:** Spellcasting focus. Amulet (5 GP), Emblem (5 GP), Reliquary (5 GP).\n- **Potion of Healing:** 50 GP. Restores 2d4 + 2 HP when you drink it using a Bonus Action.\n- **Alchemist's Fire:** 50 GP. Thrown (20/60) as a Utilize action, makes a ranged attack. Deals 1d4 fire damage at the start of each of the target's turns.\n- **Healer's Kit:** 5 GP. 10 uses. Spend a Utilize action to stabilize a creature with 0 HP without a Medicine check.\n- **Portable Ram:** 4 GP. Adds advantage to Strength checks to break down doors, and plus another +2 if someone helps.\n- **Spyglass:** 1000 GP. Magnifies objects viewed through it to twice their size."
+        },
+        {
+            "id": "equipment-packs",
+            "title": "Equipment Packs",
+            "subcategory": "Equipment",
+            "page": 217,
+            "content": "Starting equipment often includes a pack of preselected gear.\n\n- **Burglar's Pack (16 GP):** Backpack, bag of 1000 ball bearings, 10 ft string, bell, 5 candles, crowbar, hammer, 10 pitons, lantern (hooded), 2 flasks of oil, 5 days rations, tinderbox, waterskin, 50 ft hempen rope.\n- **Dungeoneer's Pack (12 GP):** Backpack, crowbar, hammer, 10 pitons, 10 torches, tinderbox, 10 days rations, waterskin, 50 ft hempen rope.\n- **Explorer's Pack (10 GP):** Backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days rations, waterskin, 50 ft hempen rope.\n- **Priest's Pack (19 GP):** Backpack, blanket, 10 candles, tinderbox, alms box, 2 blocks of incense, censer, vestments, 2 days rations, waterskin.\n- **Scholar's Pack (40 GP):** Backpack, book of lore, ink, pen, 10 sheets of parchment, little bag of sand, small knife."
+        },
+        {
+            "id": "tools",
+            "title": "Tools",
+            "subcategory": "Equipment",
+            "page": 217,
+            "content": "A tool helps you do something you couldn't otherwise do, such as craft, repair, or pick a lock. Having proficiency with a tool allows you to add your Proficiency Bonus to any ability checks you make using that tool.\n\n**Common Tools:**\n- Artisan's Tools (Alchemist's supplies, Brewer's supplies, Calligrapher's supplies, Carpenter's tools, Cartographer's tools, Cobbler's tools, Cook's utensils, Glassblower's tools, Jeweler's tools, Leatherworker's tools, Mason's tools, Painter's supplies, Potter's tools, Smith's tools, Tinker's tools, Weaver's tools, Woodcarver's tools)\n- Disguise Kit (25 GP), Forgery Kit (15 GP), Herbalism Kit (5 GP), Poisoner's Kit (50 GP), Thieves' Tools (25 GP)\n- Musical Instruments\n- Gaming Sets\n- Navigators' Tools (2 GP)"
+        },
+        {
+            "id": "mounts-and-vehicles",
+            "title": "Mounts and Vehicles",
+            "subcategory": "Equipment",
+            "page": 218,
+            "content": "- **Camel:** 50 GP, Speed 50 ft, Carrying Capacity 480 lb.\n- **Donkey or Mule:** 8 GP, Speed 40 ft, Carrying Capacity 420 lb.\n- **Horse, Draft:** 50 GP, Speed 40 ft, Carrying Capacity 540 lb.\n- **Horse, Riding:** 75 GP, Speed 60 ft, Carrying Capacity 480 lb.\n- **Mastiff:** 25 GP, Speed 40 ft, Carrying Capacity 195 lb.\n- **Pony:** 30 GP, Speed 40 ft, Carrying Capacity 225 lb.\n- **Warhorse:** 400 GP, Speed 60 ft, Carrying Capacity 540 lb.\n\n**Tack and Harness:**\n- Barding (cost of armor x4, weight x2)\n- Bit and bridle (2 GP), Carriage (100 GP), Cart (15 GP), Chariot (250 GP), Feed (per day, 5 CP), Saddle (Exotic 60 GP, Military 20 GP, Pack 5 GP, Riding 10 GP), Saddlebags (4 GP), Sled (20 GP), Wagon (35 GP).\n\n**Waterborne Vehicles:**\n- Keelboat (3000 GP), Longship (10000 GP), Rowboat (50 GP), Sailing Ship (10000 GP), Warship (25000 GP)."
+        }
+    ]
+}
+
+with open("data/rules/equipment.yaml", "w", encoding="utf-8") as f:
+    yaml.dump(equipment_data, f, sort_keys=False, allow_unicode=True, width=120)
+
+print("Equipment YAML generated successfully.")

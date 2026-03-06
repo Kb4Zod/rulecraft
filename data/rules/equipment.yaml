@@ -1,232 +1,344 @@
-# D&D 2024 Equipment Rules
-# All content paraphrased for educational reference
-
 category: Equipment
-source: "Player's Handbook 2024"
-
+source: Player's Handbook 2024
 rules:
-  - id: armor-class
-    title: Armor Class (AC)
-    subcategory: Armor
-    page: 219
-    content: |
-      Armor Class represents how difficult you are to hit effectively in combat.
+- id: armor
+  title: Armor
+  subcategory: Armor
+  page: 213
+  content: 'A character''s Armor Class (AC) represents how well they avoid being wounded in battle. The armor you wear, the
+    shield you carry, and your Dexterity modifier all contribute to your AC.
 
-      **Base AC Calculation:**
-      - No armor: 10 + Dexterity modifier
-      - Light armor: Armor AC + full Dexterity modifier
-      - Medium armor: Armor AC + Dexterity modifier (max +2)
-      - Heavy armor: Armor AC only (no Dexterity modifier)
 
-      **Shields:** Add +2 to AC when wielded.
+    **Armor Proficiency:** If you wear armor that you lack proficiency with, you have Disadvantage on any D20 Test that involves
+    Strength or Dexterity, and you can''t cast spells.'
+- id: light-armor
+  title: Light Armor
+  subcategory: Armor
+  page: 213
+  content: 'Light armor favors agile adventurers since it offers some protection without sacrificing mobility. When you wear
+    light armor, you add your Dexterity modifier to the number shown on the table to determine your AC.
 
-  - id: light-armor
-    title: Light Armor
-    subcategory: Armor
-    page: 219
-    content: |
-      Light armor is made from supple and thin materials, favoring agile adventurers.
 
-      **Types:**
-      - **Padded:** AC 11 + Dex, disadvantage on Stealth
-      - **Leather:** AC 11 + Dex
-      - **Studded Leather:** AC 12 + Dex
+    **Types:**
 
-      **Benefits:** No restriction on Dexterity bonus, easier to sleep in than heavier armors.
+    - **Padded:** AC 11 + Dex, Disadvantage on Stealth, 5 lb., 5 GP
 
-  - id: medium-armor
-    title: Medium Armor
-    subcategory: Armor
-    page: 220
-    content: |
-      Medium armor offers more protection but limits mobility somewhat.
+    - **Leather:** AC 11 + Dex, 10 lb., 10 GP
 
-      **Types:**
-      - **Hide:** AC 12 + Dex (max 2)
-      - **Chain Shirt:** AC 13 + Dex (max 2)
-      - **Scale Mail:** AC 14 + Dex (max 2), Stealth disadvantage
-      - **Breastplate:** AC 14 + Dex (max 2)
-      - **Half Plate:** AC 15 + Dex (max 2), Stealth disadvantage
+    - **Studded Leather:** AC 12 + Dex, 13 lb., 45 GP'
+- id: medium-armor
+  title: Medium Armor
+  subcategory: Armor
+  page: 213
+  content: 'Medium armor offers more protection but limits mobility. When you wear medium armor, you add your Dexterity modifier,
+    up to a maximum of +2, to the number shown on the table to determine your AC.
 
-      **Dexterity Cap:** Maximum +2 bonus from Dexterity.
 
-  - id: heavy-armor
-    title: Heavy Armor
-    subcategory: Armor
-    page: 220
-    content: |
-      Heavy armor offers the best protection but restricts movement significantly.
+    **Types:**
 
-      **Types:**
-      - **Ring Mail:** AC 14, Stealth disadvantage
-      - **Chain Mail:** AC 16, Stealth disadvantage, Str 13 required
-      - **Splint:** AC 17, Stealth disadvantage, Str 15 required
-      - **Plate:** AC 18, Stealth disadvantage, Str 15 required
+    - **Hide:** AC 12 + Dex (max 2), 12 lb., 10 GP
 
-      **Strength Requirement:** Speed reduced by 10 feet if not met.
+    - **Chain Shirt:** AC 13 + Dex (max 2), 20 lb., 50 GP
 
-  - id: donning-doffing
-    title: Donning and Doffing Armor
-    subcategory: Armor
-    page: 221
-    content: |
-      Putting on and taking off armor takes time.
+    - **Scale Mail:** AC 14 + Dex (max 2), Disadvantage on Stealth, 45 lb., 50 GP
 
-      **Don Times:**
-      - Light armor: 1 minute
-      - Medium armor: 5 minutes
-      - Heavy armor: 10 minutes
-      - Shield: 1 action
+    - **Breastplate:** AC 14 + Dex (max 2), 20 lb., 400 GP
 
-      **Doff Times:**
-      - Light armor: 1 minute
-      - Medium armor: 5 minutes
-      - Heavy armor: 10 minutes (5 with help)
-      - Shield: 1 action
+    - **Half Plate:** AC 15 + Dex (max 2), Disadvantage on Stealth, 40 lb., 750 GP'
+- id: heavy-armor
+  title: Heavy Armor
+  subcategory: Armor
+  page: 213
+  content: 'Heavy armor offers the best protection but requires strength or it reduces your speed by 10 feet. It doesn''t
+    let you add your Dexterity modifier to your AC.
 
-  - id: weapon-properties
-    title: Weapon Properties
-    subcategory: Weapons
-    page: 213
-    content: |
-      Weapons have properties that modify how they're used in combat.
 
-      **Common Properties:**
-      - **Ammunition:** Requires and consumes ammo
-      - **Finesse:** Use Strength or Dexterity for attack/damage
-      - **Heavy:** Small creatures have disadvantage
-      - **Light:** Good for two-weapon fighting
-      - **Loading:** One attack per action regardless of extra attacks
-      - **Range:** Two numbers (normal/long range)
-      - **Reach:** Adds 5 feet to reach
-      - **Thrown:** Can throw for ranged attack
-      - **Two-Handed:** Requires both hands to attack
-      - **Versatile:** Can use one or two hands (different damage)
+    **Types:**
 
-  - id: simple-weapons
-    title: Simple Weapons
-    subcategory: Weapons
-    page: 212
-    content: |
-      Simple weapons are basic arms that most people can use effectively.
+    - **Ring Mail:** AC 14, Disadvantage on Stealth, 40 lb., 30 GP
 
-      **Melee:**
-      - Club (1d4 bludgeoning, light)
-      - Dagger (1d4 piercing, finesse, light, thrown)
-      - Greatclub (1d8 bludgeoning, two-handed)
-      - Handaxe (1d6 slashing, light, thrown)
-      - Javelin (1d6 piercing, thrown)
-      - Light Hammer (1d4 bludgeoning, light, thrown)
-      - Mace (1d6 bludgeoning)
-      - Quarterstaff (1d6 bludgeoning, versatile 1d8)
-      - Sickle (1d4 slashing, light)
-      - Spear (1d6 piercing, thrown, versatile 1d8)
+    - **Chain Mail:** AC 16, Str 13 req., Disadvantage on Stealth, 55 lb., 75 GP
 
-  - id: martial-weapons
-    title: Martial Weapons
-    subcategory: Weapons
-    page: 212
-    content: |
-      Martial weapons require specialized training to use effectively.
+    - **Splint:** AC 17, Str 15 req., Disadvantage on Stealth, 60 lb., 200 GP
 
-      **Popular Options:**
-      - Longsword (1d8 slashing, versatile 1d10)
-      - Rapier (1d8 piercing, finesse)
-      - Shortsword (1d6 piercing, finesse, light)
-      - Battleaxe (1d8 slashing, versatile 1d10)
-      - Greatsword (2d6 slashing, heavy, two-handed)
-      - Greataxe (1d12 slashing, heavy, two-handed)
-      - Warhammer (1d8 bludgeoning, versatile 1d10)
-      - Halberd (1d10 slashing, heavy, reach, two-handed)
+    - **Plate:** AC 18, Str 15 req., Disadvantage on Stealth, 65 lb., 1500 GP'
+- id: shields
+  title: Shields
+  subcategory: Armor
+  page: 213
+  content: A shield increases your AC by 2 while you wear it. You can benefit from only one shield at a time. It requires
+    a Utilize action to don or doff a shield. A shield weighs 6 lb. and costs 10 GP.
+- id: donning-and-doffing-armor
+  title: Donning and Doffing Armor
+  subcategory: Armor
+  page: 214
+  content: 'Putting on and taking off armor takes time.
 
-  - id: ranged-weapons
-    title: Ranged Weapons
-    subcategory: Weapons
-    page: 212
-    content: |
-      Ranged weapons let you attack from a distance.
 
-      **Simple Ranged:**
-      - Crossbow, Light (1d8 piercing, loading, two-handed, range 80/320)
-      - Dart (1d4 piercing, finesse, thrown, range 20/60)
-      - Shortbow (1d6 piercing, two-handed, range 80/320)
-      - Sling (1d4 bludgeoning, range 30/120)
+    **Don times:**
 
-      **Martial Ranged:**
-      - Crossbow, Hand (1d6 piercing, light, loading, range 30/120)
-      - Crossbow, Heavy (1d10 piercing, heavy, loading, two-handed, range 100/400)
-      - Longbow (1d8 piercing, heavy, two-handed, range 150/600)
+    - Light Armor: 1 minute
 
-  - id: weapon-range
-    title: Weapon Range
-    subcategory: Weapons
-    page: 195
-    content: |
-      Ranged and thrown weapons list two range numbers.
+    - Medium Armor: 5 minutes
 
-      **Normal Range:** Attack rolls are made normally within this distance.
+    - Heavy Armor: 10 minutes
 
-      **Long Range:** Attacks beyond normal range but within long range have disadvantage.
+    - Shield: 1 action
 
-      **Beyond Long Range:** Targets beyond long range cannot be attacked with that weapon.
 
-      **Thrown Weapons:** Use Strength for attack/damage (or Dex if finesse).
+    **Doff times:**
 
-  - id: silvered-weapons
-    title: Silvered Weapons
-    subcategory: Weapons
-    page: 214
-    content: |
-      Some creatures have resistance or immunity to nonmagical weapons but are vulnerable to silver.
+    - Light Armor: 1 minute
 
-      **Silvering Cost:** 100 gp for a weapon or 10 pieces of ammunition.
+    - Medium Armor: 1 minute
 
-      **Effect:** The weapon counts as silvered for overcoming certain resistances (e.g., werewolves, some devils).
+    - Heavy Armor: 5 minutes
 
-  - id: ammunition
-    title: Ammunition
-    subcategory: Weapons
-    page: 214
-    content: |
-      Weapons with the ammunition property require ammo to attack.
+    - Shield: 1 action'
+- id: weapon-mastery
+  title: Weapon Mastery
+  subcategory: Weapons
+  page: 214
+  content: 'Certain features (such as the Fighter''s Weapon Mastery class feature) let a character use the mastery properties
+    of specific weapons. If a character has a feature that lets them use the mastery property of a weapon, they can use it
+    as described for each property.
 
-      **Recovery:** After battle, you can recover half your expended ammunition by taking 1 minute to search.
 
-      **Types:**
-      - Arrows (20 for 1 gp)
-      - Bolts (20 for 1 gp)
-      - Blowgun Needles (50 for 1 gp)
-      - Sling Bullets (20 for 4 cp)
+    Mastery properties include: Cleave, Graze, Nick, Push, Sap, Slow, Topple, and Vex.'
+- id: weapon-mastery-properties
+  title: Mastery Properties
+  subcategory: Weapons
+  page: 214
+  content: '**Cleave:** If you hit a creature with a melee attack using this weapon, you can make a second attack against
+    another creature within 5 feet that is also within your reach. Once per turn.
 
-  - id: adventuring-gear
-    title: Adventuring Gear
-    subcategory: Equipment
-    page: 222
-    content: |
-      Essential items for adventurers beyond weapons and armor.
+    **Graze:** If your attack roll misses, you deal damage equal to the ability modifier you used for the attack. (No damage
+    if the attack roll was a 1).
 
-      **Key Items:**
-      - **Backpack:** Holds 30 pounds of gear
-      - **Bedroll:** For sleeping outdoors
-      - **Rations:** Food for one day
-      - **Rope (50 feet):** Hemp or silk
-      - **Torch:** Bright light 20 ft, dim light 20 ft more, burns 1 hour
-      - **Tinderbox:** Starts fires
-      - **Waterskin:** Holds liquid for one day
-      - **Healer's Kit:** 10 uses, stabilize without Medicine check
+    **Nick:** You can make the extra attack of the Light property as part of the initial Attack action instead of taking a
+    Bonus Action. Once per turn.
 
-  - id: equipment-packs
-    title: Equipment Packs
-    subcategory: Equipment
-    page: 225
-    content: |
-      Pre-assembled packs of gear for new adventurers.
+    **Push:** If you hit a creature, you can push it up to 10 feet straight away from you if it is Large or smaller.
 
-      **Common Packs:**
-      - **Burglar's Pack:** Thieves' tools, bag of caltrops, bell, candles, crowbar, etc.
-      - **Dungeoneer's Pack:** Backpack, crowbar, hammer, pitons, torches, rations, rope
-      - **Explorer's Pack:** Bedroll, mess kit, tinderbox, torches, rations, waterskin
-      - **Priest's Pack:** Holy symbol, prayer book, incense, vestments, rations
-      - **Scholar's Pack:** Book of lore, ink, parchment, small knife
+    **Sap:** If you hit a creature, it has Disadvantage on its next attack roll before the start of your next turn.
 
-      **Benefit:** Buying a pack is cheaper than purchasing items individually.
+    **Slow:** If you hit a creature, its speed is reduced by 10 feet until the start of your next turn. Doesn''t stack.
+
+    **Topple:** If you hit a creature, it must succeed on a Constitution saving throw (DC 8 + appropriate ability modifier
+    + Prof Bonus) or be knocked Prone.
+
+    **Vex:** If you hit a creature, you have Advantage on your next attack roll against it before the end of your next turn.'
+- id: weapon-properties
+  title: Weapon Properties
+  subcategory: Weapons
+  page: 214
+  content: '**Ammunition:** Requires an arrow, bolt, bullet, or similar to attack. Consumes upon firing. Can recover half
+    the spent ammo after battle by taking a minute.
+
+    **Finesse:** Use your choice of Strength or Dexterity for attack and damage rolls.
+
+    **Heavy:** Small or Tiny creatures have Disadvantage on attack rolls with heavy weapons.
+
+    **Light:** When you take the Attack action and attack with a Light weapon in one hand, you can make one extra attack as
+    a Bonus Action later on the same turn using a different Light weapon in the other hand. Extra attack doesn''t add ability
+    modifier to damage unless it''s negative.
+
+    **Loading:** Can fire only one piece of ammunition from it when you use an action, bonus action, or reaction to fire it,
+    regardless of the number of attacks you can normally make.
+
+    **Range:** Lists normal and long range. Long range imposes Disadvantage. Can''t attack beyond long range.
+
+    **Reach:** Adds 5 feet to your reach.
+
+    **Thrown:** Can be thrown to make a ranged attack. Uses the same modifier that it uses for melee attacks.
+
+    **Two-Handed:** Requires two hands when you attack with it.
+
+    **Versatile:** Can be used with one or two hands. Lists a damage die for two-handed use.'
+- id: simple-melee-weapons
+  title: Simple Melee Weapons
+  subcategory: Weapons
+  page: 215
+  content: '- **Club:** 1d4 Bludgeoning, Light. Mastery: Slow
+
+    - **Dagger:** 1d4 Piercing, Finesse, Light, Thrown (20/60). Mastery: Nick
+
+    - **Greatclub:** 1d8 Bludgeoning, Two-Handed. Mastery: Push
+
+    - **Handaxe:** 1d6 Slashing, Light, Thrown (20/60). Mastery: Vex
+
+    - **Javelin:** 1d6 Piercing, Thrown (30/120). Mastery: Slow
+
+    - **Light Hammer:** 1d4 Bludgeoning, Light, Thrown (20/60). Mastery: Nick
+
+    - **Mace:** 1d6 Bludgeoning. Mastery: Sap
+
+    - **Quarterstaff:** 1d6 Bludgeoning, Versatile (1d8). Mastery: Topple
+
+    - **Sickle:** 1d4 Slashing, Light. Mastery: Nick
+
+    - **Spear:** 1d6 Piercing, Thrown (20/60), Versatile (1d8). Mastery: Sap'
+- id: simple-ranged-weapons
+  title: Simple Ranged Weapons
+  subcategory: Weapons
+  page: 215
+  content: '- **Crossbow, Light:** 1d8 Piercing, Ammunition (Range 80/320), Loading, Two-Handed. Mastery: Slow
+
+    - **Dart:** 1d4 Piercing, Finesse, Thrown (20/60). Mastery: Vex
+
+    - **Shortbow:** 1d6 Piercing, Ammunition (Range 80/320), Two-Handed. Mastery: Vex
+
+    - **Sling:** 1d4 Bludgeoning, Ammunition (Range 30/120). Mastery: Slow'
+- id: martial-melee-weapons
+  title: Martial Melee Weapons
+  subcategory: Weapons
+  page: 215
+  content: '- **Battleaxe:** 1d8 Slashing, Versatile (1d10). Mastery: Topple
+
+    - **Flail:** 1d8 Bludgeoning. Mastery: Sap
+
+    - **Glaive:** 1d10 Slashing, Heavy, Reach, Two-Handed. Mastery: Graze
+
+    - **Greataxe:** 1d12 Slashing, Heavy, Two-Handed. Mastery: Cleave
+
+    - **Greatsword:** 2d6 Slashing, Heavy, Two-Handed. Mastery: Graze
+
+    - **Halberd:** 1d10 Slashing, Heavy, Reach, Two-Handed. Mastery: Cleave
+
+    - **Lance:** 1d10 Piercing, Reach, Two-Handed unless mounted. Mastery: Topple
+
+    - **Longsword:** 1d8 Slashing, Versatile (1d10). Mastery: Sap
+
+    - **Maul:** 2d6 Bludgeoning, Heavy, Two-Handed. Mastery: Topple
+
+    - **Morningstar:** 1d8 Piercing. Mastery: Sap
+
+    - **Pike:** 1d10 Piercing, Heavy, Reach, Two-Handed. Mastery: Push
+
+    - **Rapier:** 1d8 Piercing, Finesse. Mastery: Vex
+
+    - **Scimitar:** 1d6 Slashing, Finesse, Light. Mastery: Nick
+
+    - **Shortsword:** 1d6 Piercing, Finesse, Light. Mastery: Vex
+
+    - **Trident:** 1d8 Piercing, Thrown (20/60), Versatile (1d10). Mastery: Topple
+
+    - **War Pick:** 1d8 Piercing. Mastery: Sap
+
+    - **Warhammer:** 1d8 Bludgeoning, Versatile (1d10). Mastery: Push
+
+    - **Whip:** 1d4 Slashing, Finesse, Reach. Mastery: Slow'
+- id: martial-ranged-weapons
+  title: Martial Ranged Weapons
+  subcategory: Weapons
+  page: 215
+  content: '- **Blowgun:** 1 Piercing, Ammunition (Range 25/100), Loading. Mastery: Vex
+
+    - **Crossbow, Hand:** 1d6 Piercing, Ammunition (Range 30/120), Light, Loading. Mastery: Vex
+
+    - **Crossbow, Heavy:** 1d10 Piercing, Ammunition (Range 100/400), Heavy, Loading, Two-Handed. Mastery: Push
+
+    - **Longbow:** 1d8 Piercing, Ammunition (Range 150/600), Heavy, Two-Handed. Mastery: Slow
+
+    - **Musket:** 1d12 Piercing, Ammunition (Range 40/120), Loading, Two-Handed. Mastery: Slow
+
+    - **Pistol:** 1d10 Piercing, Ammunition (Range 30/90), Loading. Mastery: Vex'
+- id: adventuring-gear
+  title: Adventuring Gear
+  subcategory: Equipment
+  page: 216
+  content: 'This section covers utility tools explicitly needed for adventures.
+
+
+    - **Ammunition:** Arrows (20) 1 GP, Blowgun Needles (50) 1 GP, Crossbow Bolts (20) 1 GP, Sling Bullets (20) 4 CP
+
+    - **Antitoxin (vial):** 50 GP. Drink to get Advantage on saving throws against the Poisoned condition for 1 hour.
+
+    - **Arcane Focus:** Used as a spellcasting focus. Examples: Crystal (10 GP), Orb (20 GP), Rod (10 GP), Staff (5 GP), Wand
+    (10 GP).
+
+    - **Druidic Focus:** Spellcasting focus. Sprig of Mistletoe (1 GP), Totem (1 GP), Wooden Staff (5 GP), Yew Wand (10 GP).
+
+    - **Holy Symbol:** Spellcasting focus. Amulet (5 GP), Emblem (5 GP), Reliquary (5 GP).
+
+    - **Potion of Healing:** 50 GP. Restores 2d4 + 2 HP when you drink it using a Bonus Action.
+
+    - **Alchemist''s Fire:** 50 GP. Thrown (20/60) as a Utilize action, makes a ranged attack. Deals 1d4 fire damage at the
+    start of each of the target''s turns.
+
+    - **Healer''s Kit:** 5 GP. 10 uses. Spend a Utilize action to stabilize a creature with 0 HP without a Medicine check.
+
+    - **Portable Ram:** 4 GP. Adds advantage to Strength checks to break down doors, and plus another +2 if someone helps.
+
+    - **Spyglass:** 1000 GP. Magnifies objects viewed through it to twice their size.'
+- id: equipment-packs
+  title: Equipment Packs
+  subcategory: Equipment
+  page: 217
+  content: 'Starting equipment often includes a pack of preselected gear.
+
+
+    - **Burglar''s Pack (16 GP):** Backpack, bag of 1000 ball bearings, 10 ft string, bell, 5 candles, crowbar, hammer, 10
+    pitons, lantern (hooded), 2 flasks of oil, 5 days rations, tinderbox, waterskin, 50 ft hempen rope.
+
+    - **Dungeoneer''s Pack (12 GP):** Backpack, crowbar, hammer, 10 pitons, 10 torches, tinderbox, 10 days rations, waterskin,
+    50 ft hempen rope.
+
+    - **Explorer''s Pack (10 GP):** Backpack, bedroll, mess kit, tinderbox, 10 torches, 10 days rations, waterskin, 50 ft
+    hempen rope.
+
+    - **Priest''s Pack (19 GP):** Backpack, blanket, 10 candles, tinderbox, alms box, 2 blocks of incense, censer, vestments,
+    2 days rations, waterskin.
+
+    - **Scholar''s Pack (40 GP):** Backpack, book of lore, ink, pen, 10 sheets of parchment, little bag of sand, small knife.'
+- id: tools
+  title: Tools
+  subcategory: Equipment
+  page: 217
+  content: 'A tool helps you do something you couldn''t otherwise do, such as craft, repair, or pick a lock. Having proficiency
+    with a tool allows you to add your Proficiency Bonus to any ability checks you make using that tool.
+
+
+    **Common Tools:**
+
+    - Artisan''s Tools (Alchemist''s supplies, Brewer''s supplies, Calligrapher''s supplies, Carpenter''s tools, Cartographer''s
+    tools, Cobbler''s tools, Cook''s utensils, Glassblower''s tools, Jeweler''s tools, Leatherworker''s tools, Mason''s tools,
+    Painter''s supplies, Potter''s tools, Smith''s tools, Tinker''s tools, Weaver''s tools, Woodcarver''s tools)
+
+    - Disguise Kit (25 GP), Forgery Kit (15 GP), Herbalism Kit (5 GP), Poisoner''s Kit (50 GP), Thieves'' Tools (25 GP)
+
+    - Musical Instruments
+
+    - Gaming Sets
+
+    - Navigators'' Tools (2 GP)'
+- id: mounts-and-vehicles
+  title: Mounts and Vehicles
+  subcategory: Equipment
+  page: 218
+  content: '- **Camel:** 50 GP, Speed 50 ft, Carrying Capacity 480 lb.
+
+    - **Donkey or Mule:** 8 GP, Speed 40 ft, Carrying Capacity 420 lb.
+
+    - **Horse, Draft:** 50 GP, Speed 40 ft, Carrying Capacity 540 lb.
+
+    - **Horse, Riding:** 75 GP, Speed 60 ft, Carrying Capacity 480 lb.
+
+    - **Mastiff:** 25 GP, Speed 40 ft, Carrying Capacity 195 lb.
+
+    - **Pony:** 30 GP, Speed 40 ft, Carrying Capacity 225 lb.
+
+    - **Warhorse:** 400 GP, Speed 60 ft, Carrying Capacity 540 lb.
+
+
+    **Tack and Harness:**
+
+    - Barding (cost of armor x4, weight x2)
+
+    - Bit and bridle (2 GP), Carriage (100 GP), Cart (15 GP), Chariot (250 GP), Feed (per day, 5 CP), Saddle (Exotic 60 GP,
+    Military 20 GP, Pack 5 GP, Riding 10 GP), Saddlebags (4 GP), Sled (20 GP), Wagon (35 GP).
+
+
+    **Waterborne Vehicles:**
+
+    - Keelboat (3000 GP), Longship (10000 GP), Rowboat (50 GP), Sailing Ship (10000 GP), Warship (25000 GP).'
