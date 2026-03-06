@@ -35,3 +35,4 @@ docker/.env
 
 # Dependencies lock (uncomment if you want to track)
 # Cargo.lock
+backups/
