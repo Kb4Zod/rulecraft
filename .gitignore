@@ -36,3 +36,6 @@ docker/.env
 # Dependencies lock (uncomment if you want to track)
 # Cargo.lock
 backups/
+
+# Claude Code local config (user-specific, not checked in)
+.claude/

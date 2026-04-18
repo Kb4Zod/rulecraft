@@ -1,23 +1,25 @@
 # RuleCraft VPS Deployment - Implementation Status
 
-**Last Updated:** 2026-02-21
-**Project Location:** `D:\AI_Home\Workspace\40_Projects\rulecraft`
+**Last Updated:** 2026-04-18
+**Project Location:** `S:\AI_Home\Workspace\40_Projects\rulecraft`
 
 ---
 
 ## Project Context
 
-RuleCraft is a D&D 2024 rules lookup and AI-powered scenario ruling assistant. This document tracks the progress of deploying it to a VPS for public internet access.
+RuleCraft is a D&D 2024 rules lookup and AI-powered scenario ruling assistant. This document tracks the progress of deploying it as a friends-only MVP — a small allowlist of friends sign in via Cloudflare Access before reaching the app.
+
+**Evolution of this plan:** The earlier version of this document targeted a fully-public launch on DigitalOcean with a purchased domain. The current MVP target is narrower (friends-only) and host-agnostic (Hostinger or DigitalOcean).
 
 ## Deployment Requirements (Confirmed)
 
 | Requirement | Decision |
 |-------------|----------|
-| Access Model | Fully public - all features available to anyone |
-| Claude API Budget | $10-20/month (~500-1000 requests) |
-| VPS Provider | DigitalOcean |
-| Domain | Purchase needed (suggested: rulecraft.app) |
-| Rate Limiting | Strict - 5 AI requests/IP/hour |
+| Access Model | Friends-only — Cloudflare Access allowlist (~10 emails) |
+| Claude API Budget | $5–20/month (rate-limited + email-gated) |
+| VPS Provider | Host-agnostic. Likely **Hostinger KVM 1** (domain already registered there). DigitalOcean Basic droplet is the fallback reference. |
+| Domain | `hughscottjr.com` (owned, registered at Hostinger). Public URL: `rulecraft.hughscottjr.com`. Nameservers move to Cloudflare; registration stays at Hostinger. |
+| Rate Limiting | Kept at 5 AI/IP/hour, 30 search/IP/min as defense-in-depth behind Cloudflare Access |
 
 ---
 
@@ -42,9 +44,12 @@ RuleCraft is a D&D 2024 rules lookup and AI-powered scenario ruling assistant. T
 
 | Task | Status | Notes |
 |------|--------|-------|
-| Purchase domain | ⬜ Pending | Suggested: rulecraft.app, dndrules.app |
-| Create DigitalOcean droplet | ⬜ Pending | $6/mo Basic (1 vCPU, 1GB RAM) |
-| Configure Cloudflare | ⬜ Pending | Free tier for DDoS + SSL |
+| Domain | ✅ Owned | `hughscottjr.com` registered at Hostinger — no purchase needed |
+| Provision VPS | ⬜ Pending | Hostinger KVM 1 (~$5–7/mo on annual prepay) or DigitalOcean Basic ($6/mo) — Ubuntu 24.04 LTS, Clean OS |
+| Move nameservers to Cloudflare | ⬜ Pending | From Hostinger hPanel → Domains → Custom nameservers |
+| Configure Cloudflare DNS + SSL | ⬜ Pending | `A` record `rulecraft` → VPS IP (proxied); SSL Full (strict) |
+| Enable Cloudflare Zero Trust | ⬜ Pending | Free tier, no credit card |
+| Configure Cloudflare Access (friends-only gate) | ⬜ Pending | See VPS_SETUP.md Appendix A |
 | VPS hardening | ⬜ Pending | Script ready: `scripts/vps-setup.sh` |
 
 ### Phase 3: Deployment Configuration - COMPLETE
@@ -109,37 +114,41 @@ docker/Dockerfile          - Pinned Rust version
 
 ### Immediate (To Deploy)
 
-1. **Purchase Domain**
-   - Recommended registrars: Cloudflare, Namecheap, Porkbun
-   - Suggested names: `rulecraft.app`, `dndrules.app`
-
-2. **Create DigitalOcean Droplet**
+1. **Provision VPS** (Hostinger KVM 1 or DigitalOcean Basic)
    ```
-   Size: Basic $6/mo
-   Image: Ubuntu 24.04 LTS
-   Region: NYC1 or SFO2
-   Options: Monitoring, IPv6
+   Size: ~$5–7/mo
+   Image: Ubuntu 24.04 LTS (Clean OS)
+   SSH key: added at provisioning time
    ```
 
-3. **Run VPS Setup Script**
+2. **Run VPS Setup Script**
    ```bash
-   ssh root@YOUR_DROPLET_IP
+   ssh root@YOUR_VPS_IP
    curl -fsSL https://raw.githubusercontent.com/Kb4Zod/rulecraft/main/scripts/vps-setup.sh | bash
    ```
 
-4. **Configure Cloudflare**
-   - Add domain
-   - Set DNS A records to droplet IP
-   - Enable proxy (orange cloud)
-   - SSL mode: Full (strict)
+3. **Move DNS to Cloudflare**
+   - Add `hughscottjr.com` to Cloudflare (Free plan)
+   - In Hostinger hPanel → Domains → Custom nameservers → paste Cloudflare's two NS values
+   - Wait for propagation (5–30 min typical)
+   - Add `A` record `rulecraft` → VPS IP (proxied / orange cloud)
+   - SSL mode: Full (strict); enable Always Use HTTPS
+
+4. **Gate with Cloudflare Access** (friends-only MVP)
+   - Zero Trust → Settings → Authentication → enable One-time PIN (email magic link) and/or Google
+   - Zero Trust → Access → Applications → Self-hosted app for `rulecraft.hughscottjr.com`
+   - Policy `Friends`: Allow, include specific friend emails
+   - Second app at path `rulecraft.hughscottjr.com/health` → Bypass / Everyone
+   - See VPS_SETUP.md Appendix A for full details
 
 5. **Deploy Application**
    ```bash
-   ssh rulecraft@YOUR_DROPLET_IP
+   ssh rulecraft@YOUR_VPS_IP
    cd ~/rulecraft/docker
-   # Edit Caddyfile - replace YOUR_DOMAIN
-   # Edit /etc/rulecraft/.env - add CLAUDE_API_KEY
+   # Caddyfile already pre-filled for rulecraft.hughscottjr.com — no edit needed
+   # Edit /etc/rulecraft/.env - add CLAUDE_API_KEY and ADMIN_API_KEY
    docker compose -f docker-compose.prod.yml up -d
+   docker compose -f docker-compose.prod.yml exec rulecraft ./import_rules --rules-dir /app/rules
    ```
 
 ### Post-Deployment
@@ -156,27 +165,28 @@ docker/Dockerfile          - Pinned Rust version
 
 | Item | Monthly |
 |------|---------|
-| DigitalOcean Droplet | $6 |
-| Domain (yearly/12) | ~$1 |
-| Cloudflare | Free |
-| Claude API | $10-20 |
+| VPS (Hostinger KVM 1 annual prepay, or DigitalOcean Basic) | $5–7 |
+| Domain (already owned at Hostinger) | $0 incremental |
+| Cloudflare DNS + Access (free tier, ≤50 users) | Free |
+| Claude API (friend-group volume, rate-limited) | $5–20 |
 | Monitoring | Free |
-| **Total** | **~$17-27** |
+| **Total** | **~$10–27** |
 
 ---
 
 ## Deployment Readiness Score
 
-| Before | After |
-|--------|-------|
-| 3/10 | 7/10 |
+| Before | After (MVP scope) |
+|--------|-------------------|
+| 3/10 | 8/10 |
 
 **Remaining to reach 10/10:**
 - VPS provisioning and hardening
-- Domain + DNS configuration
+- Nameservers moved from Hostinger to Cloudflare
+- Cloudflare Access application + Friends allowlist configured
 - SSL certificate activation
-- Monitoring setup
-- Backup verification
+- Backup cron verified
+- (Deferred for post-MVP) Uptime monitoring via Better Stack
 
 ---
 

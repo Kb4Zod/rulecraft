@@ -1,7 +1,7 @@
 # Caddyfile for RuleCraft production deployment
-# Replace YOUR_DOMAIN with your actual domain (e.g., rulecraft.app)
+# Public URL: https://rulecraft.hughscottjr.com (gated by Cloudflare Access)
 
-YOUR_DOMAIN {
+rulecraft.hughscottjr.com {
     # Reverse proxy to RuleCraft container
     reverse_proxy rulecraft:3000 {
         # Health checks
@@ -51,7 +51,4 @@ YOUR_DOMAIN {
     }
 }
 
-# Redirect www to non-www
-www.YOUR_DOMAIN {
-    redir https://YOUR_DOMAIN{uri} permanent
-}
+# No www redirect needed — this is a subdomain, not a root domain.

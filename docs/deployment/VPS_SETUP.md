@@ -1,27 +1,37 @@
 # RuleCraft VPS Deployment Guide
 
-This guide covers deploying RuleCraft to a DigitalOcean droplet with full security hardening.
+This guide covers deploying RuleCraft to any Ubuntu 24.04 LTS KVM VPS with full security hardening. Examples use DigitalOcean, but Hostinger VPS, Linode, Vultr, and Hetzner all work — the setup script is host-agnostic.
+
+For a friends-only MVP deployment, also see [Appendix A: Friends-only Access via Cloudflare Access](#appendix-a-friends-only-access-via-cloudflare-access) at the end of this document.
 
 ## Prerequisites
 
-- DigitalOcean account
-- Domain name (e.g., `rulecraft.app`)
+- A VPS provider account (DigitalOcean, Hostinger, Linode, Vultr, Hetzner — anything that offers Ubuntu 24.04 with full root access)
+- Domain name (e.g., `rulecraft.hughscottjr.com`)
 - Claude API key from Anthropic
 - SSH key pair for secure access
 
-## 1. Create DigitalOcean Droplet
+## 1. Create a VPS
 
 ### Recommended Specs
-- **Size**: Basic $6/mo (1 vCPU, 1GB RAM, 25GB SSD)
-- **Region**: NYC1 or SFO2 (choose closest to users)
-- **Image**: Ubuntu 24.04 LTS
-- **Options**: Enable monitoring, IPv6, and add your SSH key
+- **Size**: ~$5–7/mo tier (1 vCPU, 1 GB RAM, 20+ GB SSD)
+- **Region**: Choose closest to your users
+- **Image**: Ubuntu 24.04 LTS (Clean OS — not a pre-installed control panel image)
+- **Options**: Enable monitoring + IPv6 if available, and add your SSH public key during creation
+
+### Host-specific notes
+
+**DigitalOcean:** Basic $6/mo droplet, region NYC1 or SFO2.
+
+**Hostinger:** hPanel → VPS → choose "KVM 1" (~$5–7/mo on annual prepay). OS template: **Ubuntu 24.04 LTS (Clean OS)** — *not* a panel image like hPanel-preinstalled. Paste your SSH public key into the *SSH Keys* section before first boot. Note the IPv4 address shown in hPanel once provisioned.
+
+**Any other provider:** As long as it gives root SSH on a clean Ubuntu 24.04 VM, the rest of this guide applies unchanged.
 
 ### Initial Setup
 
 ```bash
-# SSH into your new droplet
-ssh root@YOUR_DROPLET_IP
+# SSH into your new VPS (replace YOUR_VPS_IP)
+ssh root@YOUR_VPS_IP
 ```
 
 ## 2. VPS Hardening
@@ -73,7 +83,7 @@ systemctl restart sshd
 
 ```bash
 # From your local machine
-ssh rulecraft@YOUR_DROPLET_IP
+ssh rulecraft@YOUR_VPS_IP
 ```
 
 ### 2.4 Configure Firewall (UFW)
@@ -143,23 +153,25 @@ Log out and back in for group changes to take effect.
 
 ## 4. Domain & DNS Setup
 
-### Option A: Cloudflare (Recommended)
+### Option A: Cloudflare (Recommended — required for friends-only Access gating, see Appendix A)
 
-1. Add your domain to Cloudflare
-2. Update nameservers at your registrar
-3. Add DNS records:
-   - `A` record: `@` → `YOUR_DROPLET_IP` (proxied - orange cloud)
-   - `A` record: `www` → `YOUR_DROPLET_IP` (proxied - orange cloud)
+1. Add your domain to Cloudflare (Free plan is sufficient). Cloudflare will assign two nameservers.
+2. Update nameservers at your registrar:
+   - **Hostinger registrar:** hPanel → Domains → pick domain → *DNS / Nameservers* → switch to **Custom nameservers** and paste Cloudflare's two values. Propagation: 5–30 min typical, up to 24 h worst case. The domain stays *registered* with Hostinger; only DNS moves.
+   - **Other registrars:** the equivalent setting is usually called "Nameservers" or "DNS".
+3. Add DNS records in Cloudflare:
+   - For a subdomain deployment (e.g., `rulecraft.hughscottjr.com`): one `A` record `rulecraft` → `YOUR_VPS_IP` (proxied — orange cloud).
+   - For a root deployment: `A` record `@` → `YOUR_VPS_IP` (proxied), plus optional `A` record `www` → `YOUR_VPS_IP` (proxied).
 4. SSL/TLS settings:
    - Mode: Full (strict)
    - Enable "Always Use HTTPS"
    - Enable "Automatic HTTPS Rewrites"
 
-### Option B: Direct DNS
+### Option B: Direct DNS (not compatible with Cloudflare Access)
 
 1. At your domain registrar, add:
-   - `A` record: `@` → `YOUR_DROPLET_IP`
-   - `A` record: `www` → `YOUR_DROPLET_IP`
+   - `A` record: `@` → `YOUR_VPS_IP`
+   - `A` record: `www` → `YOUR_VPS_IP`
 
 ## 5. Deploy RuleCraft
 
@@ -206,7 +218,7 @@ cd docker
 nano Caddyfile
 ```
 
-Replace `YOUR_DOMAIN` with your actual domain (e.g., `rulecraft.app`).
+The committed [Caddyfile](../../docker/Caddyfile) is **already pre-filled** with `rulecraft.hughscottjr.com`. Skip this sub-section unless you're deploying under a different domain — in which case, edit line 4 of the Caddyfile.
 
 ### 5.4 Create Symlink to Secrets
 
@@ -335,12 +347,12 @@ docker stats
 
 After deployment, verify:
 
-- [ ] HTTPS working (visit `https://YOUR_DOMAIN`)
-- [ ] Health check responding (`curl https://YOUR_DOMAIN/health`)
+- [ ] HTTPS working (visit `https://rulecraft.hughscottjr.com`)
+- [ ] Health check responding (`curl https://rulecraft.hughscottjr.com/health`)
 - [ ] Rate limiting active (test rapid requests to `/scenario/ask`)
 - [ ] Admin endpoint protected (test `POST /api/rules` without key)
 - [ ] SSH key-only auth working
-- [ ] Firewall blocking other ports (`nmap YOUR_DROPLET_IP`)
+- [ ] Firewall blocking other ports (`nmap YOUR_VPS_IP`)
 - [ ] fail2ban running (`sudo fail2ban-client status sshd`)
 - [ ] Backups running (check `/opt/backups/`)
 - [ ] Monitoring alerting (trigger test alert)
@@ -381,9 +393,76 @@ docker compose -f docker-compose.prod.yml exec rulecraft sqlite3 /app/data/rulec
 
 | Item | Monthly Cost |
 |------|--------------|
-| DigitalOcean Droplet (Basic) | $6 |
-| Domain (yearly / 12) | ~$1 |
-| Cloudflare | Free |
-| Claude API | $10-20 |
+| VPS (Hostinger KVM 1 on annual prepay, or DigitalOcean Basic) | $5–7 |
+| Domain (already owned) | $0 incremental |
+| Cloudflare (DNS + Access Zero Trust) | Free |
+| Claude API | $5–20 |
 | Better Stack monitoring | Free tier |
-| **Total** | **~$17-27/month** |
+| **Total** | **~$10–27/month** |
+
+---
+
+## Appendix A: Friends-only Access via Cloudflare Access
+
+For an MVP deployment that's only shared with a handful of people (instead of being fully public), place Cloudflare Access in front of the app. It's free for up to 50 users and requires zero code changes — friends log in via Google or email magic link before they can reach the app.
+
+### A.1 Prerequisites
+
+- Domain is on Cloudflare DNS (see section 4, Option A).
+- Zero Trust enabled on your Cloudflare account (free tier, no credit card). Cloudflare dashboard → *Zero Trust* → follow the one-time onboarding.
+
+### A.2 Configure an authentication method
+
+Zero Trust → **Settings → Authentication → Login methods → Add new**. Pick one:
+
+- **One-time PIN** (email magic link) — zero friend setup; everyone has email. Simplest for mixed audiences.
+- **Google** — nicer UX if all friends have Gmail.
+
+You can enable both and let friends choose.
+
+### A.3 Create the Access application
+
+Zero Trust → **Access → Applications → Add an application → Self-hosted**:
+
+- **Application name:** `RuleCraft`
+- **Session duration:** 24 hours (or longer — friends shouldn't have to log in often)
+- **Application domain:** `rulecraft.hughscottjr.com` (or whichever host you're deploying to)
+- **Identity providers:** include the method(s) enabled in A.2
+
+### A.4 Define the allowlist policy
+
+On the same application:
+
+- **Policy name:** `Friends`
+- **Action:** Allow
+- **Include rule:** *Emails* → add each friend's email address individually (easiest for small groups).
+  - Alternative: *Emails ending in* if you want to allow a whole domain (e.g., `@hughscottjr.com`).
+
+### A.5 Bypass policy for `/health`
+
+The Caddy healthcheck hits `/health` without a session cookie, so it needs to skip Cloudflare Access. Add a second application:
+
+- **Application type:** Self-hosted
+- **Name:** `RuleCraft Health`
+- **Application domain:** `rulecraft.hughscottjr.com/health` (path-scoped)
+- **Policy action:** **Bypass**, **Everyone**
+
+Cloudflare evaluates the more specific path application first, so only `/health` is unauthenticated.
+
+### A.6 Verification
+
+From your laptop (not logged in):
+
+```bash
+curl -I https://rulecraft.hughscottjr.com/
+# → HTTP/2 302, Location: https://<tenant>.cloudflareaccess.com/...
+
+curl -I https://rulecraft.hughscottjr.com/health
+# → HTTP/2 200
+```
+
+Then open `https://rulecraft.hughscottjr.com` in a browser → you should land on the Cloudflare Access login page, enter an allowlisted email, receive a magic link (or sign in with Google), and land on the RuleCraft search page.
+
+### A.7 Adding or removing friends later
+
+Zero Trust → **Access → Applications → RuleCraft → Policies → Friends → Edit** → update the email list. Changes take effect on the next login (existing sessions persist until expiry).

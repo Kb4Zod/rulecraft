@@ -25,7 +25,7 @@ fi
 read -p "Enter username to create (default: rulecraft): " USERNAME
 USERNAME=${USERNAME:-rulecraft}
 
-read -p "Enter your domain (e.g., rulecraft.app): " DOMAIN
+read -p "Enter your domain (e.g., rulecraft.hughscottjr.com): " DOMAIN
 if [ -z "$DOMAIN" ]; then
     echo -e "${RED}Domain is required${NC}"
     exit 1
