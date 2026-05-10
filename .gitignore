@@ -25,6 +25,9 @@ Thumbs.db
 *.log
 logs/
 
+# Generated documents
+*.pdf
+
 # Coverage
 *.profraw
 coverage/
