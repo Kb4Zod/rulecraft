@@ -21,6 +21,7 @@ RUN mkdir -p src/bin && \
     echo "fn main() {}" > src/main.rs && \
     echo "" > src/lib.rs && \
     echo "fn main() {}" > src/bin/import_rules.rs && \
+    echo "fn main() {}" > src/bin/index_vectors.rs && \
     cargo build --release && \
     rm -rf src
 
@@ -52,6 +53,7 @@ RUN useradd -m -u 1000 rulecraft
 # Copy binaries and assets
 COPY --from=builder /app/target/release/rulecraft /app/rulecraft
 COPY --from=builder /app/target/release/import_rules /app/import_rules
+COPY --from=builder /app/target/release/index_vectors /app/index_vectors
 COPY --from=builder /app/templates /app/templates
 COPY --from=builder /app/static /app/static
 COPY --from=builder /app/migrations /app/migrations
@@ -68,6 +70,14 @@ ENV PORT=3000
 ENV RUST_LOG=rulecraft=info,tower_http=info
 ENV AI_RATE_LIMIT_PER_HOUR=5
 ENV SEARCH_RATE_LIMIT_PER_MINUTE=30
+ENV VECTOR_SEARCH_ENABLED=false
+ENV OPENAI_EMBEDDING_MODEL=text-embedding-3-small
+ENV OPENAI_EMBEDDING_DIMENSION=1536
+ENV QDRANT_URL=http://qdrant:6333
+ENV QDRANT_COLLECTION=rulecraft_rules_openai_small_v1
+ENV VECTOR_TOP_K=10
+ENV VECTOR_SCORE_THRESHOLD=0.35
+ENV ORACLE_MAX_CONTEXT_RULES=10
 
 EXPOSE 3000
 

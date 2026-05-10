@@ -94,10 +94,13 @@ async fn ask_scenario(
         return Html(template.render().unwrap_or_else(|_| "Error".to_string()));
     }
 
-    // Get relevant rules for context
-    let relevant_rules = crate::search::fulltext::search(&state.db, question)
-        .await
-        .unwrap_or_default();
+    // Get relevant rules for context. Vector retrieval is optional and falls back to FTS5.
+    let relevant_rules = crate::search::hybrid::retrieve_oracle_rules(
+        &state.db,
+        &state.config.vector,
+        question,
+    )
+    .await;
 
     // Call Claude API for ruling
     let answer = match &state.config.claude_api_key {

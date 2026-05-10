@@ -23,7 +23,8 @@
 - SQLite single file database
 - FTS5 for full-text search (built into SQLite)
 - No external database services required
-- Vector search via Qdrant is optional/future enhancement
+- Vector search via Qdrant is optional and implemented for Oracle retrieval when enabled
+- SQLite FTS5 remains the fallback and canonical retrieval backbone
 
 ### Authentication
 
@@ -61,6 +62,7 @@
 - Always cite actual rules when making rulings
 - Acknowledge uncertainty when rules are unclear
 - Recommend consulting the source books for full text
+- If vector retrieval fails, continue with FTS5 context and log the failure server-side
 
 ## API Constraints
 
@@ -73,9 +75,8 @@
 
 ### Rate Limiting
 
-- No built-in rate limiting in MVP
-- Rely on Claude API rate limits
-- Future: Add request throttling
+- Built-in per-IP rate limiting exists for search and AI routes
+- Keep Cloudflare Access and proxy-level controls as production defense-in-depth
 
 ## Browser Compatibility
 

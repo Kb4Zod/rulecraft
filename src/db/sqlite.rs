@@ -156,6 +156,18 @@ pub async fn get_rule_by_id(pool: &SqlitePool, id: &str) -> Result<Option<Rule>,
         .await
 }
 
+pub async fn get_rules_by_ids(pool: &SqlitePool, ids: &[String]) -> Result<Vec<Rule>, sqlx::Error> {
+    let mut rules = Vec::with_capacity(ids.len());
+
+    for id in ids {
+        if let Some(rule) = get_rule_by_id(pool, id).await? {
+            rules.push(rule);
+        }
+    }
+
+    Ok(rules)
+}
+
 pub async fn create_rule(pool: &SqlitePool, rule: &Rule) -> Result<(), sqlx::Error> {
     sqlx::query(
         r#"

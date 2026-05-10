@@ -62,3 +62,7 @@ tokio-test = "0.4"
 [[bin]]
 name = "import_rules"
 path = "src/bin/import_rules.rs"
+
+[[bin]]
+name = "index_vectors"
+path = "src/bin/index_vectors.rs"

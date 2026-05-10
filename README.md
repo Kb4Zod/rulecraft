@@ -4,8 +4,9 @@ D&D 2024 rules lookup and AI-powered scenario ruling assistant.
 
 ## Features
 
-- **Rules Lookup** - Search and browse D&D 2024 rules with full-text and semantic search
-- **AI Rulings** - Ask scenario questions and get AI-powered rulings with rule citations
+- **Rules Lookup** - Search and browse D&D 2024 rules with SQLite FTS5 and fuzzy fallback
+- **AI Rulings** - Ask scenario questions and get Claude-powered rulings with rule citations
+- **Oracle Vector Retrieval** - Optional Qdrant + OpenAI embeddings add semantic recall to scenario context
 - **Bookmarks** - Save frequently referenced rules to browser local storage
 - **Offline-First** - SQLite database for fast local access
 
@@ -16,6 +17,7 @@ D&D 2024 rules lookup and AI-powered scenario ruling assistant.
 | Backend | Rust + Axum |
 | Frontend | HTMX + Askama templates |
 | Database | SQLite (FTS5 full-text search) |
+| Vector Search | Optional Qdrant with OpenAI `text-embedding-3-small` embeddings |
 | AI | Claude API for scenario rulings |
 | Deployment | Docker |
 
@@ -40,7 +42,7 @@ cp .env.example .env
 # CLAUDE_API_KEY=your-key-here
 
 # Build and run
-cargo run
+cargo run --bin rulecraft
 
 # Visit http://localhost:3000
 ```
@@ -56,7 +58,8 @@ docker-compose up --build -d
 docker exec rulecraft ./import_rules --rules-dir /app/rules
 
 # With vector search (Qdrant)
-docker-compose --profile vector-search up --build
+docker compose --profile vector-search up --build -d
+docker compose exec rulecraft ./index_vectors
 ```
 
 ## Project Structure
@@ -87,12 +90,44 @@ rulecraft/
 | `CLAUDE_API_KEY` | Anthropic API key | (required for AI rulings) |
 | `CLAUDE_MODEL` | Claude model to use | `claude-sonnet-4-20250514` |
 | `PORT` | Server port | `3000` |
+| `ADMIN_API_KEY` | Protects admin write endpoints | (required for admin writes) |
+| `AI_RATE_LIMIT_PER_HOUR` | AI requests per IP per hour | `5` |
+| `SEARCH_RATE_LIMIT_PER_MINUTE` | Search requests per IP per minute | `30` |
+| `VECTOR_SEARCH_ENABLED` | Enables Oracle vector retrieval | `false` |
+| `OPENAI_API_KEY` | OpenAI key for embeddings | (required for vector search) |
+| `OPENAI_EMBEDDING_MODEL` | Embedding model | `text-embedding-3-small` |
+| `OPENAI_EMBEDDING_DIMENSION` | Embedding vector size | `1536` |
+| `QDRANT_URL` | Qdrant endpoint | `http://localhost:6333` |
+| `QDRANT_COLLECTION` | Qdrant collection name | `rulecraft_rules_openai_small_v1` |
+| `VECTOR_TOP_K` | Vector hits requested per Oracle query | `10` |
+| `VECTOR_SCORE_THRESHOLD` | Minimum vector score used in Oracle context | `0.35` |
+| `ORACLE_MAX_CONTEXT_RULES` | Max rules injected into Oracle prompt | `10` |
 
 ## Usage
 
 ### Rules Search
 
-Navigate to `/search` and enter keywords. The search uses SQLite FTS5 for fast full-text matching.
+Navigate to `/search` and enter keywords. The search uses SQLite FTS5 for fast full-text matching, then falls back to fuzzy SQL matching if FTS finds nothing.
+
+### Oracle Vector Search
+
+Vector retrieval is optional and currently used by the Oracle scenario flow. The Oracle always keeps FTS5 results first, then adds Qdrant semantic matches that clear the configured score threshold.
+
+Local setup:
+
+```bash
+# Start Qdrant
+cd docker
+docker compose --profile vector-search up -d qdrant
+
+# Add OPENAI_API_KEY and VECTOR_SEARCH_ENABLED=true to .env, then index
+cd ..
+cargo run --bin index_vectors -- --fail-fast
+cargo run --bin index_vectors
+
+# Restart the app after changing .env
+cargo run --bin rulecraft
+```
 
 ### Scenario Questions
 
@@ -119,7 +154,17 @@ cargo test
 
 ### Adding Rules
 
-Rules can be added directly to SQLite or via the migration files in `migrations/`.
+Rules can be added via the admin routes or by editing YAML files in `data/rules/` and running:
+
+```bash
+cargo run --bin import_rules
+```
+
+If vector search is enabled, rerun:
+
+```bash
+cargo run --bin index_vectors
+```
 
 ### Code Style
 
