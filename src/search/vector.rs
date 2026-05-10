@@ -16,20 +16,20 @@ pub trait EmbeddingClient: Send + Sync {
 
 pub trait VectorIndex: Send + Sync {
     fn ensure_collection(&self) -> impl Future<Output = Result<(), VectorSearchError>> + Send + '_;
-    fn upsert_rule(
-        &self,
-        rule: &Rule,
+    fn upsert_rule<'a>(
+        &'a self,
+        rule: &'a Rule,
         vector: Vec<f32>,
-    ) -> impl Future<Output = Result<(), VectorSearchError>> + Send + '_;
+    ) -> impl Future<Output = Result<(), VectorSearchError>> + Send + 'a;
     fn search(
         &self,
         vector: Vec<f32>,
         limit: usize,
     ) -> impl Future<Output = Result<Vec<VectorHit>, VectorSearchError>> + Send + '_;
-    fn delete_rule(
-        &self,
-        rule_id: &str,
-    ) -> impl Future<Output = Result<(), VectorSearchError>> + Send + '_;
+    fn delete_rule<'a>(
+        &'a self,
+        rule_id: &'a str,
+    ) -> impl Future<Output = Result<(), VectorSearchError>> + Send + 'a;
 }
 
 pub fn rule_to_embedding_text(rule: &Rule) -> String {
