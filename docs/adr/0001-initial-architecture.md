@@ -137,6 +137,6 @@ We need to build a D&D 2024 rules lookup application with the following requirem
 
 ## Follow-up
 
-- Consider vector search (Qdrant) for semantic search in M2
+- Vector search (Qdrant + OpenAI embeddings) has since been implemented as an optional Oracle retrieval layer. SQLite FTS5 remains the default backbone and fallback.
 - Evaluate PostgreSQL if multi-user features added
 - Monitor Claude API costs as usage grows

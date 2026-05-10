@@ -9,6 +9,7 @@ For a friends-only MVP deployment, also see [Appendix A: Friends-only Access via
 - A VPS provider account (DigitalOcean, Hostinger, Linode, Vultr, Hetzner — anything that offers Ubuntu 24.04 with full root access)
 - Domain name (e.g., `rulecraft.hughscottjr.com`)
 - Claude API key from Anthropic
+- OpenAI API key with available quota if enabling Oracle vector retrieval
 - SSH key pair for secure access
 
 ## 1. Create a VPS
@@ -203,6 +204,17 @@ CLAUDE_API_KEY=sk-ant-api03-YOUR_KEY_HERE
 ADMIN_API_KEY=YOUR_SECURE_RANDOM_KEY
 AI_RATE_LIMIT_PER_HOUR=5
 SEARCH_RATE_LIMIT_PER_MINUTE=30
+
+# Optional Oracle vector retrieval
+VECTOR_SEARCH_ENABLED=false
+OPENAI_API_KEY=
+OPENAI_EMBEDDING_MODEL=text-embedding-3-small
+OPENAI_EMBEDDING_DIMENSION=1536
+QDRANT_URL=http://qdrant:6333
+QDRANT_COLLECTION=rulecraft_rules_openai_small_v1
+VECTOR_TOP_K=10
+VECTOR_SCORE_THRESHOLD=0.35
+ORACLE_MAX_CONTEXT_RULES=10
 ```
 
 Generate a secure admin key:
@@ -238,8 +250,16 @@ docker compose -f docker-compose.prod.yml build
 # Start services
 docker compose -f docker-compose.prod.yml up -d
 
+# Start optional Qdrant service if VECTOR_SEARCH_ENABLED=true
+docker compose -f docker-compose.prod.yml --profile vector-search up -d qdrant
+
 # Import YAML rules into the container's database
 docker compose -f docker-compose.prod.yml exec rulecraft ./import_rules --rules-dir /app/rules
+
+# Optional: build Oracle semantic retrieval vectors
+docker compose -f docker-compose.prod.yml exec rulecraft ./index_vectors --fail-fast
+docker compose -f docker-compose.prod.yml exec rulecraft ./index_vectors
+docker compose -f docker-compose.prod.yml restart rulecraft
 
 # Check status
 docker compose -f docker-compose.prod.yml ps
@@ -356,6 +376,7 @@ After deployment, verify:
 - [ ] fail2ban running (`sudo fail2ban-client status sshd`)
 - [ ] Backups running (check `/opt/backups/`)
 - [ ] Monitoring alerting (trigger test alert)
+- [ ] If vector search is enabled, Qdrant has points (`curl http://localhost:6333/collections/rulecraft_rules_openai_small_v1`)
 
 ## 10. Troubleshooting
 
@@ -388,6 +409,24 @@ docker compose -f docker-compose.prod.yml exec rulecraft ls -la /app/data/
 # Test database
 docker compose -f docker-compose.prod.yml exec rulecraft sqlite3 /app/data/rulecraft.db ".tables"
 ```
+
+### Vector Search Issues
+
+```bash
+# Check Qdrant is running
+docker compose -f docker-compose.prod.yml --profile vector-search ps qdrant
+curl http://localhost:6333/
+
+# Check indexed point count
+curl http://localhost:6333/collections/rulecraft_rules_openai_small_v1
+
+# Reindex after rule imports or edits
+docker compose -f docker-compose.prod.yml exec rulecraft ./index_vectors --fail-fast
+docker compose -f docker-compose.prod.yml exec rulecraft ./index_vectors
+docker compose -f docker-compose.prod.yml restart rulecraft
+```
+
+If `index_vectors` returns OpenAI `insufficient_quota`, add credits or use an API key from a funded OpenAI project.
 
 ## Cost Summary
 

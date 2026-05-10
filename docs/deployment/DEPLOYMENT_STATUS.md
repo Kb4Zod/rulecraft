@@ -59,6 +59,7 @@ RuleCraft is a D&D 2024 rules lookup and AI-powered scenario ruling assistant. T
 | Production Docker Compose | ✅ Done | `docker/docker-compose.prod.yml` |
 | Caddyfile | ✅ Done | `docker/Caddyfile` |
 | Dockerfile improvements | ✅ Done | `docker/Dockerfile` (pinned Rust version) |
+| Optional Qdrant vector-search profile | ✅ Done | `docker/docker-compose.yml`, `docker/docker-compose.prod.yml` |
 
 ### Phase 4: Documentation - COMPLETE
 
@@ -107,6 +108,15 @@ docker/Dockerfile          - Pinned Rust version
 | `ADMIN_API_KEY` | none | Required for POST /api/rules |
 | `AI_RATE_LIMIT_PER_HOUR` | 5 | Max AI requests per IP per hour |
 | `SEARCH_RATE_LIMIT_PER_MINUTE` | 30 | Max search requests per IP per minute |
+| `OPENAI_API_KEY` | none | Required for vector indexing and Oracle semantic retrieval |
+| `VECTOR_SEARCH_ENABLED` | false | Enables optional Oracle vector retrieval |
+| `OPENAI_EMBEDDING_MODEL` | `text-embedding-3-small` | OpenAI embedding model |
+| `OPENAI_EMBEDDING_DIMENSION` | 1536 | Expected embedding dimension |
+| `QDRANT_URL` | `http://qdrant:6333` in Docker | Qdrant endpoint |
+| `QDRANT_COLLECTION` | `rulecraft_rules_openai_small_v1` | Qdrant collection |
+| `VECTOR_TOP_K` | 10 | Vector hits requested per Oracle query |
+| `VECTOR_SCORE_THRESHOLD` | 0.35 | Minimum vector score included in Oracle context |
+| `ORACLE_MAX_CONTEXT_RULES` | 10 | Max rules injected into Claude context |
 
 ---
 
@@ -146,9 +156,12 @@ docker/Dockerfile          - Pinned Rust version
    ssh rulecraft@YOUR_VPS_IP
    cd ~/rulecraft/docker
    # Caddyfile already pre-filled for rulecraft.hughscottjr.com — no edit needed
-   # Edit /etc/rulecraft/.env - add CLAUDE_API_KEY and ADMIN_API_KEY
-   docker compose -f docker-compose.prod.yml up -d
+   # Edit /etc/rulecraft/.env - add CLAUDE_API_KEY, ADMIN_API_KEY, and optional OPENAI_API_KEY
+   docker compose -f docker-compose.prod.yml --profile vector-search up -d
    docker compose -f docker-compose.prod.yml exec rulecraft ./import_rules --rules-dir /app/rules
+   # Optional semantic Oracle retrieval:
+   docker compose -f docker-compose.prod.yml exec rulecraft ./index_vectors --fail-fast
+   docker compose -f docker-compose.prod.yml exec rulecraft ./index_vectors
    ```
 
 ### Post-Deployment
@@ -158,6 +171,7 @@ docker/Dockerfile          - Pinned Rust version
 - [ ] Configure monitoring (Better Stack)
 - [ ] Test backup script
 - [ ] Rotate Claude API key (may be exposed)
+- [ ] If vector search is enabled, verify Qdrant has indexed points and tune `VECTOR_SCORE_THRESHOLD`
 
 ---
 

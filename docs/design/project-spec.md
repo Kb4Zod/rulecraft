@@ -65,6 +65,7 @@ D&D 2024 introduced significant rules changes from the 2014 edition. Players and
 - Provide ruling with RAW/RAI distinction
 - Cite relevant rules
 - Acknowledge uncertainty when appropriate
+- Use FTS5 context first, with optional vector retrieval for semantic recall
 
 ### FR-4: Bookmarks
 
@@ -84,6 +85,7 @@ D&D 2024 introduced significant rules changes from the 2014 edition. Players and
 ### TR-2: Reliability
 
 - Graceful degradation without AI
+- Graceful degradation to FTS5 if vector search fails
 - Offline support for search/bookmarks
 - Error messages for API failures
 
@@ -172,30 +174,31 @@ No JSON API in MVP (future consideration).
 ### M1: MVP Foundation
 
 - [x] Project scaffold
-- [ ] Basic Axum server
-- [ ] SQLite database
-- [ ] Rules CRUD
-- [ ] Full-text search
+- [x] Basic Axum server
+- [x] SQLite database
+- [x] Rules CRUD
+- [x] Full-text search
 
 ### M2: AI Integration
 
-- [ ] Claude API client
-- [ ] Scenario endpoint
-- [ ] Response formatting
-- [ ] Error handling
+- [x] Claude API client
+- [x] Scenario endpoint
+- [x] Response formatting
+- [x] Error handling
+- [x] Optional Oracle vector retrieval with Qdrant and OpenAI embeddings
 
 ### M3: Bookmarks
 
-- [ ] Local storage module
-- [ ] Bookmark UI
-- [ ] Export/import
+- [x] Local storage module
+- [x] Bookmark UI
+- [x] Export/import
 
 ### M4: Polish
 
-- [ ] Responsive design
-- [ ] Accessibility
-- [ ] Docker deployment
-- [ ] Documentation
+- [x] Responsive design
+- [ ] Accessibility audit
+- [x] Docker deployment
+- [x] Documentation
 
 ## Success Metrics
 
@@ -217,7 +220,8 @@ No JSON API in MVP (future consideration).
 
 1. How to handle rules updates when WotC publishes errata?
 2. Should we support multiple rule sources (PHB, DMG, etc.)?
-3. Vector search: Qdrant vs. SQLite-vss vs. LanceDB?
+3. How aggressively should Oracle vector retrieval be tuned after real gameplay testing?
+4. Should vector search be extended to the normal `/search` results page?
 
 ## Appendix
 
@@ -231,6 +235,7 @@ No JSON API in MVP (future consideration).
 | Database | SQLite | Simple, embedded, FTS5 |
 | Frontend | HTMX | Minimal JS, hypermedia |
 | AI | Claude API | Quality, Anthropic alignment |
+| Vector Search | Qdrant + OpenAI embeddings | Optional semantic recall for Oracle retrieval |
 | Deploy | Docker | Portable, reproducible |
 
 ### References

@@ -13,6 +13,7 @@ Single-sheet walkthrough for the MVP deploy. Use this when running through the d
 - [ ] Hostinger login (domain + likely VPS)
 - [ ] Cloudflare account (free tier; will enable Zero Trust during deploy)
 - [ ] Anthropic Console login (to mint a Claude API key)
+- [ ] OpenAI Platform login + funded project if enabling Oracle vector retrieval
 - [ ] SSH public key ready to paste (`cat ~/.ssh/id_ed25519.pub` or generate with `ssh-keygen -t ed25519`)
 - [ ] List of friend emails to allowlist
 - [ ] A password manager open (you'll stash an admin API key and the Cloudflare magic links)
@@ -123,6 +124,17 @@ CLAUDE_MODEL=claude-sonnet-4-20250514
 ADMIN_API_KEY=<the hex string from step 5.3>
 AI_RATE_LIMIT_PER_HOUR=5
 SEARCH_RATE_LIMIT_PER_MINUTE=30
+
+# Optional Oracle vector retrieval
+VECTOR_SEARCH_ENABLED=false
+OPENAI_API_KEY=
+OPENAI_EMBEDDING_MODEL=text-embedding-3-small
+OPENAI_EMBEDDING_DIMENSION=1536
+QDRANT_URL=http://qdrant:6333
+QDRANT_COLLECTION=rulecraft_rules_openai_small_v1
+VECTOR_TOP_K=10
+VECTOR_SCORE_THRESHOLD=0.35
+ORACLE_MAX_CONTEXT_RULES=10
 ```
 
 Symlink .env for docker-compose and deploy:
@@ -135,8 +147,16 @@ cd ~/rulecraft/docker
 docker compose -f docker-compose.prod.yml build
 docker compose -f docker-compose.prod.yml up -d
 
+# If VECTOR_SEARCH_ENABLED=true, start Qdrant too:
+docker compose -f docker-compose.prod.yml --profile vector-search up -d
+
 # 5.5 Seed the database with bundled YAML rules
 docker compose -f docker-compose.prod.yml exec rulecraft ./import_rules --rules-dir /app/rules
+
+# 5.5b Optional: build the Qdrant vector index after rules are imported
+docker compose -f docker-compose.prod.yml exec rulecraft ./index_vectors --fail-fast
+docker compose -f docker-compose.prod.yml exec rulecraft ./index_vectors
+docker compose -f docker-compose.prod.yml restart rulecraft
 
 # 5.6 Check status
 docker compose -f docker-compose.prod.yml ps
@@ -172,7 +192,8 @@ In your browser:
 1. Visit `https://rulecraft.hughscottjr.com/` → Cloudflare Access login → enter your email → magic link in inbox → click link → land on search page.
 2. Search `fireball` → see rule results.
 3. Visit `/scenario`, ask a question → Claude responds (confirms API key wired).
-4. Rapid-fire 6 scenario questions → 6th returns a rate-limit message (confirms defense-in-depth).
+4. If vector search is enabled, ask a semantic question and confirm the Oracle still responds. Example: "Can a rogue who is hidden attack with advantage if the target cannot see them?"
+5. Rapid-fire 6 scenario questions → 6th returns a rate-limit message (confirms defense-in-depth).
 
 Admin endpoint sanity check:
 ```bash
@@ -214,6 +235,8 @@ crontab -e
 | Gets to Cloudflare Access but the login page errors | Zero Trust → Access → Applications → verify app domain exactly matches `rulecraft.hughscottjr.com` |
 | Logged in but app shows 502 | Caddy can't reach the app — `docker compose logs rulecraft` |
 | `/scenario` responds with errors | Missing/invalid `CLAUDE_API_KEY` in `/etc/rulecraft/.env` — re-edit, then `docker compose restart rulecraft` |
+| Vector indexing returns OpenAI 429 insufficient quota | Add OpenAI billing/credits or use an API key from a funded project |
+| Vector indexing cannot reach Qdrant | Start with `docker compose -f docker-compose.prod.yml --profile vector-search up -d qdrant` and verify `curl http://localhost:6333/` |
 | `/health` 302s to Cloudflare login | Bypass policy misconfigured — the second Access application must be path-scoped to `/health` |
 | Caddy can't get TLS cert | Check Cloudflare SSL mode is **Full (strict)** and DNS `A` record exists |
 

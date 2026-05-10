@@ -28,7 +28,7 @@
 │  │              Application Layer                           │    │
 │  │  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────────┐ │    │
 │  │  │ Models  │  │ Search  │  │   AI    │  │  Templates  │ │    │
-│  │  │ (Rule)  │  │ (FTS5)  │  │(Claude) │  │  (Askama)   │ │    │
+│  │  │ (Rule)  │  │FTS5+Vec │  │(Claude) │  │  (Askama)   │ │    │
 │  │  └────┬────┘  └────┬────┘  └────┬────┘  └──────┬──────┘ │    │
 │  └───────┼────────────┼────────────┼──────────────┼────────┘    │
 │          │            │            │              │              │
@@ -50,6 +50,16 @@
                     ┌────────────────▼──────┐       │
                     │    Claude API         │       │
                     │  (api.anthropic.com)  │       │
+                    └───────────────────────┘       │
+                                     │              │
+                    ┌────────────────▼──────┐       │
+                    │ OpenAI Embeddings     │       │
+                    │ text-embedding-3-small│       │
+                    └───────────────────────┘       │
+                                     │              │
+                    ┌────────────────▼──────┐       │
+                    │ Qdrant Vector Search  │       │
+                    │ optional Oracle recall│       │
                     └───────────────────────┘       │
                                                     │
                     ┌───────────────────────────────▼──────────────┐
@@ -179,12 +189,14 @@ localStorage.setItem('rulecraft_bookmarks', JSON.stringify({
 1. User submits question form
 2. HTMX sends POST /scenario/ask
 3. Axum extracts form data
-4. Search for relevant rules (context)
-5. Build Claude API request with rules context
-6. Send to api.anthropic.com
-7. Parse response
-8. Render ScenarioResponseTemplate
-9. HTMX replaces target div
+4. Search FTS5 for keyword matches
+5. If enabled, embed the query and search Qdrant for semantic matches
+6. Merge results: FTS first, score-filtered vector hits second, deduped and capped
+7. Build Claude API request with rules context
+8. Send to api.anthropic.com
+9. Parse response
+10. Render ScenarioResponseTemplate
+11. HTMX replaces target div
 ```
 
 ## Deployment
@@ -209,8 +221,9 @@ services:
 
 ## Future Enhancements
 
-1. **Vector Search** - Qdrant integration for semantic search
-2. **Rule Import** - Bulk import from structured sources
-3. **User Accounts** - Optional server-side bookmark sync
-4. **Offline PWA** - Service worker for offline access
-5. **Mobile App** - Tauri or React Native wrapper
+1. **Hybrid `/search`** - Extend semantic retrieval beyond the Oracle into normal search results
+2. **Automatic Vector Sync** - Upsert/delete Qdrant vectors during admin edits and YAML imports
+3. **Rule Import** - Expand bulk import workflows for additional structured sources
+4. **User Accounts** - Optional server-side bookmark sync
+5. **Offline PWA** - Service worker for offline access
+6. **Mobile App** - Tauri or React Native wrapper

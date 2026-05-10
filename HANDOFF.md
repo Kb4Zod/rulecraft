@@ -92,6 +92,27 @@ d45f3c4 fix(docker): update Dockerfile for new features and build performance
 
 ## Pending / Next Steps
 
+### Current Branch Update (2026-05-10)
+
+The `codex/vector-search-oracle` branch adds optional Oracle vector retrieval with OpenAI `text-embedding-3-small` embeddings and Qdrant. It includes:
+
+- `src/bin/index_vectors.rs` for manual vector indexing
+- `src/search/hybrid.rs` for FTS-first Oracle context merging
+- `src/search/qdrant.rs` and `src/search/openai_embeddings.rs`
+- Docker and compose updates for the `index_vectors` binary and vector-search env vars
+
+Local verification completed:
+
+- Qdrant collection `rulecraft_rules_openai_small_v1`
+- 159 indexed points, 0 failures
+- Rulecraft restarted with `VECTOR_SEARCH_ENABLED=true`
+
+Remaining vector follow-ups:
+
+- Tune `VECTOR_SCORE_THRESHOLD` after gameplay-style Oracle testing
+- Extend hybrid retrieval to `/search` only if semantic results feel useful there
+- Add automatic Qdrant sync for admin/import updates if manual reindex becomes annoying
+
 1. **Merge `feature/docker-and-search` → `main`** when ready
 2. **Push to remote** — `main` has 3 unpushed commits + the feature branch
 3. **Uncommitted YAML changes** — `equipment.yaml` and `spells.yaml` have modifications not yet staged
