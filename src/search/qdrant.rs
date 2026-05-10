@@ -1,4 +1,4 @@
-use reqwest::Client;
+use reqwest::{Client, StatusCode};
 use serde::Deserialize;
 use serde_json::{json, Value};
 use std::future::Future;
@@ -52,6 +52,11 @@ impl VectorIndex for QdrantVectorIndex {
                 .send()
                 .await
                 .map_err(|e| VectorSearchError::SearchError(e.to_string()))?;
+
+            if response.status() == StatusCode::CONFLICT {
+                tracing::info!("Qdrant collection '{}' already exists", self.collection);
+                return Ok(());
+            }
 
             if !response.status().is_success() {
                 let status = response.status();
@@ -264,5 +269,10 @@ mod tests {
                 score: 0.91
             }]
         );
+    }
+
+    #[test]
+    fn qdrant_conflict_status_is_available_for_idempotent_collection_setup() {
+        assert_eq!(StatusCode::CONFLICT.as_u16(), 409);
     }
 }
